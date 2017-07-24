@@ -5,72 +5,72 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
 ## Effect of Immigration on Employment
 *** =video_link
 //player.vimeo.com/video/226206552
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
 *** =video_link
 //player.vimeo.com/video/226206681
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
 ## The Effect of Raising the Minimum Wage on Employment
 *** =video_link
 //player.vimeo.com/video/226206852
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:003dca2fb8
 ## Finding the Main Result in a Giant Table of Numbers
 *** =video_link
 //player.vimeo.com/video/226206942
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c7bc962bb6
 ## Looking at Additional Results in Giant Tables
 *** =video_link
 //player.vimeo.com/video/226207047
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:651f4405dc
 ## Looking at Robustness Checks in Giant Table of Numbers
 *** =video_link
 //player.vimeo.com/video/226207284
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
