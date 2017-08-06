@@ -5,72 +5,181 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Confounders in Cross-Sectional Data 
+In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
+*** =instructions
+- High rates of violence encourages states to instate a death penalty.
+- States that have the death penalty tend to have lower education, and education reduces violent behavior.
+- States that have the death penalty tend to have lower rates of mortality.
+- States that don't have the death penalty also tend to legalize more recreational drugs, which pacifies people's violent behavior.
+*** =sct
+```{r}
+msg1 = "If this were the case, we would probably find that states with the death penalty had higher rates of homicide regardless of whether the death penalty deterred homicide. Try again."
+msg2 = "If this were the case, education would confound the relationship between having and not having the death penalty. We would expect that states with the death penalty have higher underlying homicide rates of homicide, so whatever deterrent effect of the death penalty that we estimated would be smaller than the true deterrent effect. Try again."
+msg3 = "Correct! Unless we assumed that rates of homicide have a significant impact on a state's mortality rate, we would not expect mortality rates to confound the relationship between the death penalty and homicide rates."
+msg4 = "If this were the case, legalized recreational drugs would confound the relationship between having and not having the death penalty. For example, if the death penalty deterred homicide rates, but had a smaller effect on homicide rates that than legalized recreational drugs, we would probably see a positive causal effect of the death penalty on homicide rates. Try again."
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Longitudinal Analysis without a Comparison Group.
+Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
+*** =instructions
+- Yes
+- No
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! Even though states that established the death penalty had lower rates of homicide in later years, this could have been coincidental. What if rates of homicide were dropping everywhere for an entirely different reason? In order to establish causality, we would need to look at homicide trends in states that did not establish the death penalty. If homicide rates decreased consistently across all states, our findings would not support the hypothesis that the death penalty reduces rates of homicide."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Advantage of Longitudinal Data
+What is the main advantage you get from studying a causal effect with longitudinal dataset rather than a cross-sectional dataset?
+*** =instructions
+- Systematic differences between the treatment and control group are less likely to confound the average treatment effect.
+*** =sct
+```{r}
+msg1 = "Correct! This is especially the case when we use time-series data. Systematic differences between the treatment and control group are only important if we expect the treatment to have a difference effect on different types of people. For example, if it turned out that the death penalty was only a deterrent for homicide in states with high urban populations, but our treatment group only contained states with high rural populations, we would not see any causal effect of the death penalty on homicide rates."
+msg2 = ""
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Assumptions of Difference in Differences Analysis
+What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group to trends among a control group?
+*** =instructions
+- Any difference in the trends you see among the treatment group and control group are due to the treatment.
+- Something
+- Something
+- Something
+*** =sct
+```{r}
+msg1 = "Correct! If there is a different factor that causes trends in the treatment group to differ from the control group, our finding would be spurious."
+msg2 = ""
+msg3 = ""
+msg4 = ""
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Effect of Immigration on Employment
 *** =video_link
 //player.vimeo.com/video/226206552
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Effect of Immigration on Employment
+Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
+*** =instructions
+- No
+- Yes
+*** =sct
+```{r}
+msg1 = "Correct! You must have data on a control group as well, because that is how you extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
+msg2 = "Try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
 *** =video_link
 //player.vimeo.com/video/226206681
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Assumptions of Difference in Differences Analysis
+Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
+*** =instructions
+- Watching birdemic motivated people to buy solar panels.
+- Watching birdemic discouraged people from buying solar panels.
+*** =pre_exercise_code
+```{r}
+df<-data.frame(Year=rep(c(2008,2009,2010,2011,2012),2))
+df$Treated<-as.factor(rep(c("Yes","No"),each=5))
+df$Percent<-c(.02,.023,.026,.027,.028,.01,.013,.016,.02,.024)
+library(ggplot2)
+p<-ggplot(data=df,aes(x=Year,y=Percent,group=Treated,col=Treated))
+p+geom_line()+geom_point()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+  ggtitle("Rate of Solar Panel Ownership by Watching Birdemic")+
+  labs(y="Proportion Own Solar Panels",color="Watched Birdemic")
+```
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! Rates of solare panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010"
+
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Effect of Raising the Minimum Wage on Employment
 *** =video_link
 //player.vimeo.com/video/226206852
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:003dca2fb8
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Finding the Main Result in a Giant Table of Numbers
 *** =video_link
 //player.vimeo.com/video/226206942
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c7bc962bb6
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Looking at Additional Results in Giant Tables
 *** =video_link
 //player.vimeo.com/video/226207047
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:651f4405dc
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Looking at Robustness Checks in Giant Table of Numbers
 *** =video_link
 //player.vimeo.com/video/226207284
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
