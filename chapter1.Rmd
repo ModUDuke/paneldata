@@ -5,12 +5,12 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Confounders in Cross-Sectional Data 
 In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
 *** =instructions
@@ -27,7 +27,7 @@ msg4 = "If this were the case, legalized recreational drugs would confound the r
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8c564a8661
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Longitudinal Analysis without a Comparison Group.
 Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
 *** =instructions
@@ -42,13 +42,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Advantage of Longitudinal Data
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than a cross-sectional dataset?
 *** =instructions
@@ -60,11 +60,13 @@ What is the main advantage you get from studying a causal effect with longitudin
 ```{r}
 msg1 = "Correct! This is especially the case when we use time-series data. Systematic differences between the treatment and control group are only important if we expect the treatment to have a difference effect on different types of people. For example, if it turned out that the death penalty was only a deterrent for homicide in states with high urban populations, but our treatment group only contained states with high rural populations, we would not see any causal effect of the death penalty on homicide rates."
 msg2 = ""
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+msg3 = ""
+msg4 = ""
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Assumptions of Difference in Differences Analysis
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group to trends among a control group?
 *** =instructions
@@ -81,13 +83,13 @@ msg4 = ""
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Effect of Immigration on Employment
 *** =video_link
 //player.vimeo.com/video/226206552
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:817f01d83c
-## Effect of Immigration on Employment
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Effect of Immigration on Employment Question
 Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
 *** =instructions
 - No
@@ -103,12 +105,12 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
 *** =video_link
 //player.vimeo.com/video/226206681
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Interpreting Graphed Time Trends 
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
 *** =instructions
@@ -137,52 +139,52 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Effect of Raising the Minimum Wage on Employment
 *** =video_link
 //player.vimeo.com/video/226206852
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:003dca2fb8
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Finding the Main Result in a Giant Table of Numbers
 *** =video_link
 //player.vimeo.com/video/226206942
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c7bc962bb6
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Looking at Additional Results in Giant Tables
 *** =video_link
 //player.vimeo.com/video/226207047
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:651f4405dc
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Looking at Robustness Checks in Giant Table of Numbers
 *** =video_link
 //player.vimeo.com/video/226207284
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
