@@ -1,16 +1,16 @@
----
+rm---
 title       : Introduction to Panel Data
 description : This chapter will introduce you to analysis techniques with panel data
 
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
+--- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Confounders in Cross-Sectional Data 
 In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
 *** =instructions
@@ -27,7 +27,7 @@ msg4 = "If this were the case, legalized recreational drugs would confound the r
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8c564a8661
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Longitudinal Analysis without a Comparison Group.
 Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
 *** =instructions
@@ -42,13 +42,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Advantage of Longitudinal Data
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than a cross-sectional dataset?
 *** =instructions
@@ -66,7 +66,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Assumptions of Difference in Differences Analysis
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group to trends among a control group?
 *** =instructions
@@ -83,12 +83,12 @@ msg4 = ""
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Effect of Immigration on Employment
 *** =video_link
 //player.vimeo.com/video/226206552
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Effect of Immigration on Employment Question
 Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
 *** =instructions
@@ -105,12 +105,12 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
 *** =video_link
 //player.vimeo.com/video/226206681
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Interpreting Graphed Time Trends 
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
 *** =instructions
@@ -139,52 +139,173 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Effect of Raising the Minimum Wage on Employment
 *** =video_link
 //player.vimeo.com/video/226206852
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:003dca2fb8
-## Finding the Main Result in a Giant Table of Numbers
-*** =video_link
-//player.vimeo.com/video/226206942
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c7bc962bb6
-## Looking at Additional Results in Giant Tables
-*** =video_link
-//player.vimeo.com/video/226207047
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:651f4405dc
-## Looking at Robustness Checks in Giant Table of Numbers
-*** =video_link
-//player.vimeo.com/video/226207284
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice Running a Fixed and Random Effects Regression Models
+Many students at Perry Elementary school write with gel pens. Iris, the school's librarian, is convinced that students could write faster if all the students were required to use ballpoint pens. To test her theory, Iris gets permission to conduct a secondary analysis of an annual student written exam. 
+
+At the end of each school year, students are required to write a three paragraph answer to a short prompt. When students submit their exams, teachers note how long the students took to submit their exams, how many words were written in their exams, and ask the students how many hours of sleep they had slept the previous night. In addition, Iris identified whether the exams were written with a gel or ballpoint pen.
+
+These style exams are given to students three years in a row. Iris was given permission to look at all three of these exams for a single class of students. Since it is possible that students who write with gel pens have different innate writing abilities than those who write with ballpoint pens, Iris decides to only study changes in writing speed for people who switched between using gel pens to ballpoint pens. 
+
+Using the dataset, `Exams`, help Iris estimate the effect of using a ballpoint pen on a student's writing speed with *pooled OLS*, *fixed* and *random* effects models. Specifically:
+
+*** =instructions
+- Construct a pooled OLS model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`) .
+- Construct a fixed effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
+- Determine whether the absolute value of the Gel pen effect is larger or smaller in the fixed effects model than in the pooled OLS model.
+- Construct a random effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
+
+*** =pre_exercise_code
+```{r}
+library(plm)
+n=521
+#Create rnorm function that allows for min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Create rounding function that allows to round to numbers above 1
+  mround <- function(x,base){ 
+          base*round(x/base) 
+  } 
+
+set.seed(1)
+#Dataframe
+  Exams<-data.frame(id=1:n,wave=1)
+#year 1:
+    #age
+        Exams$age<-10+rbinom(n=n,1,.2)
+    #sex
+        Exams$sex<-ifelse(rbinom(n=n,1,.55)==1,"Female","Male")
+    #sleep
+        Exams$sleep<-mround(rtnorm(n=n,mean=8,sd=1,min=5,max=9),.5)
+    #pen
+        Exams$pen<-ifelse(rbinom(n=n,1,.5+ifelse(Exams$sex=="Male",.25,0)+1/Exams$age)==1,"Ballpoint","Gel")
+    #speed
+        Exams$speed<-round((Exams$age/10+(Exams$sex=="Female")/3+(Exams$sleep/rtnorm(n,2,1,1,3)/4)+(Exams$pen=="Ballpoint")*rtnorm(n,.5,.1,0,1))*2+rnorm(n,3,.5),2)
+
+#year 2:
+  Exams2<-data.frame(id=1:n,wave=2)
+    Exams2$age<-Exams$age+1
+    Exams2$sex<-Exams$sex
+    Exams2$sleep<-mround(Exams$sleep+rtnorm(n,0,.3,0,1),.5)
+    Exams2$pen<-ifelse(rbinom(n,1,.75)==1,Exams$pen,ifelse(rbinom(n=n,1,.4+ifelse(Exams$sex=="Male",.25,0)+1/Exams$age)==1,"Ballpoint","Gel"))
+    Exams2$speed<-round(((Exams2$age/10+(Exams2$sex=="Female")/3+(Exams2$sleep/rtnorm(n,2,1,1,3)/4)+(Exams2$pen=="Ballpoint")*rtnorm(n,.5,.1,0,1))*2+rnorm(n,3,.5))/5+Exams$speed,2)
+
+#year 3:
+Exams3<-data.frame(id=1:n,wave=3)
+    Exams3$age<-Exams2$age+1
+    Exams3$sex<-Exams2$sex
+    Exams3$sleep<-mround(Exams2$sleep+rtnorm(n,0,.3,0,1),.5)
+    Exams3$pen<-ifelse(rbinom(n,1,.75)==1,Exams2$pen,ifelse(rbinom(n=n,1,.4+ifelse(Exams2$sex=="Male",.25,0)+1/Exams2$age)==1,"Ballpoint","Gel"))
+    Exams3$speed<-round(((Exams3$age/10+(Exams3$sex=="Female")/3+(Exams3$sleep/rtnorm(n,2,1,1,3)/4)+(Exams3$pen=="Ballpoint")*rtnorm(n,.5,.1,0,1))*2+rnorm(n,3,.5))/5+Exams2$speed,2)
+  
+#rbind
+    Exams<-rbind(Exams,Exams2)
+    Exams<-rbind(Exams,Exams3)
+    Exams<-Exams[order(Exams$id,Exams$wave),]
+
+```
+*** =sample_code
+```{r}
+# Before running any models, let's examine the data. The dataset contains seven variables. Wave refers to which date in the time series that we are looking at. Wave 1 refers to the first year the data was collected, whereas wave 3 refers to the last year that the data was collected. Since data was collected three times for each individual, each id variable occurs in the data set 3 times.
+    str(Exams)
+    head(Exams)
+
+# The meaning of the other variables is pretty intuitive. Sleep refers to the number of hours that the students slept the previous night, and speed refers to the number of words that each student wrote per a minute.
+    summary(Exams$sleep)
+    summary(Exams$speed)
+
+# Run a typical OLS model on the dataset, treating each repeated observation as an independent person (i.e. pooling the data), where speed is the dependent variable, pen is the independent variable, and where we have control variables for age, sex, and sleep. For reference, the syntax for glm models is glm(y ~ x + z1 + z2 + z3, data=df), where y is the dependent variable, x is the independent variable, z1-z3 are control variables, and df is the data frame. You do not need to use the id or wave variables in this model.
+
+#---- Question 1-------------------------------------#
+      Solution1<-glm()
+#----------------------------------------------------#
+  
+# If you answered question 1 correctly, you should see a large negative effect from using gel pens. However, when we pool the data this way, we are treating repeated observations as separate people. This is not true. Pooling our data this way will bias our parameter estimates, especially if there is variation in each student's underlying writing ability and these variations are correlated with whether they use gel pens.
+    summary(Solution1)
+    
+# Now let's try estimating a fixed effects model. Random effects models work similarly to OLS models, except that it also controls for how observations in our sample are related. Basically, we want to control for student's different latent writing speeds, and only look at how switching between a gel and ballpoint pen effected their writing speeds compared to those who did not switch pens, To estimate a fixed effects model, we need to use the plm function. The syntax is  identical to glm, except that after the data statement, we specify how the data are grouped (by id and wave) and what type of effect that we want to examine (within person changes). Fill in the front part of the plm model so that it estimates the effect of using a gel pen on writing speed while controlling for age, sex, and sleep.
+    
+#---- Question 2-------------------------------------#
+      Solution2<-plm(,index=c("id", "wave"), model="within")
+#----------------------------------------------------#
+
+# If you answered question 2 correctly, you should notice that the model only gave us parameter estimates for sleep and gel pens. This is because the sex of students did not change across any years (again, we are only looking at how changes within individuals affected their writing speeds), and because the change in age was uniform across years for all respondents (that is, there was no variation in how student's ages changed across individuals - everyone grew one year older each wave). You should also notice that the parameter estimate for gel pens differs from the first model. Is the absolute value of the effect of gel pens larger or smaller in solution2 than in solution1. Answer with "Larger" or "Smaller".
+
+#---- Question 3-------------------------------------#
+      Solution3<-""
+#----------------------------------------------------#
+
+# Although fixed effects models are very reliable, they often require large sample sizes to find statistically significant results, and they often exclude estimating effect that would be interesting to report in a regression model (for example, the effect of age and sex on writing speed). In such cases, we often use random effects models instead. Random effects models are almost identical to fixed effects models, except they make the somewhat strong assumption that the individual specific effects are uncorrelated with your other parameters. In this example, a random effects model assumes that every individual has a latent writing speed that is uncorrelated with anything else. Factors like age and sex simply improve their writing speeds. Estimate a random effects model that groups individuals by id and wave, but that also controls for age, sex, and sleep. The syntax should be identical to that in Question 2, except that the "model" parameter in the plm function should be switched from "within" to "random".
+
+#---- Question 4-------------------------------------#
+      Solution4<-plm()
+#----------------------------------------------------#
+
+```
+*** =solution
+```{r}
+#models    
+    Solution1<-glm(speed~pen+sleep+sex+age,data=Exams)
+    Solution2<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="within")
+    Solution3<-"Larger"
+    Solution4<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="random")
+    
+```
+*** =sct
+```{r}
+test_object("Solution3")
+success_msg("Good work! You now know the basics to estimating fixed and random effects models with panel data. As you can see, these models often give very different results than typical pooled OLS models, and their estimates tend to be much more robust. You may still be wondering when you should use random versus fixed effects models. In general, if you can find statistically significant effects with fixed effects models, they are preferable to random effects models. However, there are a variety of tools available for comparing whether you get any benefit from using a fixed effects model (e.g. the Hausman test). In general, use you intution and see what other people have done in similar situations!")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
