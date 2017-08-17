@@ -5,12 +5,12 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 
 
---- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
+--- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Confounders in Cross-Sectional Data 
 In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
 *** =instructions
@@ -27,7 +27,7 @@ msg4 = "If this were the case, legalized recreational drugs would confound the r
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8c564a8661
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Longitudinal Analysis without a Comparison Group.
 Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
 *** =instructions
@@ -42,13 +42,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Advantage of Longitudinal Data
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than a cross-sectional dataset?
 *** =instructions
@@ -66,7 +66,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Assumptions of Difference in Differences Analysis
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group to trends among a control group?
 *** =instructions
@@ -83,12 +83,12 @@ msg4 = ""
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Effect of Immigration on Employment
 *** =video_link
 //player.vimeo.com/video/226206552
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Effect of Immigration on Employment Question
 Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
 *** =instructions
@@ -102,15 +102,110 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Inferring Personal Motivations from Aggregate Trends
+After reading David Card's article about how immigration has a negative effect on rates unemployment (i.e. immigration reduces unemployment), Bella decides to write an op-ed about these trends in her favorite magazine, "Psychology Tomorrow." Bella writes that immigration leads to decreased unemployment because seeing the struggles of immigrants motivates local business owners to create new jobs for migrants, even when such roles are unnecessary for their businesses. Is this a reasonable conclusion to draw from these trends?
+
+*** =instructions
+- Yes
+- No
+
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! Bella is committing an ecological inference fallacy - she is interpreting statistical data about group trends to make inferences about individuals within that group. There are many possible mechanisms that are producing the association between migration and unemployment. We cannot make conclusions about which mechanisms are producing this trend without studying each one individually. In order to substantiate Bella's hypothesis, we would need to survey business owners in Miami and ask them why they decided to offer more jobs, or at the very least, rule out alternative explanations for why they offered more jobs."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Problem 2: Something Different
+The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
+
+While the mayor of Sommersdale is convinced that the Housing First policy would substantially reduce rates of homelessness, he is uncertain whether implementing the program would substantially reduce other city expenditures on the homeless. As a preliminary analysis, the Mayor of Sommersdale gathered data on incarceration rates among 10 cities at two time points, 2005 and 2015, half of which implemented Housing First between 2009 and 2013. Conduct a difference in differences analysis with the dataset `Jail` to examine whether the Housing First policy reduced incarceration rates. Specifically:
+*** =instructions
+- Use a t.test to assess whether cities that eventually implemented the Housing First policy (`Implemented==1`) tended to have higher rates of incarceration (`rate`) in 2005 (`Year==2005`) than cities that had not implemented the Housing First Policy (`Implemented==0`)
+- Use a t.test to assess whether cities that implemented the Housing First policy (`Implemented==1`) tended to have higher rates of incarceration (`rate`) in 2015 (`Year==2015`) than cities that had not implemented the Housing First Policy (`Implemented==0`)
+- Use a difference in differences model to estimate whether cities that implemented the Housing First policy (`Implemented==1`) tended to have lower rates of incarceration than one would expect based on common trends.
+
+*** =pre_exercise_code
+```{r}
+n=10
+#Create rnorm function that allows for min and max
+    rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+        qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+    }
+#Create rounding function that allows to round to numbers above 1
+    mround <- function(x,base){ 
+        base*round(x/base) 
+    } 
+
+set.seed(13)
+#Dataframe with year 1
+    Jail1<-data.frame(City=c("Moraine","Netarts","Oak City","Heritage Creek","Gallitzin","Trout Valley","Allendale","Boaz","Texanna","Ayer"),Year=2005,rate=round(rtnorm(n,mean=115,sd=50,min=50,max=200),0),Implemented=rbinom(10,1,.4))
+    Jail1$rate<-ifelse(Jail1$Implemented==1, Jail1$rate+20,Jail1$rate)
+#Dataframe with year 2
+    Jail2<-data.frame(City=Jail1$City,Year=2015,Implemented=Jail1$Implemented)
+#year 2 rate
+    Jail2$rate<-Jail1$rate+Jail2$Implemented*(-20)+ round(rtnorm(n,mean=20,sd=10,min=0,max=50),0)
+#Append data
+    Jail<-rbind(Jail1,Jail2)
+    Jail<-Jail[order(Jail$City,Jail$Year),]
+    Jail$Year<-factor(Jail$Year)
+    rm("Jail2")
+    rm("Jail1")
+    
+```
+*** =sample_code
+```{r}
+# Since our dataset is small, let's first directly examine the dataset. We have 10 unique cities with 2 time points of data. Cities that implemented the Housing First policy between 2009-2013 are marked with 1 for Implemented. The rate variable refers to rates in incarceration per 100,000.
+    Jail
+
+# Let's use a t.test to compare the rate of incarceration in 2005 among cities that eventually implemented the Housing First Policy to cities that never implemented the Housing First Policy.
+
+#---- Question 1-------------------------------------#
+      Solution1<-t.test()
+#----------------------------------------------------#
+
+# If you answered Question 1 correctly, you should notice that the rate of incarceration was higher in 2005 among cities that eventually implemented the Housing First policy. Now use a t.test to compare the rate of incarceration in 2015 among cities that implemented the Housing First Policy to cities that never implemented the Housing First Policy.
+
+#---- Question 2-------------------------------------#
+      Solution2<-t.test()
+#----------------------------------------------------#
+
+# If you answered Question 2 correctly, you should notice that the rate of incarceration was almost equal in 2015 among cities that implemented the Housing First policy and those that did not. If we examined the 2015 data alone, or if we only examined cities that implemented the Housing First Policy we might conclude that implementing the Housing First policy had no effect on incarceration rates. However, there was an increasing trend of incarceration across cities, suggesting that the Housing First policy mitigated increasing rates of incarceration. Let's model this trend with a difference in differences policy. To do this, we simply need to construct a linear model that predicts incarceration based on implementation and year, and with an "interaction" term between implementation and year, which estimates measures whether implementating the policy altered the relationship (or trend) between time and incarceration rates. To include an interaction term in your model, simply multiply the two terms that you want to interact. For example, glm(y ~ x + z + x*z) or glm(y ~ x*z).
+
+#---- Question 3-------------------------------------#
+      Solution3<-glm()
+#----------------------------------------------------#
+      
+
+```
+*** =solution
+```{r}
+Solution1<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2005],Jail$rate[Jail$Implemented==0 & Jail$Year==2005])
+Solution2<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2015],Jail$rate[Jail$Implemented==0 & Jail$Year==2015])
+Solution3<-glm(rate~Year*Implemented,data=Jail)
+```
+*** =sct
+```{r}
+success_msg("Good work! Implementing a difference within differences analysis is relatively easy. We can see from the result of Solution3 that the estimate for Year2015 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
+```
+
+
+
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
 *** =video_link
 //player.vimeo.com/video/226206681
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Interpreting Graphed Time Trends 
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
 *** =instructions
@@ -132,49 +227,49 @@ p+geom_line()+geom_point()+
 *** =sct
 ```{r}
 msg1 = "Try again"
-msg2 = "Correct! Rates of solare panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010"
+msg2 = "Correct! Rates of solar panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010"
 
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Effect of Raising the Minimum Wage on Employment
 *** =video_link
 //player.vimeo.com/video/226206852
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e9cecd77c0
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice Running a Fixed and Random Effects Regression Models
 Many students at Perry Elementary school write with gel pens. Iris, the school's librarian, is convinced that students could write faster if all the students were required to use ballpoint pens. To test her theory, Iris gets permission to conduct a secondary analysis of an annual student written exam. 
 
