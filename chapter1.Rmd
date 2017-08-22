@@ -5,12 +5,12 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 
 
---- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
+--- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Confounders in Cross-Sectional Data 
 In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
 *** =instructions
@@ -27,7 +27,7 @@ msg4 = "If this were the case, legalized recreational drugs would confound the r
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8c564a8661
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Longitudinal Analysis without a Comparison Group.
 Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
 *** =instructions
@@ -42,13 +42,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Advantage of Longitudinal Data
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than a cross-sectional dataset?
 *** =instructions
@@ -66,7 +66,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Assumptions of Difference in Differences Analysis
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group to trends among a control group?
 *** =instructions
@@ -83,12 +83,12 @@ msg4 = ""
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Effect of Immigration on Employment
 *** =video_link
 //player.vimeo.com/video/226206552
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Effect of Immigration on Employment Question
 Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
 *** =instructions
@@ -102,7 +102,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ec875547d3
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Inferring Personal Motivations from Aggregate Trends
 After reading David Card's article about how immigration has a negative effect on rates unemployment (i.e. immigration reduces unemployment), Bella decides to write an op-ed about these trends in her favorite magazine, "Psychology Tomorrow." Bella writes that immigration leads to decreased unemployment because seeing the struggles of immigrants motivates local business owners to create new jobs for migrants, even when such roles are unnecessary for their businesses. Is this a reasonable conclusion to draw from these trends?
 
@@ -117,12 +117,12 @@ msg2 = "Correct! Bella is committing an ecological inference fallacy - she is in
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
 *** =video_link
 //player.vimeo.com/video/226206681
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Interpreting Graphed Time Trends 
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
 *** =instructions
@@ -150,13 +150,98 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice Preparing Longitudinal Data for Analysis
+More often than not, publically available panel survey datasets are posted online in *wide format*, where each row corresponds to an individual survey respondent and each column corresponding to a single variable from a given wave of the dataset. For example, a dataset about people's body mass index (BMI) over time might have several columns for each respondent, labeled something like "BMI.Wave.1," "BMI.Wave.2," "BMI.Wave.3," etc. The problem is that many R functions that work with panel data (such as the graph in the previous problem) require your data to be in *long format*, where each unique variable corresponds to a single column (e.g. just "BMI"), and where each row corresponds to a specific respondent identification and a specific year that the response was collected. 
+
+Many programs have been developed for converting particular popular datasets from wide to long format, but there are many cases where data analysts must develop these programs themselves. Let's handle a relatively basic example. Follow the notation below to convert the dataset, `wide.df` from *wide* to *long* format. 
+*** =instructions
+- Create a *long format* dataset called `long.df` that corresponds to the data in `wide.df`
+
+*** =hint
+- This is a useful hint
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+n=221
+#Create rnorm function that allows for min and max
+    rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+        qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+    }
+#Create rounding function that allows to round to numbers above 1
+    mround <- function(x,base){ 
+        base*round(x/base) 
+    } 
+#Dataframe
+    wide.df<-data.frame(ID=1:n)
+    wide.df$Diet.1995<-round(rtnorm(n,mean=2500,sd=300,min=1000,max=4000),0)
+    wide.df$BMI.1995<-round(rtnorm(n,mean=25,sd=4,min=15,max=30)+wide.df$Diet.1995/1000,1)
+    
+    wide.df$Diet.1996<-wide.df$Diet.1995+round(rtnorm(n,mean=0,sd=100,min=-500,max=500),0)
+    wide.df$BMI.1996<-wide.df$BMI.1995+ round(rtnorm(n,mean=0,sd=1,min=-5,max=5)+wide.df$Diet.1996/1000 - mean(wide.df$Diet.1996)/1000,1)
+    
+    wide.df$Diet.1997<-wide.df$Diet.1996+round(rtnorm(n,mean=0,sd=100,min=-500,max=500),0)
+    wide.df$BMI.1997<-wide.df$BMI.1996+ round(rtnorm(n,mean=0,sd=1,min=-5,max=5)+wide.df$Diet.1997/1000 - mean(wide.df$Diet.1997)/1000,1)
+    
+    library(plm)
+```
+*** =sample_code
+```{r}
+# Let's examine our dataset to get a sense of it. Basically we have 121 distinct respondents, with information about their diets and BMIs in 1995, 1996, and 1997.
+    str(wide.df)
+
+# If we want to convert this data to long format, We basically want a dataset where each year of each variable is appeneded on top of each other, and where we have an indicator for ID and year. To start, make three separate datasets called "df1995", "df1996", and "df1997". Each of these datasets should the contain an "ID" column from wide.df, followed by a single Diet variable from the corresponding year, and a single and BMI variable from the corresponding year.
+    df1995<-
+    df1996<-
+    df1997<-
+
+# We want each of these dataframes to be composed of variables containing the same name. If you have not done so already, rename the rows of each column to "ID", "Diet", and "BMI", otherwise, delete the three lines below
+    names(df1995)<-
+    names(df1996)<-
+    names(df1997)<-
+
+# Now for each dataframe, create a variable titled "Year" that contains a number that contains the Year indicated by the data frame. 
+    df1995$Year<-
+    df1996$Year<-
+    df1997$Year<-
+
+# Create a dataframe called long.df, which appends df1995 on top of df1996 and df1997. You can either do this with two separate "rbind" functions, or with a "do.call" function.
+    long.df<-
+      
+# Finally, sort the data by ID and Year so that the ID in the first three rows is ID1, and the Year in the first three rows is 1995, 1996, and 1997. This can be done with the subset and order functions. 
+    long.df<-long.df[order(long.df$,long.df$),]
+    
+# If you did all of the above correctly, the following fixed effects model should produce a positive and statistically significant coefficient for the effect of Diet on BMI (i.e. individuals who ate more across waves tended to gain weight).
+    summary(plm(BMI ~ Diet, data=long.df, index=c("ID", "Year"), model="within"))
+    
+```
+*** =solution
+```{r}
+    df1995<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1995,BMI=wide.df$BMI.1995)
+    df1996<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1996,BMI=wide.df$BMI.1996)
+    df1997<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1997,BMI=wide.df$BMI.1997)
+    df1995$Year<-1995
+    df1996$Year<-1996
+    df1997$Year<-1997
+    long.df<-do.call("rbind",list(df1995,df1996,df1997))
+    long.df<-long.df[order(long.df$ID,long.df$Year),]
+```
+*** =sct
+```{r}
+test_object("wide.df")
+success_msg("Good work! To convert datasets with lots of variables, you can apply the same logic to convert the variables more iteratively. For example, by create a dataframe of all variables that include the substring '1995', and creating new variable names that remove that substring. Nonetheless, the logic is for converting these data frames from wide to long format is identical.")
+```
+
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Effect of Raising the Minimum Wage on Employment
 *** =video_link
 //player.vimeo.com/video/226206852
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c747fbb05d
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice implementing difference in differences models
 The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
 
@@ -232,13 +317,13 @@ success_msg("Good work! Implementing a difference within differences analysis is
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b9266032e1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Why use a lagged dependent variable?
 Think about what you know about causal inference. What might be an advantage for modeling your data with a lagged dependent variable; that is, a dependent variable measured at a time point after your explanatory variables were measured?
 *** =instructions
@@ -257,7 +342,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:6277c6d8ad
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice with lagged dependent variables
 Walter is the CEO of a large adult coloring books company. As part of a new advertising campaign, Walter wants to publish research which demonstrates that coloring in adult coloring books leads to reduced stress levels. 
 
@@ -327,13 +412,13 @@ success_msg("Correct! Estimating an OLS model with a lagged dependent variable i
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:625dd45a40
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Repeated cross-sectional data versus time-series data
 When we have repeated cross-sectional data, we have a different sample at each time point. With this sort of data, we cannot estimate within person fixed effects or any difference in differences style outcome, as we only have a response from each surveyed individual at one separate time point. Nonetheless, why might repeated cross-sectional data be useful?
 
@@ -353,12 +438,12 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f5f1233e13
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Confounders in fixed effects models
 Suppose we are interested in how exercising in a gym affects a person's self-esteem. We try to gather a random sample of individuals at multiple time points, and examine whether individuals who increased their frequency of exercise in a gym had higher self-esteem. However, when assessing the data, we realize that we oversampled white men, who are known to exercise at gyms at high rates, and who tend to have relatively high self-esteem. If we estimate a fixed effects model with this data, will the fact that we oversampled white men confound our results?
 
@@ -374,12 +459,12 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:09b18d2eae
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Violating the random assignment of changes 
 Daniel noticed that whenever he buys a new WePhone, he feels incredibly happy. Daniel thinks that the world would be a much happier place if everyone owned a new WePhone, and is petitioning the government to subsidize the purchase of all new WePhones. To supplement his petition, Daniel surveys a group of  individuals at two time points. During both waves of the survey, Daniel asks the survey group how happy they are, and whether they own the WePhone 10S (the newest iteration of the WePhone). Daniel conducts a fixed effects model on this dataset, and finds a positive effect of owning a WePhone 10S on happiness (i.e. those who acquired a WePhone 10S in the subsequent wave appeared happier). Why might Daniel's survey be biased?
 
@@ -399,17 +484,17 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e9cecd77c0
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice Running a Fixed and Random Effects Regression Models
 Many students at Perry Elementary school write with gel pens. Iris, the school's librarian, is convinced that students could write faster if all the students were required to use ballpoint pens. To test her theory, Iris gets permission to conduct a secondary analysis of an annual student written exam. 
 
