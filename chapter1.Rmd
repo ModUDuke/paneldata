@@ -5,12 +5,12 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 
 
---- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
+--- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Confounders in Cross-Sectional Data 
 In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
 *** =instructions
@@ -27,7 +27,7 @@ msg4 = "If this were the case, legalized recreational drugs would confound the r
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8c564a8661
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Longitudinal Analysis without a Comparison Group.
 Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
 *** =instructions
@@ -42,13 +42,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Advantage of Longitudinal Data
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than a cross-sectional dataset?
 *** =instructions
@@ -66,7 +66,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Assumptions of Difference in Differences Analysis
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group to trends among a control group?
 *** =instructions
@@ -83,74 +83,7 @@ msg4 = ""
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
-## Effect of Immigration on Employment
-*** =video_link
-//player.vimeo.com/video/226206552
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
-## Effect of Immigration on Employment Question
-Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
-*** =instructions
-- No
-- Yes
-*** =sct
-```{r}
-msg1 = "Correct! You must have data on a control group as well, because that is how you extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
-msg2 = "Try again"
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
-```
-
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ec875547d3
-## Inferring Personal Motivations from Aggregate Trends
-After reading David Card's article about how immigration has a negative effect on rates unemployment (i.e. immigration reduces unemployment), Bella decides to write an op-ed about these trends in her favorite magazine, "Psychology Tomorrow." Bella writes that immigration leads to decreased unemployment because seeing the struggles of immigrants motivates local business owners to create new jobs for migrants, even when such roles are unnecessary for their businesses. Is this a reasonable conclusion to draw from these trends?
-
-*** =instructions
-- Yes
-- No
-
-*** =sct
-```{r}
-msg1 = "Try again"
-msg2 = "Correct! Bella is committing an ecological inference fallacy - she is interpreting statistical data about group trends to make inferences about individuals within that group. There are many possible mechanisms that are producing the association between migration and unemployment. We cannot make conclusions about which mechanisms are producing this trend without studying each one individually. In order to substantiate Bella's hypothesis, we would need to survey business owners in Miami and ask them why they decided to offer more jobs, or at the very least, rule out alternative explanations for why they offered more jobs."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
-```
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
-## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
-*** =video_link
-//player.vimeo.com/video/226206681
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
-## Interpreting Graphed Time Trends 
-Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
-*** =instructions
-- Watching birdemic motivated people to buy solar panels.
-- Watching birdemic discouraged people from buying solar panels.
-*** =pre_exercise_code
-```{r}
-df<-data.frame(Year=rep(c(2008,2009,2010,2011,2012),2))
-df$Treated<-as.factor(rep(c("Yes","No"),each=5))
-df$Percent<-c(.02,.023,.026,.027,.028,.01,.013,.016,.02,.024)
-library(ggplot2)
-p<-ggplot(data=df,aes(x=Year,y=Percent,group=Treated,col=Treated))
-p+geom_line()+geom_point()+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
-  ggtitle("Rate of Solar Panel Ownership by Watching Birdemic")+
-  labs(y="Proportion Own Solar Panels",color="Watched Birdemic")
-```
-*** =sct
-```{r}
-msg1 = "Try again"
-msg2 = "Correct! Rates of solar panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010"
-
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
-```
-
-
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice Preparing Longitudinal Data for Analysis
 More often than not, publically available panel survey datasets are posted online in *wide format*, where each row corresponds to an individual survey respondent and each column corresponding to a single variable from a given wave of the dataset. For example, a dataset about people's body mass index (BMI) over time might have several columns for each respondent, labeled something like "BMI.Wave.1," "BMI.Wave.2," "BMI.Wave.3," etc. The problem is that many R functions that work with panel data (such as the graph in the previous problem) require your data to be in *long format*, where each unique variable corresponds to a single column (e.g. just "BMI"), and where each row corresponds to a specific respondent identification and a specific year that the response was collected. 
 
@@ -211,7 +144,7 @@ n=221
 # Finally, sort the data by ID and Year so that the ID in the first three rows is ID1, and the Year in the first three rows is 1995, 1996, and 1997. This can be done with the subset and order functions. 
     long.df<-long.df[order(long.df$,long.df$),]
     
-# If you did all of the above correctly, the following fixed effects model should produce a positive and statistically significant coefficient for the effect of Diet on BMI (i.e. individuals who ate more across waves tended to gain weight).
+# If you did all of the above correctly, the following fixed effects model (more on those later in the unit) should produce a positive and statistically significant coefficient for the effect of Diet on BMI (i.e. individuals who ate more across waves tended to gain weight).
     summary(plm(BMI ~ Diet, data=long.df, index=c("ID", "Year"), model="within"))
     
 ```
@@ -233,15 +166,43 @@ success_msg("Good work! To convert datasets with lots of variables, you can appl
 ```
 
 
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
-## The Effect of Raising the Minimum Wage on Employment
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+## Effect of Immigration on Employment
 *** =video_link
-//player.vimeo.com/video/226206852
+//player.vimeo.com/video/226206552
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Effect of Immigration on Employment Question
+Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
+*** =instructions
+- No
+- Yes
+*** =sct
+```{r}
+msg1 = "Correct! You must have data on a control group as well, because that is how you extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
+msg2 = "Try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
+```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c747fbb05d
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Inferring Personal Motivations from Aggregate Trends
+After reading David Card's article about how immigration has a negative effect on rates unemployment (i.e. immigration reduces unemployment), Bella decides to write an op-ed about these trends in her favorite magazine, "Psychology Tomorrow." Bella writes that immigration leads to decreased unemployment because seeing the struggles of immigrants motivates local business owners to create new jobs for migrants, even when such roles are unnecessary for their businesses. Is this a reasonable conclusion to draw from these trends?
+
+*** =instructions
+- Yes
+- No
+
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! Bella is committing an ecological inference fallacy - she is interpreting statistical data about group trends to make inferences about individuals within that group. There are many possible mechanisms that are producing the association between migration and unemployment. We cannot make conclusions about which mechanisms are producing this trend without studying each one individually. In order to substantiate Bella's hypothesis, we would need to survey business owners in Miami and ask them why they decided to offer more jobs, or at the very least, rule out alternative explanations for why they offered more jobs."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice implementing difference in differences models
 The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
 
@@ -317,13 +278,138 @@ success_msg("Good work! Implementing a difference within differences analysis is
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
+*** =video_link
+//player.vimeo.com/video/226206681
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+## Interpreting Graphed Time Trends 
+Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
+*** =instructions
+- Watching birdemic motivated people to buy solar panels.
+- Watching birdemic discouraged people from buying solar panels.
+*** =pre_exercise_code
+```{r}
+df<-data.frame(Year=rep(c(2008,2009,2010,2011,2012),2))
+df$Treated<-as.factor(rep(c("Yes","No"),each=5))
+df$Percent<-c(.02,.023,.026,.027,.028,.01,.013,.016,.02,.024)
+library(ggplot2)
+p<-ggplot(data=df,aes(x=Year,y=Percent,group=Treated,col=Treated))
+p+geom_line()+geom_point()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+  ggtitle("Rate of Solar Panel Ownership by Watching Birdemic")+
+  labs(y="Proportion Own Solar Panels",color="Watched Birdemic")
+```
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! Rates of solar panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010"
+
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+## The Effect of Raising the Minimum Wage on Employment
+*** =video_link
+//player.vimeo.com/video/226206852
+
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+## Practice Correcting for Changing Measurements
+Since society is constantly changing, longitudinal surveys often change their questionnaires to better represent the world we live in. For example, prior to the amendment of the Immigration Act in 1965, only a very small percentage of the U.S. population had Asian heritage. Therefore, very few surveys at the time recorded "Asian American" as a response to questions about race - instead, lumping Asian Americans into an "other" race category. In fact, even the US census had not classified Asian Americans as a distinct ethnic group until 1980. 
+
+Other times these changes can be more arbitrary. For example, a study might ask respondents to state how many hours of TV they tend to watch on a given day on a 1-3 scale, with response option 1 = 0-2 hours, 2=2-5 hours and 3 = 5+ hours. However, that study might increase the number of response options in the following year to allow for more detailed information. For example, respondents might be asked to record a precise estimate of how much TV they watch, rounded to the nearest hour.
+
+While it is always good to have detailed data, changing survey response options can pose problems for data analysts. Our models will not know whether our response options changed unless we explicitly tell our so, therefore, changes in our measurements can significantly confound our model estimates. As an example, modify the `hours` variable in the dataset `TV`, to correct for the somewhat unintuitive findings produced by our difference in differences model which estimates how purchasing a new TV effects hours watched in the following year. Change the response options for `hours` at wave 2 to match the corresponding response options available for `hours` at wave 1. Specifically:
+
+*** =instructions
+- If `hours` at wave 2 is less than or equal to 2, set it to 1.
+- If `hours` at wave 2 is greater than 2 but less than or equal to 5, set it to 2.
+- If `hours` at wave 2 is greater than 5, set it to 3.
+
+*** =pre_exercise_code
+```{r}
+n=157
+#Create rnorm function that allows for min and max
+    rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+        qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+    }
+#Create rounding function that allows to round to numbers above 1
+    mround <- function(x,base){ 
+        base*round(x/base) 
+    } 
+
+set.seed(1)
+#Dataframe with year 1
+    TV1<-data.frame(ID=1:n,Wave=1,hours=round(rtnorm(n,mean=2,sd=.5,min=1,max=3),0))
+    TV1$new<-rbinom(n,1,.33)
+#Dataframe with year 2
+    TV2<-TV1
+    TV2$hours<-ifelse(TV1$hours==1,rtnorm(n,mean=1,sd=.5,min=0,max=2),ifelse(TV1$hours==2,rtnorm(n,mean=3,sd=1,min=2,max=5),ifelse(TV1$hours==3,rtnorm(n,mean=6,sd=1,min=5,max=10),0)))
+    TV2$hours<-round(TV2$hours-.5*TV2$new*TV2$hours^2 + 4*TV1$hours*TV2$new,0)
+    TV2$hours<-ifelse(TV2$hours<0,0,TV2$hours)
+    TV2$Wave<-2
+    
+    summary(TV1$hours)
+    summary(TV2$hours)
+#Append data
+    TV<-rbind(TV1,TV2)
+    TV<-TV[order(TV$ID,TV$Wave),]
+    TV$Wave<-factor(TV$Wave)
+    rm("TV2")
+    rm("TV1")
+    
+```
+*** =sample_code
+```{r}
+# Let's first get a sense of what our dataset looks like. We have two waves of data, each ID occurs in each wave one time. The "new" variable indicates whether our sample bought a new TV between the two waves. THe hours variable indicates how many hours each respondent used their TV in each wave. During the first wave, respondents were only given three response options for the hours variable, with response option 1 = up to 2 hours, option 2 = above 2 hours 2 and up to 5 hours, and option 3 above 5 hours. During the second wave, respondents simply recorded how many hours they tend to watch TV each day.
+    str(TV)
+    head(TV)
+    summary(TV$hours[TV$Wave==1])
+    summary(TV$hours[TV$Wave==2])
+
+# When we estimate a difference in differences model with this data, we see some strange results. We see a substantial increase in hours watched across waves, and a huge effect on hours watched among new TV owners.
+    summary(glm(hours~Wave*new,data=TV))
+
+# These odd findings are likely due to the change in our measurement of hours across the waves. Modify the hours variable in Wave 2 to match the hours variable in wave 1. This can be done with the subsetting and/or ifelse functions.
+
+#---- Question 1-------------------------------------#
+    TV$hours<-
+#----------------------------------------------------#
+
+# If you answered Question 1 correctly, the following difference in differences model should give much more intuitive results. We shouldn't see much of a change hours watched among the entire sample between waves, but we should see a slight increase among those who purchased a new tv.
+    summary(glm(hours~Wave*new,data=TV))
+```
+*** =solution
+```{r}
+    TV$hours[TV$Wave==2]<-ifelse(TV$hours[TV$Wave==2]<=2,1,ifelse(TV$hours[TV$Wave==2]<=5,2,3))
+```
+*** =sct
+```{r}
+test_object("TV")
+
+success_msg("Good work! Implementing a difference within differences analysis is relatively easy. We can see from the result of Solution3 that the estimate for Year2015 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
+```
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b9266032e1
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Why use a lagged dependent variable?
 Think about what you know about causal inference. What might be an advantage for modeling your data with a lagged dependent variable; that is, a dependent variable measured at a time point after your explanatory variables were measured?
 *** =instructions
@@ -342,7 +428,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:6277c6d8ad
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice with lagged dependent variables
 Walter is the CEO of a large adult coloring books company. As part of a new advertising campaign, Walter wants to publish research which demonstrates that coloring in adult coloring books leads to reduced stress levels. 
 
@@ -412,13 +498,13 @@ success_msg("Correct! Estimating an OLS model with a lagged dependent variable i
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:625dd45a40
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Repeated cross-sectional data versus time-series data
 When we have repeated cross-sectional data, we have a different sample at each time point. With this sort of data, we cannot estimate within person fixed effects or any difference in differences style outcome, as we only have a response from each surveyed individual at one separate time point. Nonetheless, why might repeated cross-sectional data be useful?
 
@@ -438,12 +524,12 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f5f1233e13
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Confounders in fixed effects models
 Suppose we are interested in how exercising in a gym affects a person's self-esteem. We try to gather a random sample of individuals at multiple time points, and examine whether individuals who increased their frequency of exercise in a gym had higher self-esteem. However, when assessing the data, we realize that we oversampled white men, who are known to exercise at gyms at high rates, and who tend to have relatively high self-esteem. If we estimate a fixed effects model with this data, will the fact that we oversampled white men confound our results?
 
@@ -459,12 +545,12 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:09b18d2eae
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 
 ## Violating the random assignment of changes 
 Daniel noticed that whenever he buys a new WePhone, he feels incredibly happy. Daniel thinks that the world would be a much happier place if everyone owned a new WePhone, and is petitioning the government to subsidize the purchase of all new WePhones. To supplement his petition, Daniel surveys a group of  individuals at two time points. During both waves of the survey, Daniel asks the survey group how happy they are, and whether they own the WePhone 10S (the newest iteration of the WePhone). Daniel conducts a fixed effects model on this dataset, and finds a positive effect of owning a WePhone 10S on happiness (i.e. those who acquired a WePhone 10S in the subsequent wave appeared happier). Why might Daniel's survey be biased?
 
@@ -484,17 +570,17 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e9cecd77c0
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
 ## Practice Running a Fixed and Random Effects Regression Models
 Many students at Perry Elementary school write with gel pens. Iris, the school's librarian, is convinced that students could write faster if all the students were required to use ballpoint pens. To test her theory, Iris gets permission to conduct a secondary analysis of an annual student written exam. 
 
