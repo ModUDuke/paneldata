@@ -5,12 +5,12 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 
 
---- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 *** =video_link
 //player.vimeo.com/video/226206272
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
 ## Confounders in Cross-Sectional Data 
 In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
 *** =instructions
@@ -27,7 +27,7 @@ msg4 = "If this were the case, legalized recreational drugs would confound the r
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8c564a8661
 ## Longitudinal Analysis without a Comparison Group.
 Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
 *** =instructions
@@ -42,13 +42,13 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
 ## The Common Trends Assumption
 *** =video_link
 //player.vimeo.com/video/226208683
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:bfcf99d7c6
 ## Interpreting Longitudinal Outcomes
 In the early 1950s, the mayor of Springfield, Oklahoma, noticed that his citizens had higher rates of diabetes than ever before. To combat diabetes, the mayor of Springfield implemented a permanent sales tax on all food items that contained corn syrup. Now, the mayor of Springfield's neighbor Laughterville is concerned about rates of diabetes in his state, and is considering implementing a tax on food items that contain corn syrup. To inform his decision, the mayor of Laughterville compares rates of diabetes (percentage of population) in Laughterville to rates of diabetes in Springfield over time. A table of the data is included below.
 
@@ -71,7 +71,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
 ## Advantage of Longitudinal Data
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than repeated cross-sectional datasets?
 *** =instructions
@@ -87,7 +87,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
 ## Assumptions of Difference in Differences Analysis
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group with trends among a control group?
 *** =instructions
@@ -107,13 +107,13 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
 ## The Three Kinds of Panel Data
 *** =video_link
 //player.vimeo.com/video/226207544
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:625dd45a40
 ## Repeated cross-sectional data versus time-series data
 When we have repeated cross-sectional data, we have a different sample at each time point. With this sort of data, we cannot estimate within person fixed effects or any difference in differences style outcome, as we only have a response from each surveyed individual at one separate time point. Nonetheless, why might repeated cross-sectional data be useful?
 
@@ -132,7 +132,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:0d9f8078a3
 ## Interpreting Longitudinal Outcomes II
 During his fourth annual performance review, the CEO of gunsNguns.com asked for a bonus, noting that during his four years as CEO, the revenue of gunsNguns.com increased by $32m! Before the board of directors at gunsNguns.com made their final decision, they decided to examine sales data from similarly sized rivals across the past four years, listed below. 
 
@@ -159,7 +159,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
 ## Practice Preparing Longitudinal Data for Analysis
 More often than not, publically available panel survey datasets are posted online in *wide format*, where each row corresponds to an individual survey respondent and each column corresponding to a single variable from a given wave of the dataset. For example, a dataset about people's body mass index (BMI) over time might have several columns for each respondent, labeled something like "BMI.Wave.1," "BMI.Wave.2," "BMI.Wave.3," etc. The problem is that many R functions that work with panel data (such as the graph in the previous problem) require your data to be in *long format*, where each unique variable corresponds to a single column (e.g. just "BMI"), and where each row corresponds to a specific respondent identification and a specific year that the response was collected. 
 
@@ -240,12 +240,12 @@ success_msg("Good work! To convert datasets with lots of variables, you can appl
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
 ## Effect of Immigration on Employment
 *** =video_link
 //player.vimeo.com/video/226206552
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
 ## Effect of Immigration on Employment Question
 Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
 *** =instructions
@@ -259,7 +259,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ec875547d3
 ## Inferring Personal Motivations from Aggregate Trends
 After reading David Card's article about how immigration has a negative effect on rates unemployment (i.e. immigration reduces unemployment), Bella decides to write an op-ed about these trends in her favorite magazine, "Psychology Tomorrow." Bella writes that immigration leads to decreased unemployment because seeing the struggles of immigrants motivates local business owners to create new jobs for migrants, even when such roles are unnecessary for their businesses. Is this a reasonable conclusion to draw from these trends?
 
@@ -276,7 +276,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c747fbb05d
 ## Practice implementing difference in differences models
 The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
 
@@ -354,12 +354,12 @@ success_msg("Good work! Implementing a difference within differences analysis is
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
 *** =video_link
 //player.vimeo.com/video/226206681
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
 ## Interpreting Graphed Time Trends 
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
 *** =instructions
@@ -390,14 +390,14 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
 ## The Effect of Raising the Minimum Wage on Employment
 *** =video_link
 //player.vimeo.com/video/226206852
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5326271e36
 ## Practice Correcting for Changing Measurements
 Since society is constantly changing, longitudinal surveys often change their questionnaires to better represent the world we live in. For example, prior to the amendment of the Immigration Act in 1965, only a very small percentage of the U.S. population had Asian heritage. Therefore, very few surveys at the time recorded "Asian American" as a response to questions about race - instead, lumping Asian Americans into an "other" race category. In fact, even the US census had not classified Asian Americans as a distinct ethnic group until 1980. 
 
@@ -476,13 +476,13 @@ success_msg("Good work! Implementing a difference within differences analysis is
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
 ##Panel Data Terminology
 *** =video_link
 //player.vimeo.com/video/226207441
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b9266032e1
 ## Why use a lagged dependent variable?
 Think about what you know about causal inference. What might be an advantage for modeling your data with a lagged dependent variable; that is, a dependent variable measured at a time point after your explanatory variables were measured?
 *** =instructions
@@ -501,7 +501,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:6277c6d8ad
 ## Practice with lagged dependent variables
 Walter is the CEO of a large adult coloring books company. As part of a new advertising campaign, Walter wants to publish research which demonstrates that coloring in adult coloring books leads to reduced stress levels. 
 
@@ -570,12 +570,12 @@ success_msg("Correct! Estimating an OLS model with a lagged dependent variable i
 ```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
 ## Individual Fixed Effects and Time Varying Treatments
 *** =video_link
 //player.vimeo.com/video/226207591
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f5f1233e13
 ## Confounders in fixed effects models
 Suppose we are interested in how exercising in a gym affects a person's self-esteem. We try to gather a random sample of individuals at multiple time points, and examine whether individuals who increased their frequency of exercise in a gym had higher self-esteem. However, when assessing the data, we realize that we oversampled white men, who are known to exercise at gyms at high rates, and who tend to have relatively high self-esteem. If we estimate a fixed effects model with this data, will the fact that we oversampled white men confound our results?
 
@@ -591,12 +591,12 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
 ## The "Random Assignment" of Changes
 *** =video_link
 //player.vimeo.com/video/226207674
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:09b18d2eae
 ## Violating the random assignment of changes 
 Daniel notices that whenever he buys a new WePhone, he feels incredibly happy. Daniel thinks that the world would be a much happier place if everyone owned a new WePhone, and is petitioning the government to subsidize the purchase of all new WePhones. To supplement his petition, Daniel surveys a group of  individuals at two time points. During both waves of the survey, Daniel asks the survey group how happy they are, and whether they own the WePhone 10S (the newest iteration of the WePhone). Daniel conducts a fixed effects model on this dataset, and finds a positive effect of owning a WePhone 10S on happiness (i.e. those who acquired a WePhone 10S in the subsequent wave appeared happier). Why might Daniel's survey be biased?
 
@@ -617,13 +617,13 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
 *** =video_link
 //player.vimeo.com/video/226207727
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:0fe070c3f3
 ## Nonlinear time trends 
 The popular online retailer, Congo.com, is conducting an experiment to determine whether changing the color scheme of the website's product pages results in higher rates of sales. Congo.com decides to alter the color scheme on the store page for one of its brands of fidget spinners, and use a difference in differences model to determine how the sales of that brand of fidget spinners compared to another popular brand of fidget spinners. However, the sales of fidget spinners during the period of analysis climbed and fell dramatically. The sales trends are indicated on the graph to the right.
 
@@ -658,7 +658,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:280768b7d2
 ## Attrition in Panel Data
 Attrition is an inevitability when conducting longitudinal surveys. Many survey respondents refuse to participate in a follow up survey, either to a respondent's lack of interest, or because it is no longer convenient for him to participate in the survey. However, attrition can cause bias. Imagine we conduct a survey about how restaurant reviews effected their number of diners. We gather information from restaurants at two time points, but only 70% of our initial sample participated in our follow up survey. In which of the following circumstances would this attrition be the most cause for concern (i.e. bias our estimates)?
 *** =instructions
@@ -675,12 +675,12 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
 
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
 ## Switchers
 *** =video_link
 //player.vimeo.com/video/226207860
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e9cecd77c0
 ## Practice Running a Fixed and Random Effects Regression Models
 Many students at Perry Elementary school write with gel pens. Iris, the school's librarian, is convinced that students could write faster if all the students were required to use ballpoint pens. To test her theory, Iris gets permission to conduct a secondary analysis of an annual student written exam. 
 
