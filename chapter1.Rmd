@@ -1,4 +1,4 @@
-rm---
+---
 title       : Introduction to Panel Data
 description : This chapter will introduce you to analysis techniques with panel data
 
