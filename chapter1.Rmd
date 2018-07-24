@@ -820,6 +820,203 @@ test_object("Solution3")
 success_msg("Good work! You now know the basics to estimating fixed and random effects models with panel data. As you can see, these models often give very different results than typical pooled OLS models, and their estimates tend to be much more robust. You may still be wondering when you should use random versus fixed effects models. In general, if you can find statistically significant effects with fixed effects models, they are preferable to random effects models. However, there are a variety of tools available for comparing whether you get any benefit from using a fixed effects model (e.g. the Hausman test). In general, use you intution and see what other people have done in similar situations!")
 ```
 
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:
+## Putting It All Together: Electric Cars and Caring About Nature
+
+Located in a part of the country that has been losing heavy industry jobs for the last few decades, the Square Cities area includes the four cities of Greenville, Tarboro, Blackwater, and Milltown. While there are still a few factories and other industries in the area, these four city councils have been trying to make the area more attractive for new businesses and young millennials through new environmental policies, even though this is not always fully supported by the local residents who tend to be politically conservative. Nonetheless, the city of Greenville liked the idea of stimulating the purchase of electric cars, and in 2013, the city's governance decided to subsidize electric car purchases of Greenville residents. Let's use our analytical skills on panel data to determine whether this city subsidy had a causal effect on the car purchase behavior of the town's residents.
+
+***=instructions
+- 1) Study a chart to see if the subsidy appears effective.
+- 2) Study Greenville's results compared to those of a nearby city.
+- 3) Run a pooled OLS model to see if people's environmental attitudes are a factor we should consider.
+- 4) Think about causality (and reverse causality) in the pooled OLS model.
+- 5) See what a fixed effects model shows when we hold a family's environmental views constant.
+- 6) Aggregate data and merge datasets to identify families who do not currently have an electric car.
+- 7) Create a lagged effects model to see if the causal effects are only really apparent a year later.
+
+
+# ---- Pre-exercise code ----
+```{r}
+# Author: Attila Gyetvai
+
+library(ggplot2)
+library(plyr)
+library(plm)
+
+
+# Initialization
+nG <- 390
+nB <- 403
+n <- nG + nB
+set.seed(100)
+
+# Set up data frame
+# Year 1
+survey1 <- data.frame(ID = 1:n, year = 2010, city = c(rep("Greenville", nG), rep("Blackwater", nB)))
+survey1$income <- ifelse(survey1$city=="Greenville", 1000*(exp(rlnorm(nG, meanlog=1, sdlog=0.2))+30), 
+                                                     1000*(exp(rlnorm(nB, meanlog=0.8, sdlog=0.2))+20))
+incomeG <- survey1$income[survey1$city=="Greenville"]
+incomeB <- survey1$income[survey1$city=="Blackwater"]
+
+survey1$carenature <- 0.75*survey1$income + rnorm(n, 0, 20000)
+survey1$carenature <- (survey1$carenature - min(survey1$carenature))/max(survey1$carenature - min(survey1$carenature))
+carenatureG <- survey1$carenature[survey1$city=="Greenville"]
+carenatureB <- survey1$carenature[survey1$city=="Blackwater"]
+
+cartypeG <- ifelse(incomeG > quantile(incomeG, 0.25), rbinom(nG, 1, 0.9), rbinom(nG, 1, 0.3))
+cartypeG[cartypeG>0] <- 1 + rbinom(length(carenatureG[cartypeG>0]), 1, 0.5*carenatureG[cartypeG>0]/max(carenatureG[cartypeG>0]))
+cartypeB <- ifelse(incomeB > quantile(incomeB, 0.25), rbinom(nB, 1, 0.9), rbinom(nB, 1, 0.3))
+cartypeB[cartypeB>0] <- 1 + rbinom(length(carenatureB[cartypeB>0]), 1, 0.35*carenatureB[cartypeB>0]/max(carenatureB[cartypeB>0]))
+survey1$cartype <- c(cartypeG, cartypeB)
+survey1$cartype <- factor(survey1$cartype, labels = c("None", "Combustion engine", "Electric"))
+
+# From year 2 on
+datagen <- function(df.old, year.var, trans.mat.G, trans.mat.B) {
+  
+  df.new <- data.frame(ID = 1:n, year = year.var, city = c(rep("Greenville", nG), rep("Blackwater", nB)))
+  df.new$income <- df.old$income * (1.02 + rnorm(n, 0, 0.05))
+  df.new$carenature <- pmin(pmax(df.old$carenature + rnorm(n, 0, 0.05), 0), 1)
+  df.new$cartype[df.new$city=="Greenville" & df.old$cartype=="None"] <- which(rmultinom(length(which(df.new$city=="Greenville" & df.old$cartype=="None")), 1, trans.mat.G[1,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Blackwater" & df.old$cartype=="None"] <- which(rmultinom(length(which(df.new$city=="Blackwater" & df.old$cartype=="None")), 1, trans.mat.B[1,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Greenville" & df.old$cartype=="Combustion engine"] <- which(rmultinom(length(which(df.new$city=="Greenville" & df.old$cartype=="Combustion engine")), 1, trans.mat.G[2,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Blackwater" & df.old$cartype=="Combustion engine"] <- which(rmultinom(length(which(df.new$city=="Blackwater" & df.old$cartype=="Combustion engine")), 1, trans.mat.B[2,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Greenville" & df.old$cartype=="Electric"] <- which(rmultinom(length(which(df.new$city=="Greenville" & df.old$cartype=="Electric")), 1, trans.mat.G[3,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Blackwater" & df.old$cartype=="Electric"] <- which(rmultinom(length(which(df.new$city=="Blackwater" & df.old$cartype=="Electric")), 1, trans.mat.B[3,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype <- factor(df.new$cartype, labels = c("None", "Combustion engine", "Electric"))
+  return(df.new)
+                      
+}
+
+trans.mat.pre <- matrix(c(0.8, 0.15, 0.05, 0.075, 0.8, 0.125, 0.05, 0.075, 0.875), 3, 3, byrow = TRUE)
+trans.mat.post <- matrix(c(0.8, 0.1, 0.1, 0.1, 0.65, 0.25, 0.05, 0.06, 0.89), 3, 3, byrow = TRUE)
+
+survey2 <- datagen(survey1, 2011, trans.mat.pre, trans.mat.pre)
+survey3 <- datagen(survey2, 2012, trans.mat.pre, trans.mat.pre)
+survey4 <- datagen(survey3, 2013, trans.mat.post, trans.mat.pre)
+survey5 <- datagen(survey4, 2014, trans.mat.post, trans.mat.pre)
+survey6 <- datagen(survey5, 2015, trans.mat.post, trans.mat.pre)
+survey7 <- datagen(survey6, 2016, trans.mat.post, trans.mat.pre)
+
+# Long data
+survey <- rbind(survey1, survey2, survey3, survey4, survey5, survey6, survey7)
+survey <- survey[order(survey$ID, survey$year),]
+
+# Lag carenature
+lg <- function(x)c(NA, x[1:(length(x)-1)])
+survey <- ddply(survey, ~ID, transform, l.carenature = lg(carenature))
+
+# DD plot
+df.plot <- aggregate(cartype=="Electric" ~ year + city, survey, sum)
+df.tmp <- aggregate(cartype!="None" ~ year + city, survey, sum)
+names(df.plot) <- c("year", "city", "num.electric")
+df.plot$share.electric <- df.plot$num.electric/df.tmp$cartype
+ggplot(df.plot[df.plot$city=="Greenville",], aes(x = year, y = share.electric, color = city)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Year", y = "Share of electric cars")
+ggplot(df.plot, aes(x = year, y = share.electric, color = city)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Year", y = "Share of electric cars")
+```
+
+
+***=hint
+
+***=sample_code
+```{r}
+
+# The graph below displays the share of electric cars within all cars in Greenville on a year-by-year basis. Based on this graph, can you tell whether the subsidy was effective?
+
+#---- Question 1-------------------------------------#
+      Solution1 <- "Yes" "No"
+#----------------------------------------------------#
+
+# Let's think of a way to use the Difference-in-Differences approach to find out if this is a causal effect. The plot now contains the share of electric cars from the nearby city of Blackwater, which did not subsidize electric car purchases over the same years. Based on this new information, can you tell whether the subsidy worked in Greenville?
+
+#---- Question 2-------------------------------------#
+      Solution2 <- "Yes" "No"
+#----------------------------------------------------#
+
+
+# Natural Environmental Resource Designs (NERD), an environmental action group, wants to see if being exposed to electric cars will make people care more about the environment as a whole. NERD collaborated with the cities of Greenville and Blackwater to conduct a household survey on eco-friendliness. To start with, let's see whether people driving electric cars care more about nature. Let's keep it simple and look at the averages across the years by pooling all observations together. Survey responses are aggregated into an index, carenature, between 0 and 1; the higher its value, the more household members care about nature. 
+
+# Run a pooled OLS model of caring about nature on income and car type.
+
+#---- Question 3-------------------------------------#
+      Solution3 <- glm()
+#----------------------------------------------------#
+
+# Before going further, think about this result for a second. Is the effect causal? Could it be confounded by reverse causality?
+
+#---- Question 4-------------------------------------#
+      Solution4 <- "No, reverse causality might be an issue." "Yes, the effect is arguably causal."
+#----------------------------------------------------#
+
+# That's right, this simple analysis cannot uncover causal relationships as it's likely subject to reverse causality: people might buy electric cars because they care about nature. To work around this possibility, first try fitting a fixed effects model to control for time-invariant household propensity to care about nature. Use the same control variables as before.
+
+#---- Question 5-------------------------------------#
+      Solution5 <- plm()
+#----------------------------------------------------#
+
+# However, a fixed effects model doesn't necessarily help us with determining the direction of the causal link. Do we still have a case of reverse causality? We can't tell from the fixed effects model. To help figure out the direction of the causality, let's change up what variables we're looking at.  Instead of using the kind of cars people are driving, let's include the total number of electric cars in each city per year. This way, we can capture the effect of seeing electric cars around on eco-friendliness.
+
+# First, calculate the total number of electric cars. Then run a fixed effects model of caring about nature on income and the total number of electric cars using data from households that do not own an electric car.
+
+# Why would using the total number of electric cars in a given city help? Think about it for a second. Previously we've had an issue with reverse causality: people might buy cars beacuse they care about nature. However, just because people care about nature they will not necessarily see more electric cars around town... unless many other nature-loving citizens drive electic cars. Nevertheless, this backwards causal link is less direct than before.
+
+# For this question, you need to use some R functions you might not be familiar with, such as `aggregate` and `merge`. Your intermediate goals before running the model are to (1) generate a new variable that calculates the total number of electric cars in each city, and (2) create a subsample of households without a car. `aggregate` computes summary statistics for several variables of the data set; you need to calculate the sum of electric cars by city and year. Rename the variables in the resulting data frame and merge it with the original data according to the household ID and year using `merge`. Finally, select households with zero electric cars.
+# Comment:end
+
+#---- Question 6-------------------------------------#
+      totalelectric <- aggregate(cartype=="" ~ year + city, data=, sum)    # Fill in car type and data
+      names(totalelectric) <- c("year", "city", "totalelectric")    # Set variable names
+      survey <- merge()    # Merge total electric cars with original data
+      survey <- survey[order(),]    # Order data by ID and year
+      survey.subset <- survey[ ]    # Create subset of households that do not drive electric cars
+      Solution6 <- plm()
+#----------------------------------------------------#
+
+# You have already seen attempts to establish causality. Let's take a final crack at it by using a lagged model. We will include one-year lags of caring about nature as a control variable. This way, the effect of electric car ownership is additional to the household's previous level of environmentalism; any change in that is more likely to be induced by getting an electric car. Run a pooled OLS model of caring about nature on its lag (l.carenature), income, and car type.
+
+#---- Question 7-------------------------------------#
+      Solution7 <- glm()
+#----------------------------------------------------#
+
+# By now, you should now see what factors are causes and which are the effects as we looked at the connection between buying electric cars and environmentalism in Greenville. There definitely is a positive relationship between environmental-friendliness and electric car ownership, as we have seen in the beginning of the exercise. However, the link is not necessarily causal. The first piece of evidence is that people without cars are slightly more environmentally friendly when they see more electric cars around, but this result is not conclusive. Second, more convincingly, households do not seem to update their views about nature when buying an electric car. NERD needs to spend more money to figure out whether electric cars make people care about nature.
+```
+
+
+
+*** =solution
+```{r}
+Solution1 <- "No"
+Solution2 <- "Yes"
+Solution3 <- glm(carenature ~ income + cartype, data = survey)
+Solution4 <- "Yes, the effect is arguably causal."
+Solution5 <- plm(carenature ~ income + cartype, data = survey, index=c("ID", "year"), model="within")
+totalelectric <- aggregate(cartype=="Electric" ~ year + city, data = survey, sum)
+names(totalelectric) <- c("year", "city", "totalelectric")
+survey <- merge(survey, totalelectric, by = c("year", "city"))
+survey <- survey[order(survey$ID, survey$year),]
+survey.subset <- survey[survey$cartype!="Electric",]
+Solution6 <- plm(carenature ~ income + totalelectric, data = survey.subset, index=c("ID", "year"), model="within")
+Solution7 <- glm(carenature ~ l.carenature + income + cartype, data = survey)
+```
+
+*** =sct
+```{r}
+test_object("Solution1")
+test_object("Solution2")
+test_object("Solution3")
+test_object("Solution4")
+test_object("Solution5")
+test_object("Solution6")
+test_object("Solution7")
+success_msg("Congratulations! You have mastered handling panel data!")
+```
+
+
 
 
 
