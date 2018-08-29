@@ -496,17 +496,19 @@ success_msg("Good work! Implementing a difference within differences analysis is
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b9266032e1
 ## Why use a lagged dependent variable?
 Think about what you know about causal inference. What might be an advantage for modeling your data with a lagged dependent variable; that is, a dependent variable measured at a time point after your explanatory variables were measured?
+
 *** =instructions
-- Answer 1
-- Answer 2
-- It helps you more clearly establish causal direction.
-- Answer 4
+- Letting time pass allows confounding factors to disappear.
+- It gives you more time to formulate your hypothesis.
+- It helps you more clearly establish the causal direction.
+- A dependent variable depends on time, so dependent variables always happen after the independent variables.
+
 *** =sct
 ```{r}
-msg1 = "Try again"
-msg2 = "Try again"
+msg1 = "Time isn't really a factor with determing what is a confounder. If an outside variable affects outcomes, it's a confounder, no matter when in the process it happens. Try again"
+msg2 = "You should be testing a hypothesis you formed before you started, otherwise you aren't following the scientific method! Try again"
 msg3 = "Well done"
-msg4 = "Try again"
+msg4 = "You have labeled the dependent and independent variables based on your theory and knowledge of the research question, not based on the direction of the arrow of time. So try again. "
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
