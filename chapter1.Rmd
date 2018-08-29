@@ -12,7 +12,9 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
 ## Confounders in Cross-Sectional Data 
-In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we look at the relationship between homicide rates and the death penalty at a single point in time, many factors may confound this relationship. Which of the following would *not* necessarily confound a causal interpretation of the how the death penalty affects state homicide rates at a single point in time?
+In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we only get data about this relationship for a single point in time, we'd have a lot of outside factors that may confound our findings. 
+
+We have listed 3 examples of potential confounders for data about the death penalty and homicide rates at a single point in time. Which one of this is **NOT** a potential confounder?
 *** =instructions
 - High rates of violence encourages states to instate a death penalty.
 - States that have the death penalty tend to have lower education, and education reduces violent behavior.
@@ -62,7 +64,9 @@ Based on this table, which conclusion about the effect of taxing corn syrup prod
 *** =instructions
 - Taxes have no effect, given that rates of diabetes in Springfield were much higher following the implementation of the tax.
 - Taxes have a negative effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the - Taxes have a positive effect on rates of diabetes (i.e. increased rates of diabetes), given that rates of diabetes in Springfield were much higher following the implementation of the tax.
-tax.*** =sct
+tax.
+
+*** =sct
 ```{r}
 msg1 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
 msg2 = "Correct! This is exactly how we interpret difference in differences outcomes. Even though Springfield had higher rates of diabetes following the implementation of its tax on corn syrup products, it appears that Springfield's rate diabetes grew at a smaller rate than in Laughterville."
