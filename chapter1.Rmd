@@ -147,19 +147,19 @@ During his fourth annual performance review, the CEO of gunsNguns.com asked for 
 | gunsNguns.com  |  145m  |  153m  |  166m  |  177m  |
 | Avg Competitor |  162m  |  174m  |  187m  |  205m  |
 
-Based on this table, which conclusion about the effect of taxing corn syrup products on rates of diabetes seems most reasonable?
+Based on this table, does the data say the CEO should get a raise?
 
 *** =instructions
 - The CEO deserves a raise - a $32m increase in revenue is huge!
-- The CEO deserves to be put on probation - he lied about how much he helped increase the revenue of gunsNguns.com!
-- The CEO does not deserve a raise - a $32m increase in revenue is not large enough!
+- The CEO deserves to be put on probation - he lied about how much he helped increase the revenue of gunsNguns.com.
+- The CEO does not deserve a raise - a $32m increase in revenue is not large enough compared to his competition.
 - The CEO deserves to be put in jail - he helped distribute so many guns!
 
 *** =sct
 ```{r}
 msg1 = "Try comparing the sales increase of gunsNguns.com to their competitors."
 msg2 = "Whoops. His math was correct. Try again."
-msg3 = "Correct! Most of the company's competitors had even greater increases in revenue over that time period. This probably reflects that there was an overall increase in demand for the type of goods sold by gunsNguns.com."
+msg3 = "Correct! The company's competitors averaged an even greater increases in revenue over that time period ($43 million). This probably reflects that there was an overall increase in demand for the type of goods sold by gunsNguns.com."
 msg4 = "We probably should have mentioned that the CEO was only distributing guns in America. This answer is irrelevant. Try again!"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
