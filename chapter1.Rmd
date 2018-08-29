@@ -94,7 +94,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
-## Assumptions of Difference in Differences Analysis
+## Assumptions of Difference-in-Differences Analysis
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group with trends among a control group?
 *** =instructions
 - If there are no differences between the two groups, the null hypothesis is confirmed.
@@ -254,9 +254,11 @@ success_msg("Good work! To convert datasets with lots of variables, you can appl
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
 ## Effect of Immigration on Employment Question
 Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
+
 *** =instructions
 - No
 - Yes
+
 *** =sct
 ```{r}
 msg1 = "Correct! You must have data on a control group as well, because that is how you extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
@@ -283,7 +285,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 --- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c747fbb05d
-## Practice implementing difference in differences models
+## Practice implementing difference-in-differences models
 The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
 
 While the mayor of Sommersdale is convinced that the Housing First policy would substantially reduce rates of homelessness, he is uncertain whether implementing the program would substantially reduce other city expenditures on the homeless. As a preliminary analysis, the Mayor of Sommersdale gathered data on incarceration rates among 10 cities at two time points, 2005 and 2015, half of which implemented Housing First between 2009 and 2013. Conduct a difference in differences analysis with the dataset `Jail` to examine whether the Housing First policy reduced incarceration rates. Specifically:
@@ -368,9 +370,11 @@ success_msg("Good work! Implementing a difference within differences analysis is
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
 ## Interpreting Graphed Time Trends 
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
+
 *** =instructions
 - Watching birdemic motivated people to buy solar panels.
 - Watching birdemic discouraged people from buying solar panels.
+
 *** =pre_exercise_code
 ```{r}
 df<-data.frame(Year=rep(c(2008,2009,2010,2011,2012),2))
@@ -384,6 +388,7 @@ p+geom_line()+geom_point()+
   ggtitle("Rate of Solar Panel Ownership by Watching Birdemic")+
   labs(y="Proportion Own Solar Panels",color="Watched Birdemic")
 ```
+
 *** =sct
 ```{r}
 msg1 = "Try again"
@@ -588,6 +593,7 @@ Suppose we are interested in how exercising in a gym affects a person's self-est
 *** =instructions
 - Yes
 - No
+
 *** =sct
 ```{r}
 msg1 = "Try again"
@@ -632,6 +638,7 @@ Based on this graph and your knowledge about difference in differences models, h
 *** =instructions
 - Changing the website's color scheme (treatment) increased sales.
 - Changing the website's color scheme (treatment) decreased sales.
+
 *** =pre_exercise_code
 ```{r}
     library(ggplot2)
@@ -646,12 +653,12 @@ Based on this graph and your knowledge about difference in differences models, h
             panel.background = element_blank(), axis.line = element_line(colour = "black"))+
       ggtitle("Fidget Spinner Sales by Experimental Group")+
       labs(y="Sales (in thousands)",color="Changed Color Scheme")
-    ```
+```
+
 *** =sct
 ```{r}
 msg1 = "Try again"
 msg2 = "Correct! We could verify this answer with a difference in differences model. However, it is important to note that nonlinear trends like these can cause strange results in difference in differences models. We should be very cautious when modeling nonlinear trends."
-
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
@@ -669,6 +676,7 @@ Attrition is an inevitability when conducting longitudinal surveys. Many survey 
 - If the Restaurants that failed to follow up tended to have worse reviews.
 - If the Restaurants that failed to follow up tended to be part of chains.
 - If the Restaurants that failed to follow up tended to be vegetarian.
+
 *** =sct
 ```{r}
 msg1 = "Correct. While attrition across all of these traits could cause biases in our estimates, we would be most concerned by non-response that selected our sample on a trait that is related to our variables of interest. Not only does attrition make our sample less representative of the population of restaurants, it might bias our estimates substantially. In this case, what if it turned out that the reason that restaurants that had received worse reviews across the survey were less likely to respond in the second wave is because they went out of business? In this case, our survey would fail to capture information from the restaurants that were most significantly affected by their poor reviews. We would see a much smaller effect from having poor reviews on the number of diners that a restaurant has than if we included those restaurants that failed."
@@ -693,6 +701,7 @@ The mayor of Gettysburg, Alaska is concerned about lead in the town's water. He 
 *** =instructions
 - Yes
 - No
+
 *** =sct
 ```{r}
 msg1 = "Correct! In this case, the common trends assumption would hold; however, a difference in differences model would violate our assumption that the treatment has a linear effect on our outcome. If the treatment had a linear effect, we would expect implementing a water filter to have a negative amount in the amount of lead in its water supply. While we could try log transforming the data before conducting a difference in differences model, it is still uncertain whether the filtration system would have any effect in a town with such low baseline quantities of led in its water. They mayor of Gettysburg could make a much stronger argument if he found a comparison group that had similar baseline quantities of lead to Gettysburg"
@@ -773,6 +782,7 @@ Exams3<-data.frame(id=1:n,wave=3)
     Exams<-Exams[order(Exams$id,Exams$wave),]
 
 ```
+
 *** =sample_code
 ```{r}
 # Before running any models, let's examine the data. The dataset contains seven variables. Wave refers to which date in the time series that we are looking at. Wave 1 refers to the first year the data was collected, whereas wave 3 refers to the last year that the data was collected. Since data was collected three times for each individual, each id variable occurs in the data set 3 times.
@@ -811,6 +821,7 @@ Exams3<-data.frame(id=1:n,wave=3)
 #----------------------------------------------------#
 
 ```
+
 *** =solution
 ```{r}
 #models    
@@ -820,6 +831,7 @@ Exams3<-data.frame(id=1:n,wave=3)
     Solution4<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="random")
     
 ```
+
 *** =sct
 ```{r}
 test_object("Solution3")
@@ -831,7 +843,7 @@ success_msg("Good work! You now know the basics to estimating fixed and random e
 
 Located in a part of the country that has been losing heavy industry jobs for the last few decades, the Square Cities area includes the four cities of Greenville, Tarboro, Blackwater, and Milltown. While there are still a few factories and other industries in the area, these four city councils have been trying to make the area more attractive for new businesses and young millennials through new environmental policies, even though this is not always fully supported by the local residents who tend to be politically conservative. Nonetheless, the city of Greenville liked the idea of stimulating the purchase of electric cars, and in 2013, the city's governance decided to subsidize electric car purchases of Greenville residents. Let's use our analytical skills on panel data to determine whether this city subsidy had a causal effect on the car purchase behavior of the town's residents.
 
-***=instructions
+*** =instructions
 - 1) Study a chart to see if the subsidy appears effective.
 - 2) Study Greenville's results compared to those of a nearby city.
 - 3) Run a pooled OLS model to see if people's environmental attitudes are a factor we should consider.
@@ -841,7 +853,7 @@ Located in a part of the country that has been losing heavy industry jobs for th
 - 7) Create a lagged effects model to see if the causal effects are only really apparent a year later.
 
 
-# ---- Pre-exercise code ----
+*** =pre_exercise_code
 ```{r}
 # Author: Attila Gyetvai
 
@@ -927,67 +939,54 @@ ggplot(df.plot, aes(x = year, y = share.electric, color = city)) +
 ```
 
 
-***=hint
+*** =hint
 
-***=sample_code
+*** =sample_code
 ```{r}
 
-# The graph below displays the share of electric cars within all cars in Greenville on a year-by-year basis. Based on this graph, can you tell whether the subsidy was effective?
+# 1) The graph provided displays the share of electric cars within all cars in Greenville on a year-by-year basis. Based on this graph, can you tell whether the subsidy was effective? Write "yes" or "no" for Solution1.
 
-#---- Question 1-------------------------------------#
-      Solution1 <- "Yes" "No"
-#----------------------------------------------------#
+      Solution1 <- ""
 
-# Let's think of a way to use the Difference-in-Differences approach to find out if this is a causal effect. The plot now contains the share of electric cars from the nearby city of Blackwater, which did not subsidize electric car purchases over the same years. Based on this new information, can you tell whether the subsidy worked in Greenville?
+# 2) Let's think of a way to use the Difference-in-Differences approach to find out if this is a causal effect. The plot now contains the share of electric cars from the nearby city of Blackwater, which did not subsidize electric car purchases over the same years. Based on this new information, can you tell whether the subsidy worked in Greenville? Write "yes" or "no" for Solution2.
 
-#---- Question 2-------------------------------------#
-      Solution2 <- "Yes" "No"
-#----------------------------------------------------#
-
+      Solution2 <- ""
 
 # Natural Environmental Resource Designs (NERD), an environmental action group, wants to see if being exposed to electric cars will make people care more about the environment as a whole. NERD collaborated with the cities of Greenville and Blackwater to conduct a household survey on eco-friendliness. To start with, let's see whether people driving electric cars care more about nature. Let's keep it simple and look at the averages across the years by pooling all observations together. Survey responses are aggregated into an index, carenature, between 0 and 1; the higher its value, the more household members care about nature. 
 
-# Run a pooled OLS model of caring about nature on income and car type.
+# 3) Run a pooled OLS model of caring about nature on income and car type.
 
-#---- Question 3-------------------------------------#
       Solution3 <- glm()
-#----------------------------------------------------#
 
-# Before going further, think about this result for a second. Is the effect causal? Could it be confounded by reverse causality?
+# 4) Before going further, think about this result for a second. Is the effect causal? Could it be confounded by reverse causality? Leave only the correct answer as Solution4 (i.e., delete the incorrect one).
 
-#---- Question 4-------------------------------------#
       Solution4 <- "No, reverse causality might be an issue." "Yes, the effect is arguably causal."
-#----------------------------------------------------#
 
-# That's right, this simple analysis cannot uncover causal relationships as it's likely subject to reverse causality: people might buy electric cars because they care about nature. To work around this possibility, first try fitting a fixed effects model to control for time-invariant household propensity to care about nature. Use the same control variables as before.
 
-#---- Question 5-------------------------------------#
+# 5) That's right, this simple analysis cannot uncover causal relationships as it's likely subject to reverse causality: people might buy electric cars because they care about nature. To work around this possibility, first try fitting a fixed effects model to control for time-invariant household propensity to care about nature. Use the same control variables as before.
+
       Solution5 <- plm()
-#----------------------------------------------------#
 
 # However, a fixed effects model doesn't necessarily help us with determining the direction of the causal link. Do we still have a case of reverse causality? We can't tell from the fixed effects model. To help figure out the direction of the causality, let's change up what variables we're looking at.  Instead of using the kind of cars people are driving, let's include the total number of electric cars in each city per year. This way, we can capture the effect of seeing electric cars around on eco-friendliness.
 
-# First, calculate the total number of electric cars. Then run a fixed effects model of caring about nature on income and the total number of electric cars using data from households that do not own an electric car.
+# First, we'll calculate the total number of electric cars. Then we'll run a fixed effects model of caring about nature on income and the total number of electric cars using data from households that do not own an electric car.
 
 # Why would using the total number of electric cars in a given city help? Think about it for a second. Previously we've had an issue with reverse causality: people might buy cars beacuse they care about nature. However, just because people care about nature they will not necessarily see more electric cars around town... unless many other nature-loving citizens drive electic cars. Nevertheless, this backwards causal link is less direct than before.
 
-# For this question, you need to use some R functions you might not be familiar with, such as `aggregate` and `merge`. Your intermediate goals before running the model are to (1) generate a new variable that calculates the total number of electric cars in each city, and (2) create a subsample of households without a car. `aggregate` computes summary statistics for several variables of the data set; you need to calculate the sum of electric cars by city and year. Rename the variables in the resulting data frame and merge it with the original data according to the household ID and year using `merge`. Finally, select households with zero electric cars.
-# Comment:end
+# To do this question, you need to use some R functions you might not be familiar with, such as `aggregate` and `merge`. Your intermediate goals before running the model are to (1) generate a new variable that calculates the total number of electric cars in each city, and (2) create a subsample of households without a car. `aggregate` computes summary statistics for several variables of the data set; you need to calculate the sum of electric cars by city and year. 
 
-#---- Question 6-------------------------------------#
+# 6) We've provided the syntax for the necessary code below. Rename the variables in the resulting data frame and merge it with the original data according to the household ID and year using `merge`. Finally, select households with zero electric cars.
+
       totalelectric <- aggregate(cartype=="" ~ year + city, data=, sum)    # Fill in car type and data
       names(totalelectric) <- c("year", "city", "totalelectric")    # Set variable names
       survey <- merge()    # Merge total electric cars with original data
       survey <- survey[order(),]    # Order data by ID and year
       survey.subset <- survey[ ]    # Create subset of households that do not drive electric cars
       Solution6 <- plm()
-#----------------------------------------------------#
 
-# You have already seen attempts to establish causality. Let's take a final crack at it by using a lagged model. We will include one-year lags of caring about nature as a control variable. This way, the effect of electric car ownership is additional to the household's previous level of environmentalism; any change in that is more likely to be induced by getting an electric car. Run a pooled OLS model of caring about nature on its lag (l.carenature), income, and car type.
+# 7) You have already seen attempts to establish causality. Let's take a final crack at it by using a lagged model. We will include one-year lags of caring about nature as a control variable. This way, the effect of electric car ownership is additional to the household's previous level of environmentalism; any change in that is more likely to be induced by getting an electric car. Run a pooled OLS model of caring about nature on its lag (l.carenature), income, and car type.
 
-#---- Question 7-------------------------------------#
       Solution7 <- glm()
-#----------------------------------------------------#
 
 # By now, you should now see what factors are causes and which are the effects as we looked at the connection between buying electric cars and environmentalism in Greenville. There definitely is a positive relationship between environmental-friendliness and electric car ownership, as we have seen in the beginning of the exercise. However, the link is not necessarily causal. The first piece of evidence is that people without cars are slightly more environmentally friendly when they see more electric cars around, but this result is not conclusive. Second, more convincingly, households do not seem to update their views about nature when buying an electric car. NERD needs to spend more money to figure out whether electric cars make people care about nature.
 ```
