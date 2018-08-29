@@ -65,8 +65,8 @@ Based on this table, which conclusion about the effect of taxing corn syrup prod
 
 *** =instructions
 - Taxes have no effect, given that rates of diabetes in Springfield were much higher following the implementation of the tax.
-- Taxes have a negative effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the - Taxes have a positive effect on rates of diabetes (i.e. increased rates of diabetes), given that rates of diabetes in Springfield were much higher following the implementation of the tax.
-tax.
+- Taxes have a negative treatment effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the tax.
+- Taxes have a positive treatment effect on rates of diabetes (i.e. increased rates of diabetes), given that rates of diabetes in Springfield were much higher following the implementation of the tax.
 
 *** =sct
 ```{r}
