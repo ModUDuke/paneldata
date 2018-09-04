@@ -1,0 +1,558 @@
+---
+title       : Looking Deeper at Panel Data
+description : This chapter takes a deeper dive into the terms and choices you need to be aware of when working with panel data.
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
+##Panel Data Terminology
+*** =video_link
+//player.vimeo.com/video/226207441
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b9266032e1
+## Why use a lagged dependent variable?
+Think about what you know about causal inference. What might be an advantage for modeling your data with a lagged dependent variable; that is, a dependent variable measured at a time point after your explanatory variables were measured?
+
+*** =instructions
+- Letting time pass allows confounding factors to disappear.
+- It gives you more time to formulate your hypothesis.
+- It helps you more clearly establish the causal direction.
+- A dependent variable depends on time, so dependent variables always happen after the independent variables.
+
+*** =sct
+```{r}
+msg1 = "Time isn't really a factor with determing what is a confounder. If an outside variable affects outcomes, it's a confounder, no matter when in the process it happens. Try again"
+msg2 = "You should be testing a hypothesis you formed before you started, otherwise you aren't following the scientific method! Try again"
+msg3 = "Well done"
+msg4 = "You have labeled the dependent and independent variables based on your theory and knowledge of the research question, not based on the direction of the arrow of time. So try again. "
+test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:6277c6d8ad
+## Practice with lagged dependent variables
+Walter is the CEO of a large adult coloring books company. As part of a new advertising campaign, Walter wants to publish research which demonstrates that coloring in adult coloring books leads to reduced stress levels. 
+
+When individuals purchase Walter's coloring books online, his company automatically sends a questionnaire asking about his sample's current stress levels. Although respondents reported that coloring in the adult coloring books helped reduce their feelings of stress, the sample's stress levels were about the same as a random sample of individuals who did not buy coloring books. 
+
+Walter hypothesizes that the individuals who purchased the coloring books did not have different stress levels than the general population because they were administered the survey immediately following their purchase. The beneficial effects of using adult coloring books may take time to become noticeable. Therefore, Walter sent a follow-up survey regarding his original sample's stress levels a year later. Using the dataset, `Color`, and help Walter estimate the effect of adult coloring books on stress with his follow up survey. Specifically: 
+
+*** =instructions
+- Reproduce Walter's initial analysis by estimating an OLS model that measures the immediate effect of adult coloring books (`books`) on stress (`stress1`), controlling for age (`age`) and gender (`sex`).
+- Estimate an OLS model that measures the effect of adult coloring books (`books`) on stress with the lagged dependent variable (`stress2`), controlling for age (`age`) and gender (`sex`).
+- Compare the two models to determine which measurement of stress (`stress1` or `stress2`) was more significantly effected by using adult coloring books. 
+ 
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+n=514
+#Create rnorm function that allows for min and max
+    rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+        qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+    }
+#Create rounding function that allows to round to numbers above 1
+    mround <- function(x,base){ 
+        base*round(x/base) 
+    } 
+#Dataframe
+    Color<-data.frame(books=rbinom(n,1,.65))
+    Color$age=round(rtnorm(n,mean=30,sd=5,min=25,max=60),0)
+    Color$sex=ifelse(rbinom(n,1,.7)==1,"Female","Male")
+    Color$stress1=round(rtnorm(n,mean=2,sd=3,min=1,max=10)+Color$age/15+(Color$sex=="Female")/4,0)
+    Color$stress2=round(rtnorm(n,mean=1.5,sd=2,min=1,max=10)+Color$age/12+(Color$sex=="Female")/2 - Color$books/2,0)
+
+```
+*** =sample_code
+```{r}
+# Estimate the immediate effect of coloring books, age, and gender on stress (i.e. the dependent variable should be stress1).
+
+#---- Question 1-------------------------------------#
+      Solution1<-glm()
+#----------------------------------------------------#
+
+# Estimate the lagged effect of coloring books, age, and gender on stress (i.e. the dependent variable should be stress2)
+
+#---- Question 2-------------------------------------#
+      Solution2<-glm()
+#----------------------------------------------------#
+
+# Which measurement of stress was more significantly effected by the `books` variable: stress1 or stress2? Answer with "stress1" or "stress2" To decide, compare the p-values of the `books` coefficient in Solution1 and Solution2.
+
+#---- Question 3-------------------------------------#
+      Solution3<-""
+#----------------------------------------------------#
+
+```
+*** =solution
+```{r}
+Solution1<-glm(stress1~books+age+sex,data=Color)
+Solution2<-glm(stress2~books+age+sex,data=Color)
+summary(Solution1)
+summary(Solution2)
+Solution3<-"stress2"
+```
+*** =sct
+```{r}
+test_object("Solution3")
+success_msg("Correct! Estimating an OLS model with a lagged dependent variable is pretty straightforward. While it is not the most sophisticated regression model with panel data, it is a great tool for measuring causal relationships where there is a delay between the cause and expected effect.")
+```
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
+## Individual Fixed Effects and Time Varying Treatments
+*** =video_link
+//player.vimeo.com/video/226207591
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f5f1233e13
+## Confounders in fixed effects models
+Suppose we are interested in how exercising in a gym affects a person's self-esteem. We try to gather a random sample of individuals at multiple time points, and examine whether individuals who increased their frequency of exercise in a gym had higher self-esteem. However, when assessing the data, we realize that we oversampled white men, who are known to exercise at gyms at high rates, and who tend to have relatively high self-esteem. If we estimate a fixed effects model with this data, will the fact that we oversampled white men confound our results?
+
+*** =instructions
+- Yes
+- No
+
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! Our oversampling of men would clearly confound our estimates in a typical OLS regression model, but since we are only looking at within-person changes, the fact that our sample is biased towards a group of men who tend to exercise and have high self-esteem should not confound our results. As long as the effect of exercise on self-esteem is equal among white men and all other people, and that White men change their rate of exercise as often as the rest of the population, our fixed effects models with this data should accurately reflect the effect of exercise on self-esteem among all people. What is most important is how  the rate of exercise among our sample *changed* over time. If few individuals in our sample increased or decreased their rate of exercise, or if only particular groups tended to change their rates of exercise, our fixed effects models would be biased and have limited statistical power. Individuals whose behavior does not change between waves cannot add to our understanding about how a change in that behavior effects changes in their outcomes."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
+## The "Random Assignment" of Changes
+*** =video_link
+//player.vimeo.com/video/226207674
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:09b18d2eae
+## Violating the random assignment of changes 
+Daniel notices that whenever he buys a new WePhone, he feels incredibly happy. Daniel thinks that the world would be a much happier place if everyone owned a new WePhone, and is petitioning the government to subsidize the purchase of all new WePhones. To supplement his petition, Daniel surveys a group of  individuals at two time points. During both waves of the survey, Daniel asks the survey group how happy they are, and whether they own the WePhone 10S (the newest iteration of the WePhone). Daniel conducts a fixed effects model on this dataset, and finds a positive effect of owning a WePhone 10S on happiness (i.e. those who acquired a WePhone 10S in the subsequent wave appeared happier). Why might Daniel's survey be biased?
+
+*** =instructions
+- Because the type of person that would buy a WePhone 10S (i.e. be treated) is more likely to be someone who would derive happiness from owning a WePhone 10S.  
+- Because people who can afford to buy a WePhone 10S are wealthier and therefore should be happier.
+- Because Daniel didn't control for whether buying any new phone would make them happier.
+- Because Daniel is a socialist.
+
+*** =sct
+```{r}
+msg1 = "Correct! Whenever your treatment group is made of people who self-selected into a treatment, you are likely to see some bias. The validity of Daniel's survey rests on his ability to prove that a random sample of the population underwent treatment. In other words, Daniel would need to demonstrate that the individuals who had purchased WePhones between each wave were identical to those who had not purchased WePhones. However, it is pretty likely that people only purchase a WePhone if they expect to derive some sort of utility from the purchase."
+msg2 = "This is not a possible source of bias. A fixed effect model only looks at within-person changes; even if people who ended up buying WePhones tended to be wealthier, and even if wealth tended to make people happier, this would not be a source of bias because we are already controlling for differences across individuals."
+msg3 = "Even if buying a new phone of any sort makes a person happier, this does not confound or refute Daniel's hypothesis that buying a new WePhone makes people happier."
+msg4 = "Try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
+```
+
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:0fe070c3f3
+## Nonlinear time trends 
+The popular online retailer, Congo.com, is conducting an experiment to determine whether changing the color scheme of the website's product pages results in higher rates of sales. Congo.com decides to alter the color scheme on the store page for one of its brands of fidget spinners, and use a difference in differences model to determine how the sales of that brand of fidget spinners compared to another popular brand of fidget spinners. However, the sales of fidget spinners during the period of analysis climbed and fell dramatically. The sales trends are indicated on the graph to the right.
+
+Based on this graph and your knowledge about difference in differences models, how did changing the website's color scheme appear to affect sales?
+
+*** =instructions
+- Changing the website's color scheme (treatment) increased sales.
+- Changing the website's color scheme (treatment) decreased sales.
+
+*** =pre_exercise_code
+```{r}
+    library(ggplot2)
+    
+    df<-data.frame(Month=factor(rep(c("March","April","May","June","July","August","September"),2)))
+    df$Treated<-as.factor(rep(c("Yes","No"),each=7))
+    df$Sales<-c(18.6,35.5,53,62.6,56,42.2,23.5,28.6,50.7,72,84,82,72,54)
+    df$Month<-factor(df$Month, levels = c("March","April","May","June","July","August","September"))
+    p<-ggplot(data=df,aes(x=Month,y=Sales,group=Treated,col=Treated))
+    p+geom_line()+geom_point()+
+      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+            panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+      ggtitle("Fidget Spinner Sales by Experimental Group")+
+      labs(y="Sales (in thousands)",color="Changed Color Scheme")
+```
+
+*** =sct
+```{r}
+msg1 = "Try again"
+msg2 = "Correct! We could verify this answer with a difference in differences model. However, it is important to note that nonlinear trends like these can cause strange results in difference in differences models. We should be very cautious when modeling nonlinear trends."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
+## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
+*** =video_link
+//player.vimeo.com/video/226207727
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:280768b7d2
+## Attrition in Panel Data
+Attrition is an inevitability when conducting longitudinal surveys. Many survey respondents refuse to participate in a follow up survey, either to a respondent's lack of interest, or because it is no longer convenient for him to participate in the survey. However, attrition can cause bias. Imagine we conduct a survey about how restaurant reviews effected their number of diners. We gather information from restaurants at two time points, but only 70% of our initial sample participated in our follow up survey. In which of the following circumstances would this attrition be the most cause for concern (i.e. bias our estimates)?
+*** =instructions
+- If the Restaurants that failed to follow up tended to have worse reviews.
+- If the Restaurants that failed to follow up tended to be part of chains.
+- If the Restaurants that failed to follow up tended to be vegetarian.
+
+*** =sct
+```{r}
+msg1 = "Correct. While attrition across all of these traits could cause biases in our estimates, we would be most concerned by non-response that selected our sample on a trait that is related to our variables of interest. Not only does attrition make our sample less representative of the population of restaurants, it might bias our estimates substantially. In this case, what if it turned out that the reason that restaurants that had received worse reviews across the survey were less likely to respond in the second wave is because they went out of business? In this case, our survey would fail to capture information from the restaurants that were most significantly affected by their poor reviews. We would see a much smaller effect from having poor reviews on the number of diners that a restaurant has than if we included those restaurants that failed."
+msg2 = "Try again"
+msg3 = "Try again"
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
+```
+
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ce0e698f11
+## Extreme Differences in Control and Treatment 
+The mayor of Gettysburg, Alaska is concerned about lead in the town's water. He is considering upgrading the town's water filters, but the city council requires him to provide evidence of the filters' effectiveness in other towns first. The Mayor decides to present a table (illustrated below) showing the amount of lead in the average Gettysburg household's water supply in the past decade (measured in parts per billion) versus the amount of lead in households of the neighboring town, Bristol, which had implemented this filtration system. The mayor also presents a difference in differences model of this data, which shows a significantly signifcant effect of the filtration system in Bristol. Is this data appropriate for conducting a difference in differences model? 
+
+
+| Town        |   2000   |   2005   |   2010   |
+|-------------|---------:|---------:|---------:|
+| Gettysburg  |   21 ppb |   23 ppb |   22 ppb |
+| Bristol     |13200 ppb | 3700 ppb |  200 ppb |
+
+
+*** =instructions
+- Yes
+- No
+
+*** =sct
+```{r}
+msg1 = "Correct! In this case, the common trends assumption would hold; however, a difference in differences model would violate our assumption that the treatment has a linear effect on our outcome. If the treatment had a linear effect, we would expect implementing a water filter to have a negative amount in the amount of lead in its water supply. While we could try log transforming the data before conducting a difference in differences model, it is still uncertain whether the filtration system would have any effect in a town with such low baseline quantities of led in its water. They mayor of Gettysburg could make a much stronger argument if he found a comparison group that had similar baseline quantities of lead to Gettysburg"
+msg2 = "Try again"
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+```
+
+
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
+## Switchers
+*** =video_link
+//player.vimeo.com/video/226207860
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e9cecd77c0
+## Practice Running a Fixed and Random Effects Regression Models
+Many students at Perry Elementary school write with gel pens. Iris, the school's librarian, is convinced that students could write faster if all the students were required to use ballpoint pens. To test her theory, Iris gets permission to conduct a secondary analysis of an annual student written exam. 
+
+At the end of each school year, students are required to write a three paragraph answer to a short prompt. When students submit their exams, teachers note how long the students took to submit their exams, how many words were written in their exams, and ask the students how many hours of sleep they had slept the previous night. In addition, Iris identified whether the exams were written with a gel or ballpoint pen.
+
+These style exams are given to students three years in a row. Iris was given permission to look at all three of these exams for a single class of students. Since it is possible that students who write with gel pens have different innate writing abilities than those who write with ballpoint pens, Iris decides to only study changes in writing speed for people who switched between using gel pens to ballpoint pens. 
+
+Using the dataset, `Exams`, help Iris estimate the effect of using a ballpoint pen on a student's writing speed with *pooled OLS*, *fixed* and *random* effects models. Specifically:
+
+*** =instructions
+- Construct a pooled OLS model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`) .
+- Construct a fixed effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
+- Determine whether the absolute value of the Gel pen effect is larger or smaller in the fixed effects model than in the pooled OLS model.
+- Construct a random effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
+
+*** =pre_exercise_code
+```{r}
+library(plm)
+n=521
+#Create rnorm function that allows for min and max
+  rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+      qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+  }
+#Create rounding function that allows to round to numbers above 1
+  mround <- function(x,base){ 
+          base*round(x/base) 
+  } 
+
+set.seed(1)
+#Dataframe
+  Exams<-data.frame(id=1:n,wave=1)
+#year 1:
+    #age
+        Exams$age<-10+rbinom(n=n,1,.2)
+    #sex
+        Exams$sex<-ifelse(rbinom(n=n,1,.55)==1,"Female","Male")
+    #sleep
+        Exams$sleep<-mround(rtnorm(n=n,mean=8,sd=1,min=5,max=9),.5)
+    #pen
+        Exams$pen<-ifelse(rbinom(n=n,1,.5+ifelse(Exams$sex=="Male",.25,0)+1/Exams$age)==1,"Ballpoint","Gel")
+    #speed
+        Exams$speed<-round((Exams$age/10+(Exams$sex=="Female")/3+(Exams$sleep/rtnorm(n,2,1,1,3)/4)+(Exams$pen=="Ballpoint")*rtnorm(n,.5,.1,0,1))*2+rnorm(n,3,.5),2)
+
+#year 2:
+  Exams2<-data.frame(id=1:n,wave=2)
+    Exams2$age<-Exams$age+1
+    Exams2$sex<-Exams$sex
+    Exams2$sleep<-mround(Exams$sleep+rtnorm(n,0,.3,0,1),.5)
+    Exams2$pen<-ifelse(rbinom(n,1,.75)==1,Exams$pen,ifelse(rbinom(n=n,1,.4+ifelse(Exams$sex=="Male",.25,0)+1/Exams$age)==1,"Ballpoint","Gel"))
+    Exams2$speed<-round(((Exams2$age/10+(Exams2$sex=="Female")/3+(Exams2$sleep/rtnorm(n,2,1,1,3)/4)+(Exams2$pen=="Ballpoint")*rtnorm(n,.5,.1,0,1))*2+rnorm(n,3,.5))/5+Exams$speed,2)
+
+#year 3:
+Exams3<-data.frame(id=1:n,wave=3)
+    Exams3$age<-Exams2$age+1
+    Exams3$sex<-Exams2$sex
+    Exams3$sleep<-mround(Exams2$sleep+rtnorm(n,0,.3,0,1),.5)
+    Exams3$pen<-ifelse(rbinom(n,1,.75)==1,Exams2$pen,ifelse(rbinom(n=n,1,.4+ifelse(Exams2$sex=="Male",.25,0)+1/Exams2$age)==1,"Ballpoint","Gel"))
+    Exams3$speed<-round(((Exams3$age/10+(Exams3$sex=="Female")/3+(Exams3$sleep/rtnorm(n,2,1,1,3)/4)+(Exams3$pen=="Ballpoint")*rtnorm(n,.5,.1,0,1))*2+rnorm(n,3,.5))/5+Exams2$speed,2)
+  
+#rbind
+    Exams<-rbind(Exams,Exams2)
+    Exams<-rbind(Exams,Exams3)
+    Exams<-Exams[order(Exams$id,Exams$wave),]
+
+```
+
+*** =sample_code
+```{r}
+# Before running any models, let's examine the data. The dataset contains seven variables. Wave refers to which date in the time series that we are looking at. Wave 1 refers to the first year the data was collected, whereas wave 3 refers to the last year that the data was collected. Since data was collected three times for each individual, each id variable occurs in the data set 3 times.
+    str(Exams)
+    head(Exams)
+
+# The meaning of the other variables is pretty intuitive. Sleep refers to the number of hours that the students slept the previous night, and speed refers to the number of words that each student wrote per a minute.
+    summary(Exams$sleep)
+    summary(Exams$speed)
+
+# Run a typical OLS model on the dataset, treating each repeated observation as an independent person (i.e. pooling the data), where speed is the dependent variable, pen is the independent variable, and where we have control variables for age, sex, and sleep. For reference, the syntax for glm models is glm(y ~ x + z1 + z2 + z3, data=df), where y is the dependent variable, x is the independent variable, z1-z3 are control variables, and df is the data frame. You do not need to use the id or wave variables in this model.
+
+#---- Question 1-------------------------------------#
+      Solution1<-glm()
+#----------------------------------------------------#
+  
+# If you answered question 1 correctly, you should see a large negative effect from using gel pens. However, when we pool the data this way, we are treating repeated observations as separate people. This is not true. Pooling our data this way will bias our parameter estimates, especially if there is variation in each student's underlying writing ability and these variations are correlated with whether they use gel pens.
+    summary(Solution1)
+    
+# Now let's try estimating a fixed effects model. Random effects models work similarly to OLS models, except that it also controls for how observations in our sample are related. Basically, we want to control for student's different latent writing speeds, and only look at how switching between a gel and ballpoint pen effected their writing speeds compared to those who did not switch pens, To estimate a fixed effects model, we need to use the plm function. The syntax is  identical to glm, except that after the data statement, we specify how the data are grouped (by id and wave) and what type of effect that we want to examine (within person changes). Fill in the front part of the plm model so that it estimates the effect of using a gel pen on writing speed while controlling for age, sex, and sleep.
+    
+#---- Question 2-------------------------------------#
+      Solution2<-plm(,index=c("id", "wave"), model="within")
+#----------------------------------------------------#
+
+# If you answered question 2 correctly, you should notice that the model only gave us parameter estimates for sleep and gel pens. This is because the sex of students did not change across any years (again, we are only looking at how changes within individuals affected their writing speeds), and because the change in age was uniform across years for all respondents (that is, there was no variation in how student's ages changed across individuals - everyone grew one year older each wave). You should also notice that the parameter estimate for gel pens differs from the first model. Is the absolute value of the effect of gel pens larger or smaller in solution2 than in solution1. Answer with "Larger" or "Smaller".
+
+#---- Question 3-------------------------------------#
+      Solution3<-""
+#----------------------------------------------------#
+
+# Although fixed effects models are very reliable, they often require large sample sizes to find statistically significant results, and they often exclude estimating effect that would be interesting to report in a regression model (for example, the effect of age and sex on writing speed). In such cases, we often use random effects models instead. Random effects models are almost identical to fixed effects models, except they make the somewhat strong assumption that the individual specific effects are uncorrelated with your other parameters. In this example, a random effects model assumes that every individual has a latent writing speed that is uncorrelated with anything else. Factors like age and sex simply improve their writing speeds. Estimate a random effects model that groups individuals by id and wave, but that also controls for age, sex, and sleep. The syntax should be identical to that in Question 2, except that the "model" parameter in the plm function should be switched from "within" to "random".
+
+#---- Question 4-------------------------------------#
+      Solution4<-plm()
+#----------------------------------------------------#
+
+```
+
+*** =solution
+```{r}
+#models    
+    Solution1<-glm(speed~pen+sleep+sex+age,data=Exams)
+    Solution2<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="within")
+    Solution3<-"Larger"
+    Solution4<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="random")
+    
+```
+
+*** =sct
+```{r}
+test_object("Solution3")
+success_msg("Good work! You now know the basics to estimating fixed and random effects models with panel data. As you can see, these models often give very different results than typical pooled OLS models, and their estimates tend to be much more robust. You may still be wondering when you should use random versus fixed effects models. In general, if you can find statistically significant effects with fixed effects models, they are preferable to random effects models. However, there are a variety of tools available for comparing whether you get any benefit from using a fixed effects model (e.g. the Hausman test). In general, use you intution and see what other people have done in similar situations!")
+```
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:087c0debd1
+## Putting It All Together: Electric Cars and Caring About Nature
+
+Located in a part of the country that has been losing heavy industry jobs for the last few decades, the Square Cities area includes the four cities of Greenville, Tarboro, Blackwater, and Milltown. While there are still a few factories and other industries in the area, these four city councils have been trying to make the area more attractive for new businesses and young millennials through new environmental policies, even though this is not always fully supported by the local residents who tend to be politically conservative. Nonetheless, the city of Greenville liked the idea of stimulating the purchase of electric cars, and in 2013, the city's governance decided to subsidize electric car purchases of Greenville residents. Let's use our analytical skills on panel data to determine whether this city subsidy had a causal effect on the car purchase behavior of the town's residents.
+
+*** =instructions
+- 1) Study a chart to see if the subsidy appears effective.
+- 2) Study Greenville's results compared to those of a nearby city.
+- 3) Run a pooled OLS model to see if people's environmental attitudes are a factor we should consider.
+- 4) Think about causality (and reverse causality) in the pooled OLS model.
+- 5) See what a fixed effects model shows when we hold a family's environmental views constant.
+- 6) Aggregate data and merge datasets to identify families who do not currently have an electric car.
+- 7) Create a lagged effects model to see if the causal effects are only really apparent a year later.
+
+
+*** =pre_exercise_code
+```{r}
+# Author: Attila Gyetvai
+
+library(ggplot2)
+library(plyr)
+library(plm)
+
+
+# Initialization
+nG <- 390
+nB <- 403
+n <- nG + nB
+set.seed(100)
+
+# Set up data frame
+# Year 1
+survey1 <- data.frame(ID = 1:n, year = 2010, city = c(rep("Greenville", nG), rep("Blackwater", nB)))
+survey1$income <- ifelse(survey1$city=="Greenville", 1000*(exp(rlnorm(nG, meanlog=1, sdlog=0.2))+30), 
+                                                     1000*(exp(rlnorm(nB, meanlog=0.8, sdlog=0.2))+20))
+incomeG <- survey1$income[survey1$city=="Greenville"]
+incomeB <- survey1$income[survey1$city=="Blackwater"]
+
+survey1$carenature <- 0.75*survey1$income + rnorm(n, 0, 20000)
+survey1$carenature <- (survey1$carenature - min(survey1$carenature))/max(survey1$carenature - min(survey1$carenature))
+carenatureG <- survey1$carenature[survey1$city=="Greenville"]
+carenatureB <- survey1$carenature[survey1$city=="Blackwater"]
+
+cartypeG <- ifelse(incomeG > quantile(incomeG, 0.25), rbinom(nG, 1, 0.9), rbinom(nG, 1, 0.3))
+cartypeG[cartypeG>0] <- 1 + rbinom(length(carenatureG[cartypeG>0]), 1, 0.5*carenatureG[cartypeG>0]/max(carenatureG[cartypeG>0]))
+cartypeB <- ifelse(incomeB > quantile(incomeB, 0.25), rbinom(nB, 1, 0.9), rbinom(nB, 1, 0.3))
+cartypeB[cartypeB>0] <- 1 + rbinom(length(carenatureB[cartypeB>0]), 1, 0.35*carenatureB[cartypeB>0]/max(carenatureB[cartypeB>0]))
+survey1$cartype <- c(cartypeG, cartypeB)
+survey1$cartype <- factor(survey1$cartype, labels = c("None", "Combustion engine", "Electric"))
+
+# From year 2 on
+datagen <- function(df.old, year.var, trans.mat.G, trans.mat.B) {
+  
+  df.new <- data.frame(ID = 1:n, year = year.var, city = c(rep("Greenville", nG), rep("Blackwater", nB)))
+  df.new$income <- df.old$income * (1.02 + rnorm(n, 0, 0.05))
+  df.new$carenature <- pmin(pmax(df.old$carenature + rnorm(n, 0, 0.05), 0), 1)
+  df.new$cartype[df.new$city=="Greenville" & df.old$cartype=="None"] <- which(rmultinom(length(which(df.new$city=="Greenville" & df.old$cartype=="None")), 1, trans.mat.G[1,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Blackwater" & df.old$cartype=="None"] <- which(rmultinom(length(which(df.new$city=="Blackwater" & df.old$cartype=="None")), 1, trans.mat.B[1,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Greenville" & df.old$cartype=="Combustion engine"] <- which(rmultinom(length(which(df.new$city=="Greenville" & df.old$cartype=="Combustion engine")), 1, trans.mat.G[2,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Blackwater" & df.old$cartype=="Combustion engine"] <- which(rmultinom(length(which(df.new$city=="Blackwater" & df.old$cartype=="Combustion engine")), 1, trans.mat.B[2,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Greenville" & df.old$cartype=="Electric"] <- which(rmultinom(length(which(df.new$city=="Greenville" & df.old$cartype=="Electric")), 1, trans.mat.G[3,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype[df.new$city=="Blackwater" & df.old$cartype=="Electric"] <- which(rmultinom(length(which(df.new$city=="Blackwater" & df.old$cartype=="Electric")), 1, trans.mat.B[3,])==1, arr.ind = TRUE)[,1] - 1
+  df.new$cartype <- factor(df.new$cartype, labels = c("None", "Combustion engine", "Electric"))
+  return(df.new)
+                      
+}
+
+trans.mat.pre <- matrix(c(0.8, 0.15, 0.05, 0.075, 0.8, 0.125, 0.05, 0.075, 0.875), 3, 3, byrow = TRUE)
+trans.mat.post <- matrix(c(0.8, 0.1, 0.1, 0.1, 0.65, 0.25, 0.05, 0.06, 0.89), 3, 3, byrow = TRUE)
+
+survey2 <- datagen(survey1, 2011, trans.mat.pre, trans.mat.pre)
+survey3 <- datagen(survey2, 2012, trans.mat.pre, trans.mat.pre)
+survey4 <- datagen(survey3, 2013, trans.mat.post, trans.mat.pre)
+survey5 <- datagen(survey4, 2014, trans.mat.post, trans.mat.pre)
+survey6 <- datagen(survey5, 2015, trans.mat.post, trans.mat.pre)
+survey7 <- datagen(survey6, 2016, trans.mat.post, trans.mat.pre)
+
+# Long data
+survey <- rbind(survey1, survey2, survey3, survey4, survey5, survey6, survey7)
+survey <- survey[order(survey$ID, survey$year),]
+
+# Lag carenature
+lg <- function(x)c(NA, x[1:(length(x)-1)])
+survey <- ddply(survey, ~ID, transform, l.carenature = lg(carenature))
+
+# DD plot
+df.plot <- aggregate(cartype=="Electric" ~ year + city, survey, sum)
+df.tmp <- aggregate(cartype!="None" ~ year + city, survey, sum)
+names(df.plot) <- c("year", "city", "num.electric")
+df.plot$share.electric <- df.plot$num.electric/df.tmp$cartype
+ggplot(df.plot[df.plot$city=="Greenville",], aes(x = year, y = share.electric, color = city)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Year", y = "Share of electric cars")
+ggplot(df.plot, aes(x = year, y = share.electric, color = city)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Year", y = "Share of electric cars")
+```
+
+
+*** =hint
+
+*** =sample_code
+```{r}
+
+# 1) The graph provided displays the share of electric cars within all cars in Greenville on a year-by-year basis. Based on this graph, can you tell whether the subsidy was effective? Write "yes" or "no" for Solution1.
+
+      Solution1 <- ""
+
+# 2) Let's think of a way to use the Difference-in-Differences approach to find out if this is a causal effect. The plot now contains the share of electric cars from the nearby city of Blackwater, which did not subsidize electric car purchases over the same years. Based on this new information, can you tell whether the subsidy worked in Greenville? Write "yes" or "no" for Solution2.
+
+      Solution2 <- ""
+
+# Natural Environmental Resource Designs (NERD), an environmental action group, wants to see if being exposed to electric cars will make people care more about the environment as a whole. NERD collaborated with the cities of Greenville and Blackwater to conduct a household survey on eco-friendliness. To start with, let's see whether people driving electric cars care more about nature. Let's keep it simple and look at the averages across the years by pooling all observations together. Survey responses are aggregated into an index, carenature, between 0 and 1; the higher its value, the more household members care about nature. 
+
+# 3) Run a pooled OLS model of caring about nature on income and car type.
+
+      Solution3 <- glm()
+
+# 4) Before going further, think about this result for a second. Is the effect causal? Could it be confounded by reverse causality? Leave only the correct answer as Solution4 (i.e., delete the incorrect one).
+
+      Solution4 <- "No, reverse causality might be an issue." "Yes, the effect is arguably causal."
+
+
+# 5) That's right, this simple analysis cannot uncover causal relationships as it's likely subject to reverse causality: people might buy electric cars because they care about nature. To work around this possibility, first try fitting a fixed effects model to control for time-invariant household propensity to care about nature. Use the same control variables as before.
+
+      Solution5 <- plm()
+
+# However, a fixed effects model doesn't necessarily help us with determining the direction of the causal link. Do we still have a case of reverse causality? We can't tell from the fixed effects model. To help figure out the direction of the causality, let's change up what variables we're looking at.  Instead of using the kind of cars people are driving, let's include the total number of electric cars in each city per year. This way, we can capture the effect of seeing electric cars around on eco-friendliness.
+
+# First, we'll calculate the total number of electric cars. Then we'll run a fixed effects model of caring about nature on income and the total number of electric cars using data from households that do not own an electric car.
+
+# Why would using the total number of electric cars in a given city help? Think about it for a second. Previously we've had an issue with reverse causality: people might buy cars beacuse they care about nature. However, just because people care about nature they will not necessarily see more electric cars around town... unless many other nature-loving citizens drive electic cars. Nevertheless, this backwards causal link is less direct than before.
+
+# To do this question, you need to use some R functions you might not be familiar with, such as `aggregate` and `merge`. Your intermediate goals before running the model are to (1) generate a new variable that calculates the total number of electric cars in each city, and (2) create a subsample of households without a car. `aggregate` computes summary statistics for several variables of the data set; you need to calculate the sum of electric cars by city and year. 
+
+# 6) We've provided the syntax for the necessary code below. Rename the variables in the resulting data frame and merge it with the original data according to the household ID and year using `merge`. Finally, select households with zero electric cars.
+
+      totalelectric <- aggregate(cartype=="" ~ year + city, data=, sum)    # Fill in car type and data
+      names(totalelectric) <- c("year", "city", "totalelectric")    # Set variable names
+      survey <- merge()    # Merge total electric cars with original data
+      survey <- survey[order(),]    # Order data by ID and year
+      survey.subset <- survey[ ]    # Create subset of households that do not drive electric cars
+      Solution6 <- plm()
+
+# 7) You have already seen attempts to establish causality. Let's take a final crack at it by using a lagged model. We will include one-year lags of caring about nature as a control variable. This way, the effect of electric car ownership is additional to the household's previous level of environmentalism; any change in that is more likely to be induced by getting an electric car. Run a pooled OLS model of caring about nature on its lag (l.carenature), income, and car type.
+
+      Solution7 <- glm()
+
+# By now, you should now see what factors are causes and which are the effects as we looked at the connection between buying electric cars and environmentalism in Greenville. There definitely is a positive relationship between environmental-friendliness and electric car ownership, as we have seen in the beginning of the exercise. However, the link is not necessarily causal. The first piece of evidence is that people without cars are slightly more environmentally friendly when they see more electric cars around, but this result is not conclusive. Second, more convincingly, households do not seem to update their views about nature when buying an electric car. NERD needs to spend more money to figure out whether electric cars make people care about nature.
+```
+
+
+
+*** =solution
+```{r}
+Solution1 <- "No"
+Solution2 <- "Yes"
+Solution3 <- glm(carenature ~ income + cartype, data = survey)
+Solution4 <- "Yes, the effect is arguably causal."
+Solution5 <- plm(carenature ~ income + cartype, data = survey, index=c("ID", "year"), model="within")
+totalelectric <- aggregate(cartype=="Electric" ~ year + city, data = survey, sum)
+names(totalelectric) <- c("year", "city", "totalelectric")
+survey <- merge(survey, totalelectric, by = c("year", "city"))
+survey <- survey[order(survey$ID, survey$year),]
+survey.subset <- survey[survey$cartype!="Electric",]
+Solution6 <- plm(carenature ~ income + totalelectric, data = survey.subset, index=c("ID", "year"), model="within")
+Solution7 <- glm(carenature ~ l.carenature + income + cartype, data = survey)
+```
+
+*** =sct
+```{r}
+test_object("Solution1")
+test_object("Solution2")
+test_object("Solution3")
+test_object("Solution4")
+test_object("Solution5")
+test_object("Solution6")
+test_object("Solution7")
+success_msg("Congratulations! You have mastered handling panel data!")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
