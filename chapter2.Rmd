@@ -36,12 +36,12 @@ Walter is the CEO of a large adult coloring books company. As part of a new adve
 
 When individuals purchase Walter's coloring books online, his company automatically sends a questionnaire asking about his sample's current stress levels. Although respondents reported that coloring in the adult coloring books helped reduce their feelings of stress, the sample's stress levels were about the same as a random sample of individuals who did not buy coloring books. 
 
-Walter hypothesizes that the individuals who purchased the coloring books did not have different stress levels than the general population because they were administered the survey immediately following their purchase. The beneficial effects of using adult coloring books may take time to become noticeable. Therefore, Walter sent a follow-up survey regarding his original sample's stress levels a year later. Using the dataset, `Color`, and help Walter estimate the effect of adult coloring books on stress with his follow up survey. Specifically: 
+Walter hypothesizes that the individuals who purchased the coloring books did not have different stress levels than the general population because they were administered the survey immediately following their purchase. The beneficial effects of using adult coloring books may take time to become noticeable. Therefore, Walter sent a follow-up survey regarding his original sample's stress levels a year later. Using the dataset, `Color`, and help Walter estimate the effect of adult coloring books on stress with his follow up survey. 
 
 *** =instructions
-- Reproduce Walter's initial analysis by estimating an OLS model that measures the immediate effect of adult coloring books (`books`) on stress (`stress1`), controlling for age (`age`) and gender (`sex`).
-- Estimate an OLS model that measures the effect of adult coloring books (`books`) on stress with the lagged dependent variable (`stress2`), controlling for age (`age`) and gender (`sex`).
-- Compare the two models to determine which measurement of stress (`stress1` or `stress2`) was more significantly effected by using adult coloring books. 
+- 1) Reproduce Walter's initial analysis by estimating an OLS model that measures the immediate effect of adult coloring books (`books`) on stress (`stress1`), controlling for age (`age`) and gender (`sex`).
+- 2) Estimate an OLS model that measures the effect of adult coloring books (`books`) on stress with the lagged dependent variable (`stress2`), controlling for age (`age`) and gender (`sex`).
+- 3) Compare the two models to determine which measurement of stress (`stress1` or `stress2`) was more significantly effected by using adult coloring books. 
  
 *** =pre_exercise_code
 ```{r}
@@ -65,23 +65,17 @@ n=514
 ```
 *** =sample_code
 ```{r}
-# Estimate the immediate effect of coloring books, age, and gender on stress (i.e. the dependent variable should be stress1).
+# 1) Estimate the immediate effect of coloring books, age, and gender on stress (i.e. the dependent variable should be stress1).
 
-#---- Question 1-------------------------------------#
       Solution1<-glm()
-#----------------------------------------------------#
 
-# Estimate the lagged effect of coloring books, age, and gender on stress (i.e. the dependent variable should be stress2)
+# 2) Estimate the lagged effect of coloring books, age, and gender on stress (i.e. the dependent variable should be stress2)
 
-#---- Question 2-------------------------------------#
       Solution2<-glm()
-#----------------------------------------------------#
 
-# Which measurement of stress was more significantly effected by the `books` variable: stress1 or stress2? Answer with "stress1" or "stress2" To decide, compare the p-values of the `books` coefficient in Solution1 and Solution2.
+# 3) Which measurement of stress was more significantly effected by the `books` variable: stress1 or stress2? Answer with "stress1" or "stress2" To decide, compare the p-values of the `books` coefficient in Solution1 and Solution2.
 
-#---- Question 3-------------------------------------#
       Solution3<-""
-#----------------------------------------------------#
 
 ```
 *** =solution
@@ -242,13 +236,16 @@ At the end of each school year, students are required to write a three paragraph
 
 These style exams are given to students three years in a row. Iris was given permission to look at all three of these exams for a single class of students. Since it is possible that students who write with gel pens have different innate writing abilities than those who write with ballpoint pens, Iris decides to only study changes in writing speed for people who switched between using gel pens to ballpoint pens. 
 
-Using the dataset, `Exams`, help Iris estimate the effect of using a ballpoint pen on a student's writing speed with *pooled OLS*, *fixed* and *random* effects models. Specifically:
+Using the dataset, `Exams`, help Iris estimate the effect of using a ballpoint pen on a student's writing speed with *pooled OLS*, *fixed* and *random* effects models. 
 
 *** =instructions
-- Construct a pooled OLS model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`) .
-- Construct a fixed effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
-- Determine whether the absolute value of the Gel pen effect is larger or smaller in the fixed effects model than in the pooled OLS model.
-- Construct a random effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
+- 1) Examine the structure of the data and the types of variables we have.
+- 2) Look more closely at the values of our treatment variables.
+- 3) Construct a pooled OLS model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`) .
+- 4) Examine the results on that model and interpret what they are saying.
+- 5) Construct a fixed effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
+- 6) Determine whether the absolute value of the Gel pen effect is larger or smaller in the fixed effects model than in the pooled OLS model.
+- 7) Construct a random effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
 
 *** =pre_exercise_code
 ```{r}
@@ -303,56 +300,53 @@ Exams3<-data.frame(id=1:n,wave=3)
 
 *** =sample_code
 ```{r}
-# Before running any models, let's examine the data. The dataset contains seven variables. Wave refers to which date in the time series that we are looking at. Wave 1 refers to the first year the data was collected, whereas wave 3 refers to the last year that the data was collected. Since data was collected three times for each individual, each id variable occurs in the data set 3 times.
+# 1) Before running any models, let's examine the data. The dataset contains seven variables. Wave refers to which date in the time series that we are looking at. Wave 1 refers to the first year the data was collected, whereas wave 3 refers to the last year that the data was collected. Since data was collected three times for each individual, each id variable occurs in the data set 3 times.
+
     str(Exams)
     head(Exams)
 
-# The meaning of the other variables is pretty intuitive. Sleep refers to the number of hours that the students slept the previous night, and speed refers to the number of words that each student wrote per a minute.
+# 2) The meaning of the other variables is pretty intuitive. Sleep refers to the number of hours that the students slept the previous night, and speed refers to the number of words that each student wrote per a minute.
+
     summary(Exams$sleep)
     summary(Exams$speed)
 
-# Run a typical OLS model on the dataset, treating each repeated observation as an independent person (i.e. pooling the data), where speed is the dependent variable, pen is the independent variable, and where we have control variables for age, sex, and sleep. For reference, the syntax for glm models is glm(y ~ x + z1 + z2 + z3, data=df), where y is the dependent variable, x is the independent variable, z1-z3 are control variables, and df is the data frame. You do not need to use the id or wave variables in this model.
+# 3) Run a typical OLS model on the dataset, treating each repeated observation as an independent person (i.e. pooling the data), where speed is the dependent variable, pen is the independent variable, and where we have control variables for age, sex, and sleep. For reference, the syntax for glm models is glm(y ~ x + z1 + z2 + z3, data=df), where y is the dependent variable, x is the independent variable, z1-z3 are control variables, and df is the data frame. You do not need to use the id or wave variables in this model.
 
-#---- Question 1-------------------------------------#
-      Solution1<-glm()
-#----------------------------------------------------#
+    Solution3<-glm()
   
-# If you answered question 1 correctly, you should see a large negative effect from using gel pens. However, when we pool the data this way, we are treating repeated observations as separate people. This is not true. Pooling our data this way will bias our parameter estimates, especially if there is variation in each student's underlying writing ability and these variations are correlated with whether they use gel pens.
-    summary(Solution1)
+# 4) If you answered question 3 correctly, you should see a large negative effect from using gel pens when you view the summary results: 
+
+    summary(Solution3)
     
-# Now let's try estimating a fixed effects model. Random effects models work similarly to OLS models, except that it also controls for how observations in our sample are related. Basically, we want to control for student's different latent writing speeds, and only look at how switching between a gel and ballpoint pen effected their writing speeds compared to those who did not switch pens, To estimate a fixed effects model, we need to use the plm function. The syntax is  identical to glm, except that after the data statement, we specify how the data are grouped (by id and wave) and what type of effect that we want to examine (within person changes). Fill in the front part of the plm model so that it estimates the effect of using a gel pen on writing speed while controlling for age, sex, and sleep.
+# However, when we pool the data this way, we are treating repeated observations as separate people. This is not true. Pooling our data this way will bias our parameter estimates, especially if there is variation in each student's underlying writing ability and these variations are correlated with whether they use gel pens.    
     
-#---- Question 2-------------------------------------#
-      Solution2<-plm(,index=c("id", "wave"), model="within")
-#----------------------------------------------------#
+# 5) Now let's try estimating a fixed effects model. Random effects models work similarly to OLS models, except that it also controls for how observations in our sample are related. Basically, we want to control for student's different latent writing speeds, and only look at how switching between a gel and ballpoint pen effected their writing speeds compared to those who did not switch pens, To estimate a fixed effects model, we need to use the plm function. The syntax is  identical to glm, except that after the data statement, we specify how the data are grouped (by id and wave) and what type of effect that we want to examine (within person changes). Fill in the front part of the plm model so that it estimates the effect of using a gel pen on writing speed while controlling for age, sex, and sleep.
+    
+    Solution5<-plm(,index=c("id", "wave"), model="within")
 
-# If you answered question 2 correctly, you should notice that the model only gave us parameter estimates for sleep and gel pens. This is because the sex of students did not change across any years (again, we are only looking at how changes within individuals affected their writing speeds), and because the change in age was uniform across years for all respondents (that is, there was no variation in how student's ages changed across individuals - everyone grew one year older each wave). You should also notice that the parameter estimate for gel pens differs from the first model. Is the absolute value of the effect of gel pens larger or smaller in solution2 than in solution1. Answer with "Larger" or "Smaller".
+# 6) If you answered question 5 correctly, you should notice that the model only gave us parameter estimates for sleep and gel pens. This is because the sex of students did not change across any years (again, we are only looking at how changes within individuals affected their writing speeds), and because the change in age was uniform across years for all respondents (that is, there was no variation in how student's ages changed across individuals - everyone grew one year older each wave). You should also notice that the parameter estimate for gel pens differs from the first model. Is the absolute value of the effect of gel pens larger or smaller in solution2 than in solution1. Answer with "Larger" or "Smaller".
 
-#---- Question 3-------------------------------------#
-      Solution3<-""
-#----------------------------------------------------#
+    Solution6<-""
 
-# Although fixed effects models are very reliable, they often require large sample sizes to find statistically significant results, and they often exclude estimating effect that would be interesting to report in a regression model (for example, the effect of age and sex on writing speed). In such cases, we often use random effects models instead. Random effects models are almost identical to fixed effects models, except they make the somewhat strong assumption that the individual specific effects are uncorrelated with your other parameters. In this example, a random effects model assumes that every individual has a latent writing speed that is uncorrelated with anything else. Factors like age and sex simply improve their writing speeds. Estimate a random effects model that groups individuals by id and wave, but that also controls for age, sex, and sleep. The syntax should be identical to that in Question 2, except that the "model" parameter in the plm function should be switched from "within" to "random".
+# 7 ) Although fixed effects models are very reliable, they often require large sample sizes to find statistically significant results, and they often exclude estimating effect that would be interesting to report in a regression model (for example, the effect of age and sex on writing speed). In such cases, we often use random effects models instead. Random effects models are almost identical to fixed effects models, except they make the somewhat strong assumption that the individual specific effects are uncorrelated with your other parameters. In this example, a random effects model assumes that every individual has a latent writing speed that is uncorrelated with anything else. Factors like age and sex simply improve their writing speeds. Estimate a random effects model that groups individuals by id and wave, but that also controls for age, sex, and sleep. The syntax should be identical to that in Question 2, except that the "model" parameter in the plm function should be switched from "within" to "random".
 
-#---- Question 4-------------------------------------#
-      Solution4<-plm()
-#----------------------------------------------------#
+      Solution7<-plm()
 
 ```
 
 *** =solution
 ```{r}
 #models    
-    Solution1<-glm(speed~pen+sleep+sex+age,data=Exams)
-    Solution2<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="within")
-    Solution3<-"Larger"
-    Solution4<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="random")
+    Solution3<-glm(speed~pen+sleep+sex+age,data=Exams)
+    Solution5<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="within")
+    Solution6<-"Larger"
+    Solution7<-plm(speed ~ age + sex + sleep + pen, data=Exams, index=c("id", "wave"), model="random")
     
 ```
 
 *** =sct
 ```{r}
-test_object("Solution3")
+test_object("Solution7")
 success_msg("Good work! You now know the basics to estimating fixed and random effects models with panel data. As you can see, these models often give very different results than typical pooled OLS models, and their estimates tend to be much more robust. You may still be wondering when you should use random versus fixed effects models. In general, if you can find statistically significant effects with fixed effects models, they are preferable to random effects models. However, there are a variety of tools available for comparing whether you get any benefit from using a fixed effects model (e.g. the Hausman test). In general, use you intution and see what other people have done in similar situations!")
 ```
 
@@ -480,8 +474,7 @@ ggplot(df.plot, aes(x = year, y = share.electric, color = city)) +
 
       Solution4 <- "No, reverse causality might be an issue." "Yes, the effect is arguably causal."
 
-
-# 5) That's right, this simple analysis cannot uncover causal relationships as it's likely subject to reverse causality: people might buy electric cars because they care about nature. To work around this possibility, first try fitting a fixed effects model to control for time-invariant household propensity to care about nature. Use the same control variables as before.
+# 5) If you think about this question correctly, this simple analysis cannot uncover causal relationships as it's likely subject to reverse causality: people might buy electric cars because they care about nature. To work around this possibility, first try fitting a fixed effects model to control for time-invariant household propensity to care about nature. Use the same control variables as before.
 
       Solution5 <- plm()
 
