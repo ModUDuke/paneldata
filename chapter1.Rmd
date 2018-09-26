@@ -69,8 +69,114 @@ test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
 
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c747fbb05d
+## Practice implementing difference-in-differences models
+The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
+While the mayor of Sommersdale is convinced that the Housing First policy would substantially reduce rates of homelessness, he is uncertain whether implementing the program would substantially reduce other city expenditures on the homeless. As a preliminary analysis, the Mayor of Sommersdale gathered data on incarceration rates among 10 cities at two time points, 2005 and 2015, half of which implemented Housing First between 2009 and 2013. Conduct a difference-in-differences analysis with the dataset `Jail` to examine whether the Housing First policy reduced incarceration rates. 
+  
+  
+*** =instructions
+- 1) Examine the dataframe `Jail` to see what data we have.
+- 2) Use a t-test to compare the rate of incarceration in 2005 among cities that eventually implemented the Housing First Policy to cities that never implemented the Housing First Policy.
+- 3) Use a t-test to compare the rate of incarceration in 2015 among cities that implemented the Housing First Policy to cities that never implemented the Housing First Policy.
+- 4) Use a difference-in-differences model to estimate whether cities that implemented the Housing First policy tended to have lower rates of incarceration than one would expect based on common trends.
+
+*** =pre_exercise_code
+```{r}
+n=10
+#Create rnorm function that allows for min and max
+    rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+        qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+    }
+#Create rounding function that allows to round to numbers above 1
+    mround <- function(x,base){ 
+        base*round(x/base) 
+    } 
+
+set.seed(13)
+#Dataframe with year 1
+    Jail1<-data.frame(City=c("Moraine","Netarts","Oak City","Heritage Creek","Gallitzin","Trout Valley","Allendale","Boaz","Texanna","Ayer"),Year=2005,rate=round(rtnorm(n,mean=115,sd=50,min=50,max=200),0),Implemented=rbinom(10,1,.4))
+    Jail1$rate<-ifelse(Jail1$Implemented==1, Jail1$rate+20,Jail1$rate)
+#Dataframe with year 2
+    Jail2<-data.frame(City=Jail1$City,Year=2015,Implemented=Jail1$Implemented)
+#year 2 rate
+    Jail2$rate<-Jail1$rate+Jail2$Implemented*(-20)+ round(rtnorm(n,mean=20,sd=10,min=0,max=50),0)
+#Append data
+    Jail<-rbind(Jail1,Jail2)
+    Jail<-Jail[order(Jail$City,Jail$Year),]
+    Jail$Year<-factor(Jail$Year)
+    rm("Jail2")
+    rm("Jail1")
+    
+```
+*** =sample_code
+```{r}
+# 1) Since our dataset is small, let's first directly examine the dataset. We have 10 unique cities with 2 time points of data. Cities that implemented the Housing First policy between 2009-2013 are marked with 1 for Implemented. The rate variable refers to rates in incarceration per 100,000. Let's just start by printing the dataframe:
+  
+    Jail
+
+# 2) Let's use a t.test to assess whether cities that eventually implemented the Housing First policy (`Implemented==1`) tended to have higher rates of incarceration (`rate`) in 2005 (`Year==2005`) than cities that had not implemented the Housing First Policy (`Implemented==0`).
+
+      Solution2<-t.test()
+
+# 3) If you answered Question 2 correctly, you should notice that the rate of incarceration was higher in 2005 among cities that eventually implemented the Housing First policy. Now use a t.test to assess whether cities that implemented the Housing First policy (`Implemented==1`) tended to have higher rates of incarceration (`rate`) in 2015 (`Year==2015`) than cities that had not implemented the Housing First Policy (`Implemented==0`).
+
+      Solution3<-t.test()
+
+# If you answered Question 3 correctly, you should notice that the rate of incarceration was almost equal in 2015 among cities that implemented the Housing First policy and those that did not. If we examined the 2015 data alone, or if we only examined cities that implemented the Housing First Policy we might conclude that implementing the Housing First policy had no effect on incarceration rates. However, there was an increasing trend of incarceration across cities, suggesting that the Housing First policy was actually reducing the rates of incarceration. So let's model this trend with a difference-in-differences policy. 
+
+# 4) To do this, we simply need to construct a linear model that predicts incarceration based on implementation and year, and with an "interaction" term between implementation and year, which estimates measures whether implementating the policy altered the relationship (or trend) between time and incarceration rates. To include an interaction term in your model, simply multiply the two terms that you want to interact. It will look like the following: glm(y ~ x + z + x*z) or glm(y ~ x*z), where you insert the correct variable names for y, x, and z.
+
+      Solution4<-glm()
+      
+
+```
+*** =solution
+```{r}
+Solution3<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2005],Jail$rate[Jail$Implemented==0 & Jail$Year==2005])
+Solution3<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2015],Jail$rate[Jail$Implemented==0 & Jail$Year==2015])
+Solution4<-glm(rate~Year*Implemented,data=Jail)
+```
+*** =sct
+```{r}
+success_msg("Good work! Implementing a difference-in-differences analysis is relatively easy. We can see from the result of Solution2 that the estimate for Year 2005 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
+```
+
+-
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:bfcf99d7c6
+## Interpreting Longitudinal Outcomes
+In the early 1970s, the mayor of Springfield, Oklahoma, noticed that his citizens had higher rates of diabetes than ever before. To combat diabetes, the mayor of Springfield implemented a permanent 2% sales tax on all food items that contained corn syrup in the year 1979. 
+
+Now, the mayor of the town next door, Laughterville, is concerned about rates of diabetes in his city, and is considering implementing similar a tax on food items that contain corn syrup. To inform his decision, the mayor of Laughterville compares rates of diabetes (percentage of population) in Laughterville to rates of diabetes in Springfield over time. A table of the data is included below.
+
+|     City      | 1950 | 1960 | 1970 | 1980 | 1990 | 2000 | 2010 |
+|---------------|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+| Springfield   |  .98 | 1.13 | 1.88 | 2.69 | 2.91 | 3.84 | 5.20 |
+| Laughterville | 1.01 | 1.14 | 1.87 | 3.14 | 3.67 | 4.75 | 6.66 |
+
+Based on this table, which conclusion about the effect of taxing corn syrup products on rates of diabetes seems most reasonable?
+
+*** =instructions
+- Taxes have no effect, given that rates of diabetes in Springfield were much higher following the implementation of the tax.
+- Taxes have a negative treatment effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the tax.
+- Taxes have a positive treatment effect on rates of diabetes (i.e. increased rates of diabetes), given that rates of diabetes in Springfield were much higher following the implementation of the tax.
+
+*** =sct
+```{r}
+msg1 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
+msg2 = "Correct! This is exactly how we interpret difference-in-differences outcomes. Even though Springfield had higher rates of diabetes following the implementation of its tax on corn syrup products, it appears that Springfield's rate diabetes grew at a smaller rate than in Laughterville."
+msg3 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
+test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
+```
+
+--- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
+## The Three Kinds of Panel Data
+*** =video_link
+//player.vimeo.com/video/226207544
+
+-- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
 ## Practice Preparing Longitudinal Data for Analysis
 More often than not, publicly available panel survey datasets are posted online in *wide format*, where each row corresponds to an individual survey respondent and each column corresponding to a single variable from a given wave of the dataset. For example, a dataset about people's body mass index (BMI) over time might have several columns for each respondent, labeled something like "BMI.Wave.1," "BMI.Wave.2," "BMI.Wave.3," etc. The problem is that many R functions that work with panel data (such as the graph in the previous problem) require your data to be in *long format*, where each unique variable corresponds to a single column (e.g. just "BMI"), and where each row corresponds to a specific respondent identification and a specific year that the response was collected. 
 
@@ -162,41 +268,6 @@ n=221
 test_object("wide.df")
 success_msg("Good work! To convert datasets with lots of variables, you can apply the same logic to convert the variables more iteratively. For example, by create a dataframe of all variables that include the substring '1995', and creating new variable names that remove that substring. Nonetheless, the logic is for converting these data frames from wide to long format is identical.")
 ```
-
-
-
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:bfcf99d7c6
-## Interpreting Longitudinal Outcomes
-In the early 1970s, the mayor of Springfield, Oklahoma, noticed that his citizens had higher rates of diabetes than ever before. To combat diabetes, the mayor of Springfield implemented a permanent 2% sales tax on all food items that contained corn syrup in the year 1979. 
-
-Now, the mayor of the town next door, Laughterville, is concerned about rates of diabetes in his city, and is considering implementing similar a tax on food items that contain corn syrup. To inform his decision, the mayor of Laughterville compares rates of diabetes (percentage of population) in Laughterville to rates of diabetes in Springfield over time. A table of the data is included below.
-
-|     City      | 1950 | 1960 | 1970 | 1980 | 1990 | 2000 | 2010 |
-|---------------|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
-| Springfield   |  .98 | 1.13 | 1.88 | 2.69 | 2.91 | 3.84 | 5.20 |
-| Laughterville | 1.01 | 1.14 | 1.87 | 3.14 | 3.67 | 4.75 | 6.66 |
-
-Based on this table, which conclusion about the effect of taxing corn syrup products on rates of diabetes seems most reasonable?
-
-*** =instructions
-- Taxes have no effect, given that rates of diabetes in Springfield were much higher following the implementation of the tax.
-- Taxes have a negative treatment effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the tax.
-- Taxes have a positive treatment effect on rates of diabetes (i.e. increased rates of diabetes), given that rates of diabetes in Springfield were much higher following the implementation of the tax.
-
-*** =sct
-```{r}
-msg1 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
-msg2 = "Correct! This is exactly how we interpret difference-in-differences outcomes. Even though Springfield had higher rates of diabetes following the implementation of its tax on corn syrup products, it appears that Springfield's rate diabetes grew at a smaller rate than in Laughterville."
-msg3 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
-```
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
-## The Three Kinds of Panel Data
-*** =video_link
-//player.vimeo.com/video/226207544
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
@@ -301,80 +372,6 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c747fbb05d
-## Practice implementing difference-in-differences models
-The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
-
-While the mayor of Sommersdale is convinced that the Housing First policy would substantially reduce rates of homelessness, he is uncertain whether implementing the program would substantially reduce other city expenditures on the homeless. As a preliminary analysis, the Mayor of Sommersdale gathered data on incarceration rates among 10 cities at two time points, 2005 and 2015, half of which implemented Housing First between 2009 and 2013. Conduct a difference-in-differences analysis with the dataset `Jail` to examine whether the Housing First policy reduced incarceration rates. 
-  
-  
-*** =instructions
-- 1) Examine the dataframe `Jail` to see what data we have.
-- 2) Use a t-test to compare the rate of incarceration in 2005 among cities that eventually implemented the Housing First Policy to cities that never implemented the Housing First Policy.
-- 3) Use a t-test to compare the rate of incarceration in 2015 among cities that implemented the Housing First Policy to cities that never implemented the Housing First Policy.
-- 4) Use a difference-in-differences model to estimate whether cities that implemented the Housing First policy tended to have lower rates of incarceration than one would expect based on common trends.
-
-*** =pre_exercise_code
-```{r}
-n=10
-#Create rnorm function that allows for min and max
-    rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
-        qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
-    }
-#Create rounding function that allows to round to numbers above 1
-    mround <- function(x,base){ 
-        base*round(x/base) 
-    } 
-
-set.seed(13)
-#Dataframe with year 1
-    Jail1<-data.frame(City=c("Moraine","Netarts","Oak City","Heritage Creek","Gallitzin","Trout Valley","Allendale","Boaz","Texanna","Ayer"),Year=2005,rate=round(rtnorm(n,mean=115,sd=50,min=50,max=200),0),Implemented=rbinom(10,1,.4))
-    Jail1$rate<-ifelse(Jail1$Implemented==1, Jail1$rate+20,Jail1$rate)
-#Dataframe with year 2
-    Jail2<-data.frame(City=Jail1$City,Year=2015,Implemented=Jail1$Implemented)
-#year 2 rate
-    Jail2$rate<-Jail1$rate+Jail2$Implemented*(-20)+ round(rtnorm(n,mean=20,sd=10,min=0,max=50),0)
-#Append data
-    Jail<-rbind(Jail1,Jail2)
-    Jail<-Jail[order(Jail$City,Jail$Year),]
-    Jail$Year<-factor(Jail$Year)
-    rm("Jail2")
-    rm("Jail1")
-    
-```
-*** =sample_code
-```{r}
-# 1) Since our dataset is small, let's first directly examine the dataset. We have 10 unique cities with 2 time points of data. Cities that implemented the Housing First policy between 2009-2013 are marked with 1 for Implemented. The rate variable refers to rates in incarceration per 100,000. Let's just start by printing the dataframe:
-  
-    Jail
-
-# 2) Let's use a t.test to assess whether cities that eventually implemented the Housing First policy (`Implemented==1`) tended to have higher rates of incarceration (`rate`) in 2005 (`Year==2005`) than cities that had not implemented the Housing First Policy (`Implemented==0`).
-
-      Solution2<-t.test()
-
-# 3) If you answered Question 2 correctly, you should notice that the rate of incarceration was higher in 2005 among cities that eventually implemented the Housing First policy. Now use a t.test to assess whether cities that implemented the Housing First policy (`Implemented==1`) tended to have higher rates of incarceration (`rate`) in 2015 (`Year==2015`) than cities that had not implemented the Housing First Policy (`Implemented==0`).
-
-      Solution3<-t.test()
-
-# If you answered Question 3 correctly, you should notice that the rate of incarceration was almost equal in 2015 among cities that implemented the Housing First policy and those that did not. If we examined the 2015 data alone, or if we only examined cities that implemented the Housing First Policy we might conclude that implementing the Housing First policy had no effect on incarceration rates. However, there was an increasing trend of incarceration across cities, suggesting that the Housing First policy was actually reducing the rates of incarceration. So let's model this trend with a difference-in-differences policy. 
-
-# 4) To do this, we simply need to construct a linear model that predicts incarceration based on implementation and year, and with an "interaction" term between implementation and year, which estimates measures whether implementating the policy altered the relationship (or trend) between time and incarceration rates. To include an interaction term in your model, simply multiply the two terms that you want to interact. It will look like the following: glm(y ~ x + z + x*z) or glm(y ~ x*z), where you insert the correct variable names for y, x, and z.
-
-      Solution4<-glm()
-      
-# 5) Let's graph that model to see what it looks like
-
-```
-*** =solution
-```{r}
-Solution3<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2005],Jail$rate[Jail$Implemented==0 & Jail$Year==2005])
-Solution3<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2015],Jail$rate[Jail$Implemented==0 & Jail$Year==2015])
-Solution4<-glm(rate~Year*Implemented,data=Jail)
-```
-*** =sct
-```{r}
-success_msg("Good work! Implementing a difference-in-differences analysis is relatively easy. We can see from the result of Solution2 that the estimate for Year 2005 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
-```
 
 
 --- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
