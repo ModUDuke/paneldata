@@ -218,7 +218,7 @@ The mayor of Gettysburg, Alaska is concerned about lead in the town's water. He 
 ```{r}
 msg1 = "Correct! In this case, the common trends assumption would hold; however, a difference in differences model would violate our assumption that the treatment has a linear effect on our outcome. If the treatment had a linear effect, we would expect implementing a water filter to have a negative amount in the amount of lead in its water supply. While we could try log transforming the data before conducting a difference in differences model, it is still uncertain whether the filtration system would have any effect in a town with such low baseline quantities of led in its water. They mayor of Gettysburg could make a much stronger argument if he found a comparison group that had similar baseline quantities of lead to Gettysburg"
 msg2 = "Try again"
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
 
