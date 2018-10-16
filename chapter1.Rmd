@@ -270,7 +270,7 @@ success_msg("Good work! To convert datasets with lots of variables, you can appl
 ```
 
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:cdcf16cd6a
 ## Analyzing Longitudinal Panel Data, Part 2: Using Regression for Diff-in-Diff 
 In the previous exercise, we converted a dataset about people's body mass index (BMI) over time from a wide format to a long format to make it easier to use in R. Now let's calculate how going on a diet affected the BMI of people in our sample population. We will focus on `BMI` (people's weight/height-squared), and `Diet` (calories consumed).
 
