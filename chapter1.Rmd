@@ -12,9 +12,9 @@ description : This chapter will introduce you to analysis techniques with panel 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
 ## Confounders in Cross-Sectional Data 
-In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing states that have the death penalty to states that don't have the death penalty. If we only get data about this relationship for a single point in time, we'd have a lot of outside factors that may confound our findings. 
+In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing homicide rates in states that have the death penalty to states that don't have the death penalty. If we only get data about this relationship for a single point in time, we'd have a lot of outside factors that may confound our findings. 
 
-We have listed 3 examples of potential confounders for data about the death penalty and homicide rates at a single point in time. Which one of this is **NOT** a potential confounder?
+We have listed 3 examples of potential confounders for data about the *death penalty and homicide* rates at a single point in time. Which one of this is **NOT** a potential confounder?
 *** =instructions
 - High rates of violence encourages states to instate a death penalty.
 - States that have the death penalty tend to have lower education, and education reduces violent behavior.
