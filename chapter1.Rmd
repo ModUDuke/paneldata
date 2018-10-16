@@ -328,7 +328,7 @@ Based on this table, does the data say the CEO should get a raise?
 ```{r}
 msg1 = "Try comparing the sales increase of gunsNguns.com to their competitors."
 msg2 = "Whoops. His math was correct. Try again."
-msg3 = "Correct! The company's competitors averaged an even greater increases in revenue over that time period ($43 million). This probably reflects that there was an overall increase in demand for the type of goods sold by gunsNguns.com."
+msg3 = "Correct! The company's competitors averaged an even greater increases in revenue over that time period ($43 million). This might reflect that there was an overall increase in demand for the type of goods sold by gunsNguns.com."
 msg4 = "We probably should have mentioned that the CEO was only distributing guns in America. This answer is irrelevant. Try again!"
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
