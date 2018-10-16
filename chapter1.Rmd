@@ -126,7 +126,7 @@ set.seed(13)
 
 # If you answered Question 3 correctly, you should notice that the rate of incarceration was almost equal in 2015 among cities that implemented the Housing First policy and those that did not. If we examined the 2015 data alone, or if we only examined cities that implemented the Housing First Policy we might conclude that implementing the Housing First policy had no effect on incarceration rates. However, there was an increasing trend of incarceration across cities, suggesting that the Housing First policy was actually reducing the rates of incarceration. So let's model this trend with a difference-in-differences policy. 
 
-# 4) To do this, we simply need to construct a linear model that predicts incarceration based on implementation and year, and with an "interaction" term between implementation and year, which estimates measures whether implementating the policy altered the relationship (or trend) between time and incarceration rates. To include an interaction term in your model, simply multiply the two terms that you want to interact. It will look like the following: glm(y ~ x + z + x*z) or glm(y ~ x*z), where you insert the correct variable names for y, x, and z.
+# 4) To do this, we simply need to construct a linear model that predicts incarceration based on implementation and year, and with an "interaction" term between implementation and year, which estimates measures whether implementating the policy altered the relationship (or trend) between time and incarceration rates. To include an interaction term in your model, simply multiply the two terms that you want to interact. It will look like the following: glm(y ~ x + z + x*z) or simply glm(y ~ x*z), where you insert the correct variable names for y, x, and z.
 
       Solution4<-glm()
       
@@ -134,7 +134,7 @@ set.seed(13)
 ```
 *** =solution
 ```{r}
-Solution3<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2005],Jail$rate[Jail$Implemented==0 & Jail$Year==2005])
+Solution2<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2005],Jail$rate[Jail$Implemented==0 & Jail$Year==2005])
 Solution3<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2015],Jail$rate[Jail$Implemented==0 & Jail$Year==2015])
 Solution4<-glm(rate~Year*Implemented,data=Jail)
 ```
@@ -143,7 +143,7 @@ Solution4<-glm(rate~Year*Implemented,data=Jail)
 success_msg("Good work! Implementing a difference-in-differences analysis is relatively easy. We can see from the result of Solution2 that the estimate for Year 2005 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
 ```
 
--
+
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:bfcf99d7c6
 ## Interpreting Longitudinal Outcomes
@@ -265,8 +265,112 @@ n=221
 ```
 *** =sct
 ```{r}
-test_object("wide.df")
+test_error()
 success_msg("Good work! To convert datasets with lots of variables, you can apply the same logic to convert the variables more iteratively. For example, by create a dataframe of all variables that include the substring '1995', and creating new variable names that remove that substring. Nonetheless, the logic is for converting these data frames from wide to long format is identical.")
+```
+
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
+## Analyzing Longitudinal Panel Data, Part 2: Using Regression for Diff-in-Diff 
+In the previous exercise, we converted a dataset about people's body mass index (BMI) over time from a wide format to a long format to make it easier to use in R. Now let's calculate how going on a diet affected the BMI of people in our sample population. We will focus on `BMI` (people's weight/height-squared), and `Diet` (calories consumed).
+
+We will calculate the ATE in two ways. First, we'll take a simple difference-in-differences approach, where we will calculate the average difference in BMI for people who consumed less calories than in the previous wave (our treatment group) with those who consumed the same or more calories than in the previous wave (our control group). Second, we'll use a much more common method in panel data analysis for determining difference-in-differences: regression that measure *fixed-effects* for calories on BMI. Specifically, regression models with fixed effects estimate factors that account for within-person differences in an outcome over time based on within-person changes in other habits. We often use a regression models with fixed effects because they provide a more nuanced and robust understanding about how our treatment and controls are related than difference-in-differences methods can provide. Your instructions are to:
+
+
+*** =instructions
+- 1) Use `widedf` and the ifelse function to create a variable `treatment`, representing whether individuals consumed less calories in 1997 than in 1995.
+- 2) Find the mean the amount of change in BMI in our control group between 1997 and 1995.
+- 3) Find a basic difference-in-differences causal effect based on the mean amount of BMI changes in our treatment and control groups.
+- 4) Use `longdf` to see how diet is effects BMI with through a fixed effects regression model.
+- 5) Based on these results, answer the following yes or no questions. 
+
+*** =pre_exercise_code
+```{r}
+set.seed(1)
+n=221
+#Create rnorm function that allows for min and max
+    rtnorm <- function(n, mean, sd, min = -Inf, max = Inf){
+        qnorm(runif(n, pnorm(min, mean, sd), pnorm(max, mean, sd)), mean, sd)
+    }
+#Create rounding function that allows to round to numbers above 1
+    mround <- function(x,base){ 
+        base*round(x/base) 
+    } 
+#Dataframe
+    wide.df<-data.frame(ID=1:n)
+    wide.df$Diet.1995<-round(rtnorm(n,mean=2500,sd=300,min=1000,max=4000),0)
+    wide.df$BMI.1995<-round(rtnorm(n,mean=25,sd=4,min=15,max=30)+wide.df$Diet.1995/1000,1)
+    wide.df$Effective.1995 <- runif (221) <=.50
+    
+    wide.df$Diet.1996<-wide.df$Diet.1995+round(rtnorm(n,mean=0,sd=100,min=-500,max=500),0)
+    wide.df$BMI.1996<-wide.df$BMI.1995+ round(rtnorm(n,mean=0,sd=1,min=-5,max=5)+wide.df$Diet.1996/1000 - mean(wide.df$Diet.1996)/1000,1)
+    wide.df$Effective.1996 <- runif (221) <=.50
+    
+    wide.df$Diet.1997<-wide.df$Diet.1996+round(rtnorm(n,mean=0,sd=100,min=-500,max=500),0)
+    wide.df$BMI.1997<-wide.df$BMI.1996+ round(rtnorm(n,mean=0,sd=1,min=-5,max=5)+wide.df$Diet.1997/1000 - mean(wide.df$Diet.1997)/1000,1)
+    wide.df$Effective.1997 <- runif (221) <=.50
+    
+    library(plm)
+    
+# Importing work from prior exercise
+
+    df1995<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1995,BMI=wide.df$BMI.1995, Effective=wide.df$Effective.1995)
+    df1996<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1996,BMI=wide.df$BMI.1996, Effective=wide.df$Effective.1996)
+    df1997<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1997,BMI=wide.df$BMI.1997, Effective=wide.df$Effective.1997)
+    df1995$Year<-1995
+    df1996$Year<-1996
+    df1997$Year<-1997
+    long.df<-do.call("rbind",list(df1995,df1996,df1997))
+    long.df<-long.df[order(long.df$ID,long.df$Year),]
+```
+*** =sample_code
+```{r}
+# 1) Use `widedf` and the ifelse function to create a variable `treatment`, representing whether individuals consumed less calories (Diet) in 1997 than in 1995. If individuals consumed fewer calories in 1997, make this variable equal 1, otherwise, make this variable equal 0.
+
+  summary(wide.df$Diet.1995)
+  summary(wide.df$Diet.1997)
+  wide.df$treatment<-ifelse()
+
+# 2) Next, find the mean amount of change in BMI (wide.df$BMI.1997-wide.df$BMI.1995) in our control group. For reference, we have provided syntax for finding the mean amount of change in BMI in the treatment group
+  
+    Treatment.Change<-mean(wide.df$BMI.1997[wide.df$treatment==1]-wide.df$BMI.1995[wide.df$treatment==1])
+    Control.Change<-
+      
+# 3) Find a basic difference-in-differences causal effect based on the mean amount of BMI changes in our treatment group minus the mean amount of change in BMI in our control groups.
+
+    dif.in.dif<-
+
+#Note: If you did this correctly, the dif.in.dif should be negative, meaning that our treatment (consuming fewer calories) had a negative effect on our outcome. We can use a t.test to figure out if these results were statistically significant, but what if we want to know the unit-level causal effect of of consuming calories on BMI? That is, instead of just knowing whether consuming fewer calories results in less BMI, we might be interested in how much a single calorie consumed is actually associated with BMI. Let's continue to find out.
+
+# 4) Use `longdf` and the plm function to see how diet effects BMI with a fixed effects regression model. Replace the syntax below so that the outcome (y) is our dependent variable (BMI) and so that the causal variable (x) is our independent variable (Diet). The other syntax is telling the model to compare individuals to themselves at different years.
+      
+    summary(plm(y ~ x, data=long.df, index=c("ID", "Year"), model="within"))
+
+# 5) Based on these results, answer the following questions with "Yes" or "No". 
+
+# 5.1) The coefficient of this model is our average treatment effect. Is the p.value of this number less than .05 (i.e. is this effect statistically significant? Answer with "Yes" or "No"
+
+  Solution5.1<-""
+
+# 5.2) Would you say that the dieting works based on this study? 
+
+  Solution5.2<-""
+
+```
+*** =solution
+```{r}
+wide.df$treatment<-ifelse(wide.df$Diet.1997<wide.df$Diet.1995,1,0)
+Treatment.Change<-mean(wide.df$BMI.1997[wide.df$treatment==1]-wide.df$BMI.1995[wide.df$treatment==1])
+Control.Change<-mean(wide.df$BMI.1997[wide.df$treatment==0]-wide.df$BMI.1995[wide.df$treatment==0])
+dif.in.dif<-Treatment.Change-Control.Change
+summary(plm(BMI ~ Diet, data=long.df, index=c("ID", "Year"), model="within"))
+Solution5.1<-"Yes"
+Solution5.2<-"Yes"
+```
+*** =sct
+```{r}
+test_error()
+success_msg("Nice going! Both the difference-in-differences method and the regression model suggest that people who consume more calories gain weight over time and people who consume fewer calories lose weight over time. The fixed effects method gives us a unit-level treatment effect; specifically, it shows us that each calorie consumed is associated with a .0014 increase in BMI. This method is great at showing causal effects because we are only comparing individuals to themselves, thereby controlling for all individual time-invariant differences in our sample (e.g. gender, race, father's education, etc.)")
 ```
 
 
@@ -505,7 +609,7 @@ set.seed(1)
 *** =sct
 ```{r}
 test_object("TV")
-
+test_error()
 success_msg("Good work! Implementing a difference within differences analysis is relatively easy. We can see from the result of Solution3 that the estimate for Year2015 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
 ```
 
