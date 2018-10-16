@@ -177,10 +177,15 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
 //player.vimeo.com/video/226207544
 
 -- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
-## Practice Preparing Longitudinal Data for Analysis
+
+--- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
+## Analyzing Longitudinal Panel Data, Part 1: Preparing the Data
+So far we have been working with only group-level longitudinal datasets. When we work with true panel data, it often comes in different formats than we are used to. 
+
 More often than not, publicly available panel survey datasets are posted online in *wide format*, where each row corresponds to an individual survey respondent and each column corresponding to a single variable from a given wave of the dataset. For example, a dataset about people's body mass index (BMI) over time might have several columns for each respondent, labeled something like "BMI.Wave.1," "BMI.Wave.2," "BMI.Wave.3," etc. The problem is that many R functions that work with panel data (such as the graph in the previous problem) require your data to be in *long format*, where each unique variable corresponds to a single column (e.g. just "BMI"), and where each row corresponds to a specific respondent identification and a specific year that the response was collected. 
 
-Many programs have been developed for converting particular popular datasets from wide to long format, but there are many cases where data analysts must develop these programs themselves. Let's handle a relatively basic example. Follow the notation below to convert the dataset, `wide.df` from *wide* to *long* format. 
+Many programs have been developed for converting particular popular datasets from wide to long format, but there are many cases where data analysts must develop these programs themselves. Let's handle a relatively basic example from a study that followed people's Body Mass Index (BMI) along with other data. Follow the notation below to convert the dataset, `wide.df` from *wide* to *long* format. 
+
 *** =instructions
 - 1) Use the str() function to take a look at the dataframe structure.
 - 2) Make new dataframes for each year in our dataset.
@@ -188,7 +193,6 @@ Many programs have been developed for converting particular popular datasets fro
 - 4) Make a new variable just for the year in each new dataframe.
 - 5) Build a new dataframe that appends these dataframes after the last (by year).
 - 6) Sort the data in the newest dataframe by ID and Year.
-- 7) See if diet has an effect on BMI through a fixed effects model using the newest dataframe.
 
 *** =pre_exercise_code
 ```{r}
@@ -221,35 +225,32 @@ n=221
 
     str(wide.df)
 
-# 2) If we want to convert this data to long format, We basically want a dataset where each year of each variable is appended on top of each other, and where we have an indicator for ID and year. To start, make three separate dataframes called "df1995", "df1996", and "df1997". Each of these datasets should the contain an "ID" column from wide.df, followed by a single Diet variable from the corresponding year, and a single and BMI variable from the corresponding year.
+# 2) If we want to convert this data to long format, We basically want a dataset where each year of each variable is appended on top of each other, and where we have an indicator for ID and year. To start, make three separate dataframes called "df1995", "df1996", and "df1997". Each of these datasets should the contain an "ID" column from wide.df, followed by a single Diet variable from the corresponding year, and a single and BMI variable from the corresponding year. For reference, we have created the first dataframe for you.
 
-    df1995<-
+    df1995<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1995,BMI=wide.df$BMI.1995)
     df1996<-
     df1997<-
 
 # 3) We want each of these dataframes to be composed of variables containing the same name. If you have not done so already, rename the rows of each column to "ID", "Diet", and "BMI" (otherwise, delete the three lines below).
 
-    names(df1995)<-
+    names(df1995)<-c("ID","Diet","BMI")
     names(df1996)<-
     names(df1997)<-
 
 # 4) Now for each dataframe, create a variable titled "Year" that contains a number that contains the Year indicated by the data frame. 
 
-    df1995$Year<-
+    df1995$Year<-1995
     df1996$Year<-
     df1997$Year<-
 
-# 5) Create a dataframe called long.df, which appends df1995 on top of df1996 and df1997. You can either do this with two separate "rbind" functions, or with a "do.call" function.
+# 5) Create a dataframe called long.df, which appends df1995 on top of df1996 and df1997. We recommend doing this with two separate "rbind" functions.
 
-    long.df<-
+    long.df<-rbind()
+    long.df<-rbind()
       
 # 6) Finally, sort the data by ID and Year so that the ID in the first three rows is ID1, and the Year in the first three rows is 1995, 1996, and 1997. This can be done with the subset and order functions. 
 
     long.df<-long.df[order(long.df$,long.df$),]
-    
-# 7) If you did all of the above correctly, the following fixed effects model (more on those later in the unit) should produce a positive and statistically significant coefficient for the effect of Diet on BMI (i.e. individuals who ate more across waves tended to gain weight).
-
-    summary(plm(BMI ~ Diet, data=long.df, index=c("ID", "Year"), model="within"))
     
 ```
 *** =solution
@@ -260,7 +261,8 @@ n=221
     df1995$Year<-1995
     df1996$Year<-1996
     df1997$Year<-1997
-    long.df<-do.call("rbind",list(df1995,df1996,df1997))
+    long.df<-rbind(df1995,df1996)
+    long.df<-rbind(long.df,df1997)
     long.df<-long.df[order(long.df$ID,long.df$Year),]
 ```
 *** =sct
@@ -268,6 +270,7 @@ n=221
 test_object("wide.df")
 success_msg("Good work! To convert datasets with lots of variables, you can apply the same logic to convert the variables more iteratively. For example, by create a dataframe of all variables that include the substring '1995', and creating new variable names that remove that substring. Nonetheless, the logic is for converting these data frames from wide to long format is identical.")
 ```
+
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
@@ -341,7 +344,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
 ## Effect of Immigration on Employment Question
-Is it possible to use differences-in-differences to learn about causal effects if I only have data on the treatment group?
+Is it possible to use differences-in-differences to learn about causal effects if we only have data on the treatment group?
 
 *** =instructions
 - No
@@ -349,7 +352,7 @@ Is it possible to use differences-in-differences to learn about causal effects i
 
 *** =sct
 ```{r}
-msg1 = "Correct! You must have data on a control group as well, because that is how you extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
+msg1 = "Correct! We must have data on a control group as well, because that is how we extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
 msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
@@ -426,7 +429,9 @@ Since society is constantly changing, longitudinal surveys often change their qu
 
 Other times these changes can be more arbitrary. For example, a study might ask respondents to state how many hours of TV they tend to watch on a given day on a 1-3 scale, with response option 1 = 0-2 hours, 2=2-5 hours and 3 = 5+ hours. However, that study might increase the number of response options in the following year to allow for more detailed information. For example, respondents might be asked to record a precise estimate of how much TV they watch, rounded to the nearest hour.
 
-While it is always good to have detailed data, changing survey response options can pose problems for data analysts. Our models will not know whether our response options changed unless we explicitly tell our so, therefore, changes in our measurements can significantly confound our model estimates. As an example, modify the `hours` variable in the dataset `TV`, to correct for the somewhat unintuitive findings produced by our difference-in-differences model which estimates how purchasing a new TV effects hours watched in the following year. Change the response options for `hours` at wave 2 to match the corresponding response options available for `hours` at wave 1. Specifically:
+While it is always good to have detailed data, changing survey response options can pose problems for data analysts. Our models will not know whether our response options changed unless we explicitly tell them so, therefore, changes in our measurements can significantly confound our model estimates. 
+  
+For practice, modify the `hours` variable in the dataset `TV`, to correct for the somewhat unintuitive findings produced by our difference-in-differences model that estimated how purchasing a new TV effects hours watched in the following year. Specifically:
 
 *** =instructions
 - 1) Examine the structure and data we have in our 2 years of data.
@@ -469,7 +474,7 @@ set.seed(1)
 ```
 *** =sample_code
 ```{r}
-# 1) We have two waves of data, each ID occurs in each wave one time. The variable `new` indicates whether our sample bought a new TV between the two waves. The  variable `hours` indicates how many hours each respondent used their TV in each wave. During the first wave, respondents were only given three response options for the hours variable, with response option 1 = "up to 2 hours", option 2 = "between 2 to 5 hours", and option 3 "over 5 hours". But during the second wave, the data collection system changed (a common problem in survey analysis). In the second wave, respondents simply recorded the number of hours they tend to watch TV each day.
+# 1) We have two waves of data; each ID occurs in each wave one time. The variable `new` indicates whether our sample bought a new TV between the two waves. The  variable `hours` indicates how many hours each respondent used their TV in each wave. During the first wave, respondents were only given three response options for the hours variable, with response option 1 = "up to 2 hours", option 2 = "between 2 to 5 hours", and option 3 "over 5 hours". But during the second wave, the data collection system changed (a common problem in survey analysis). In the second wave, respondents simply recorded the number of hours they tend to watch TV each day.
 
 # Let's first get a sense of what our dataset looks like.
 
