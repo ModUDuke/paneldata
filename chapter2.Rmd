@@ -509,7 +509,7 @@ ggplot(df.plot, aes(x = year, y = share.electric, color = city)) +
 Solution1 <- "No"
 Solution2 <- "Yes"
 Solution3 <- glm(carenature ~ income + cartype, data = survey)
-Solution4 <- "Yes, the effect is arguably causal."
+Solution4 <- "No, reverse causality might be an issue."
 Solution5 <- plm(carenature ~ income + cartype, data = survey, index=c("ID", "year"), model="within")
 totalelectric <- aggregate(cartype=="Electric" ~ year + city, data = survey, sum)
 names(totalelectric) <- c("year", "city", "totalelectric")
