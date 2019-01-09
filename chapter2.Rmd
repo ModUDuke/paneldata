@@ -528,16 +528,13 @@ Located in a part of the country that has been losing heavy industry jobs for th
 The city of Greenville now asks you to determine whether the city subsidy had a causal effect on the car purchase behavior of the town's residents. Let's use our analytical skills on panel data to complete the following:
 
 `@instructions`
-- 4) Run a pooled OLS model to see if people's environmental attitudes are a factor we should consider.
-- 5) Think about causality (and reverse causality) in the pooled OLS model.
-- 6) See what a fixed effects model shows when we hold a family's environmental views constant.
-- 7) Aggregate data and merge datasets to identify families who do not currently have an electric car.
-- 8) Create a lagged effects model to see if the causal effects are only really apparent a year later.
+- 1) Estimate the association between qualifying for a car subsidy and purchasing an electric car with an OLS model on one cross section of the provided dataset (`survey2015`).
+- 2) Estimate the association between changes in qualifying for a car subsidy and purchasing an electric car with a fixed effects model and panel data (`survey13.15lf`).
+- 3) Estimate the association between qualifying for a car subsidy and purchasing an electric car with a lagged dependent variable approach and panel data (`survey13.15.wf`).
+- 4) State whether the time trends reported in the provided data suggest that Greenville's subsidy was effective.
+- 5) Determine whether Greenville and its neighbor, Blackwater, are relatively similar across demographic traits.
+- 6) Compare trends of electric car ownership to those in Blackwater..
 
-
-- 1) Study the provided chart to see if the subsidy appears effective.
-- 2) Compare Greenville's results compared to those of a nearby city.
-- 3) Compare the demographics of Greenville to the other Square Cities to confirm whether the other cities make a good comparison.
 
 `@hint`
 
@@ -610,8 +607,8 @@ survey <- rbind(survey1, survey2, survey3, survey4, survey5, survey6, survey7)
 survey <- survey[order(survey$ID, survey$year),]
 
 # Lag carenature
-lg <- function(x)c(NA, x[1:(length(x)-1)])
-survey <- ddply(survey, ~ID, transform, l.carenature = lg(carenature))
+# lg <- function(x)c(NA, x[1:(length(x)-1)])
+# survey <- ddply(survey, ~ID, transform, l.carenature = lg(carenature))
 
 # DD plot
 # df.plot <- aggregate(cartype=="Electric" ~ year + city, survey, sum)
