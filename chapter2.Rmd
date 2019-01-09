@@ -1,25 +1,49 @@
 ---
-title       : Looking Deeper at Panel Data
-description : This chapter takes a deeper dive into the terms and choices you need to be aware of when working with panel data.
+title: 'Looking Deeper at Panel Data'
+description: 'This chapter takes a deeper dive into the terms and choices you need to be aware of when working with panel data.'
+---
+
+## Panel Data Terminology
+
+```yaml
+type: VideoExercise
+key: bd7bd16de8
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226207441
+```
 
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:bd7bd16de8
-##Panel Data Terminology
-*** =video_link
-//player.vimeo.com/video/226207441
+---
 
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:b9266032e1
 ## Why use a lagged dependent variable?
+
+```yaml
+type: MultipleChoiceExercise
+key: b9266032e1
+lang: r
+xp: 50
+skills: 1
+```
+
 Think about what you know about causal inference. What might be an advantage for modeling your data with a lagged dependent variable; that is, a dependent variable measured at a time point after your explanatory variables were measured?
 
-*** =instructions
+`@possible_answers`
 - Letting time pass allows confounding factors to disappear.
 - It gives you more time to formulate your hypothesis.
 - It helps you more clearly establish the causal direction.
 - A dependent variable depends on time, so dependent variables always happen after the independent variables.
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Time isn't really a factor with determing what is a confounder. If an outside variable affects outcomes, it's a confounder, no matter when in the process it happens. Try again"
 msg2 = "You should be testing a hypothesis you formed before you started, otherwise you aren't following the scientific method! Try again"
@@ -28,22 +52,33 @@ msg4 = "You have labeled the dependent and independent variables based on your t
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
 
-
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:6277c6d8ad
 ## Practice with lagged dependent variables
+
+```yaml
+type: NormalExercise
+key: 6277c6d8ad
+lang: r
+xp: 100
+skills: 1
+```
+
 Walter is the CEO of a large adult coloring books company. As part of a new advertising campaign, Walter wants to publish research which demonstrates that coloring in adult coloring books leads to reduced stress levels. 
 
 When individuals purchase Walter's coloring books online, his company automatically sends a questionnaire asking about his sample's current stress levels. Although respondents reported that coloring in the adult coloring books helped reduce their feelings of stress, the sample's stress levels were about the same as a random sample of individuals who did not buy coloring books. 
 
-Walter hypothesizes that the individuals who purchased the coloring books did not have different stress levels than the general population because they were administered the survey immediately following their purchase. The beneficial effects of using adult coloring books may take time to become noticeable. Therefore, Walter sent a follow-up survey regarding his original sample's stress levels a year later. Using the dataset, `Color`, and help Walter estimate the effect of adult coloring books on stress with his follow up survey. 
+Walter hypothesizes that the individuals who purchased the coloring books did not have different stress levels than the general population because they were administered the survey immediately following their purchase. The beneficial effects of using adult coloring books may take time to become noticeable. Therefore, Walter sent a follow-up survey regarding his original sample's stress levels a year later. Using the dataset, `Color`, and help Walter estimate the effect of adult coloring books on stress with his follow up survey.
 
-*** =instructions
+`@instructions`
 - 1) Reproduce Walter's initial analysis by estimating an OLS model that measures the immediate effect of adult coloring books (`books`) on stress (`stress1`), controlling for age (`age`) and gender (`sex`).
 - 2) Estimate an OLS model that measures the effect of adult coloring books (`books`) on stress with the lagged dependent variable (`stress2`), controlling for age (`age`) and gender (`sex`).
-- 3) Compare the two models to determine which measurement of stress (`stress1` or `stress2`) was more significantly effected by using adult coloring books. 
- 
-*** =pre_exercise_code
+- 3) Compare the two models to determine which measurement of stress (`stress1` or `stress2`) was more significantly effected by using adult coloring books.
+
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
 set.seed(1)
 n=514
@@ -63,7 +98,8 @@ n=514
     Color$stress2=round(rtnorm(n,mean=1.5,sd=2,min=1,max=10)+Color$age/12+(Color$sex=="Female")/2 - Color$books/2,0)
 
 ```
-*** =sample_code
+
+`@sample_code`
 ```{r}
 # 1) Estimate the immediate effect of coloring books, age, and gender on stress (i.e. the dependent variable should be stress1).
 
@@ -78,7 +114,8 @@ n=514
       Solution3<-""
 
 ```
-*** =solution
+
+`@solution`
 ```{r}
 Solution1<-glm(stress1~books+age+sex,data=Color)
 Solution2<-glm(stress2~books+age+sex,data=Color)
@@ -86,51 +123,103 @@ summary(Solution1)
 summary(Solution2)
 Solution3<-"stress2"
 ```
-*** =sct
+
+`@sct`
 ```{r}
 test_object("Solution3")
 success_msg("Correct! Estimating an OLS model with a lagged dependent variable is pretty straightforward. While it is not the most sophisticated regression model with panel data, it is a great tool for measuring causal relationships where there is a delay between the cause and expected effect.")
 ```
 
+---
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:9f79358c00
 ## Individual Fixed Effects and Time Varying Treatments
-*** =video_link
-//player.vimeo.com/video/226207591
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:f5f1233e13
+```yaml
+type: VideoExercise
+key: 9f79358c00
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226207591
+```
+
+
+---
+
 ## Confounders in fixed effects models
+
+```yaml
+type: MultipleChoiceExercise
+key: f5f1233e13
+lang: r
+xp: 50
+skills: 1
+```
+
 Suppose we are interested in how exercising in a gym affects a person's self-esteem. We try to gather a random sample of individuals at multiple time points, and examine whether individuals who increased their frequency of exercise in a gym had higher self-esteem. However, when assessing the data, we realize that we oversampled white men, who are known to exercise at gyms at high rates, and who tend to have relatively high self-esteem. If we estimate a fixed effects model with this data, will the fact that we oversampled white men confound our results?
 
-*** =instructions
+`@possible_answers`
 - Yes
 - No
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Try again"
 msg2 = "Correct! Our oversampling of men would clearly confound our estimates in a typical OLS regression model, but since we are only looking at within-person changes, the fact that our sample is biased towards a group of men who tend to exercise and have high self-esteem should not confound our results. As long as the effect of exercise on self-esteem is equal among white men and all other people, and that White men change their rate of exercise as often as the rest of the population, our fixed effects models with this data should accurately reflect the effect of exercise on self-esteem among all people. What is most important is how  the rate of exercise among our sample *changed* over time. If few individuals in our sample increased or decreased their rate of exercise, or if only particular groups tended to change their rates of exercise, our fixed effects models would be biased and have limited statistical power. Individuals whose behavior does not change between waves cannot add to our understanding about how a change in that behavior effects changes in their outcomes."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
+---
 
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:f93e8e963c
 ## The "Random Assignment" of Changes
-*** =video_link
-//player.vimeo.com/video/226207674
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:09b18d2eae
-## Violating the random assignment of changes 
+```yaml
+type: VideoExercise
+key: f93e8e963c
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226207674
+```
+
+
+---
+
+## Violating the random assignment of changes
+
+```yaml
+type: MultipleChoiceExercise
+key: 09b18d2eae
+lang: r
+xp: 50
+skills: 1
+```
+
 Daniel notices that whenever he buys a new WePhone, he feels incredibly happy. Daniel thinks that the world would be a much happier place if everyone owned a new WePhone, and is petitioning the government to subsidize the purchase of all new WePhones. To supplement his petition, Daniel surveys a group of  individuals at two time points. During both waves of the survey, Daniel asks the survey group how happy they are, and whether they own the WePhone 10S (the newest iteration of the WePhone). Daniel conducts a fixed effects model on this dataset, and finds a positive effect of owning a WePhone 10S on happiness (i.e. those who acquired a WePhone 10S in the subsequent wave appeared happier). Why might Daniel's survey be biased?
 
-*** =instructions
+`@possible_answers`
 - Because the type of person that would buy a WePhone 10S (i.e. be treated) is more likely to be someone who would derive happiness from owning a WePhone 10S.  
 - Because people who can afford to buy a WePhone 10S are wealthier and therefore should be happier.
 - Because Daniel didn't control for whether buying any new phone would make them happier.
 - Because Daniel is a socialist.
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Correct! Whenever your treatment group is made of people who self-selected into a treatment, you are likely to see some bias. The validity of Daniel's survey rests on his ability to prove that a random sample of the population underwent treatment. In other words, Daniel would need to demonstrate that the individuals who had purchased WePhones between each wave were identical to those who had not purchased WePhones. However, it is pretty likely that people only purchase a WePhone if they expect to derive some sort of utility from the purchase."
 msg2 = "This is not a possible source of bias. A fixed effect model only looks at within-person changes; even if people who ended up buying WePhones tended to be wealthier, and even if wealth tended to make people happier, this would not be a source of bias because we are already controlling for differences across individuals."
@@ -139,19 +228,30 @@ msg4 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
 
+## Nonlinear time trends
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:0fe070c3f3
-## Nonlinear time trends 
+```yaml
+type: MultipleChoiceExercise
+key: 0fe070c3f3
+lang: r
+xp: 50
+skills: 1
+```
+
 The popular online retailer, Congo.com, is conducting an experiment to determine whether changing the color scheme of the website's product pages results in higher rates of sales. Congo.com decides to alter the color scheme on the store page for one of its brands of fidget spinners, and use a difference in differences model to determine how the sales of that brand of fidget spinners compared to another popular brand of fidget spinners. However, the sales of fidget spinners during the period of analysis climbed and fell dramatically. The sales trends are indicated on the graph to the right.
 
 Based on this graph and your knowledge about difference in differences models, how did changing the website's color scheme appear to affect sales?
 
-*** =instructions
+`@possible_answers`
 - Changing the website's color scheme (treatment) increased sales.
 - Changing the website's color scheme (treatment) decreased sales.
 
-*** =pre_exercise_code
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
     library(ggplot2)
     
@@ -167,29 +267,55 @@ Based on this graph and your knowledge about difference in differences models, h
       labs(y="Sales (in thousands)",color="Changed Color Scheme")
 ```
 
-*** =sct
+`@sct`
 ```{r}
 msg1 = "Try again"
 msg2 = "Correct! We could verify this answer with a difference in differences model. However, it is important to note that nonlinear trends like these can cause strange results in difference in differences models. We should be very cautious when modeling nonlinear trends."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
+---
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:8a33d08193
 ## Does Posting Calorie Counts Lower Calorie Consumption? Causal Inference Bootcamp
-*** =video_link
-//player.vimeo.com/video/226207727
+
+```yaml
+type: VideoExercise
+key: 8a33d08193
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226207727
+```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:280768b7d2
+---
+
 ## Attrition in Panel Data
+
+```yaml
+type: MultipleChoiceExercise
+key: 280768b7d2
+lang: r
+xp: 50
+skills: 1
+```
+
 Attrition is an inevitability when conducting longitudinal surveys. Many survey respondents refuse to participate in a follow up survey, either to a respondent's lack of interest, or because it is no longer convenient for him to participate in the survey. However, attrition can cause bias. Imagine we conduct a survey about how restaurant reviews effected their number of diners. We gather information from restaurants at two time points, but only 70% of our initial sample participated in our follow up survey. In which of the following circumstances would this attrition be the most cause for concern (i.e. bias our estimates)?
-*** =instructions
+
+`@possible_answers`
 - If the Restaurants that failed to follow up tended to have worse reviews.
 - If the Restaurants that failed to follow up tended to be part of chains.
 - If the Restaurants that failed to follow up tended to be vegetarian.
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Correct. While attrition across all of these traits could cause biases in our estimates, we would be most concerned by non-response that selected our sample on a trait that is related to our variables of interest. Not only does attrition make our sample less representative of the population of restaurants, it might bias our estimates substantially. In this case, what if it turned out that the reason that restaurants that had received worse reviews across the survey were less likely to respond in the second wave is because they went out of business? In this case, our survey would fail to capture information from the restaurants that were most significantly affected by their poor reviews. We would see a much smaller effect from having poor reviews on the number of diners that a restaurant has than if we included those restaurants that failed."
 msg2 = "Try again"
@@ -197,10 +323,18 @@ msg3 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
+---
 
+## Extreme Differences in Control and Treatment
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ce0e698f11
-## Extreme Differences in Control and Treatment 
+```yaml
+type: MultipleChoiceExercise
+key: ce0e698f11
+lang: r
+xp: 50
+skills: 1
+```
+
 The mayor of Gettysburg, Alaska is concerned about lead in the town's water. He is considering upgrading the town's water filters, but the city council requires him to provide evidence of the filters' effectiveness in other towns first. The Mayor decides to present a table (illustrated below) showing the amount of lead in the average Gettysburg household's water supply in the past decade (measured in parts per billion) versus the amount of lead in households of the neighboring town, Bristol, which had implemented this filtration system. The mayor also presents a difference in differences model of this data, which shows a significantly signifcant effect of the filtration system in Bristol. Is this data appropriate for conducting a difference in differences model? 
 
 
@@ -209,36 +343,60 @@ The mayor of Gettysburg, Alaska is concerned about lead in the town's water. He 
 | Gettysburg  |   21 ppb |   23 ppb |   22 ppb |
 | Bristol     |13200 ppb | 3700 ppb |  200 ppb |
 
-
-*** =instructions
+`@possible_answers`
 - Yes
 - No
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Correct! In this case, the common trends assumption would hold; however, a difference in differences model would violate our assumption that the treatment has a linear effect on our outcome. If the treatment had a linear effect, we would expect implementing a water filter to have a negative amount in the amount of lead in its water supply. While we could try log transforming the data before conducting a difference in differences model, it is still uncertain whether the filtration system would have any effect in a town with such low baseline quantities of led in its water. They mayor of Gettysburg could make a much stronger argument if he found a comparison group that had similar baseline quantities of lead to Gettysburg"
 msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
+---
 
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:7ba7ef8e01
 ## Switchers
-*** =video_link
-//player.vimeo.com/video/226207860
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e9cecd77c0
+```yaml
+type: VideoExercise
+key: 7ba7ef8e01
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226207860
+```
+
+
+---
+
 ## Practice Running a Fixed and Random Effects Regression Models
+
+```yaml
+type: NormalExercise
+key: e9cecd77c0
+lang: r
+xp: 100
+skills: 1
+```
+
 Many students at Perry Elementary school write with gel pens. Iris, the school's librarian, is convinced that students could write faster if all the students were required to use ballpoint pens. To test her theory, Iris gets permission to conduct a secondary analysis of an annual student written exam. 
 
 At the end of each school year, students are required to write a three paragraph answer to a short prompt. When students submit their exams, teachers note how long the students took to submit their exams, how many words were written in their exams, and ask the students how many hours of sleep they had slept the previous night. In addition, Iris identified whether the exams were written with a gel or ballpoint pen.
 
 These style exams are given to students three years in a row. Iris was given permission to look at all three of these exams for a single class of students. Since it is possible that students who write with gel pens have different innate writing abilities than those who write with ballpoint pens, Iris decides to only study changes in writing speed for people who switched between using gel pens to ballpoint pens. 
 
-Using the dataset, `Exams`, help Iris estimate the effect of using a ballpoint pen on a student's writing speed with *pooled OLS*, *fixed* and *random* effects models. 
+Using the dataset, `Exams`, help Iris estimate the effect of using a ballpoint pen on a student's writing speed with *pooled OLS*, *fixed* and *random* effects models.
 
-*** =instructions
+`@instructions`
 - 1) Examine the structure of the data and the types of variables we have.
 - 2) Look more closely at the values of our treatment variables.
 - 3) Construct a pooled OLS model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`) .
@@ -247,7 +405,10 @@ Using the dataset, `Exams`, help Iris estimate the effect of using a ballpoint p
 - 6) Determine whether the absolute value of the Gel pen effect is larger or smaller in the fixed effects model than in the pooled OLS model.
 - 7) Construct a random effects model that measures the effect of ballpoint pens on student's writing speeds, controlling for age, sex, and hours slept (variables: `pen`,`speed`,`age`,`sex`,`sleep`).
 
-*** =pre_exercise_code
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
 library(plm)
 n=521
@@ -298,7 +459,7 @@ Exams3<-data.frame(id=1:n,wave=3)
 
 ```
 
-*** =sample_code
+`@sample_code`
 ```{r}
 # 1) Before running any models, let's examine the data. The dataset contains seven variables. Wave refers to which date in the time series that we are looking at. Wave 1 refers to the first year the data was collected, whereas wave 3 refers to the last year that the data was collected. Since data was collected three times for each individual, each id variable occurs in the data set 3 times.
 
@@ -334,7 +495,7 @@ Exams3<-data.frame(id=1:n,wave=3)
 
 ```
 
-*** =solution
+`@solution`
 ```{r}
 #models    
     Solution3<-glm(speed~pen+sleep+sex+age,data=Exams)
@@ -344,20 +505,29 @@ Exams3<-data.frame(id=1:n,wave=3)
     
 ```
 
-*** =sct
+`@sct`
 ```{r}
 test_object("Solution7")
 success_msg("Good work! You now know the basics to estimating fixed and random effects models with panel data. As you can see, these models often give very different results than typical pooled OLS models, and their estimates tend to be much more robust. You may still be wondering when you should use random versus fixed effects models. In general, if you can find statistically significant effects with fixed effects models, they are preferable to random effects models. However, there are a variety of tools available for comparing whether you get any benefit from using a fixed effects model (e.g. the Hausman test). In general, use you intution and see what other people have done in similar situations!")
 ```
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:087c0debd1
+---
+
 ## Putting It All Together: Electric Cars and Caring About Nature
+
+```yaml
+type: NormalExercise
+key: 087c0debd1
+lang: r
+xp: 100
+skills: 1
+```
 
 Located in a part of the country that has been losing heavy industry jobs for the last few decades, the Square Cities area includes the four cities of Greenville, Tarboro, Blackwater, and Milltown. While there are still a few factories and other industries in the area, these four city councils have been trying to make the area more attractive for new businesses and young millennials through new environmental policies, even though this is not always fully supported by the local residents who tend to be politically conservative. Nonetheless, the city of Greenville liked the idea of stimulating the purchase of electric cars, and in 2013, the city's governance decided to subsidize electric car purchases of Greenville residents. 
 
 The city of Greenville now asks you to determine whether the city subsidy had a causal effect on the car purchase behavior of the town's residents. Let's use our analytical skills on panel data to complete the following:
 
-*** =instructions
+`@instructions`
 - 4) Run a pooled OLS model to see if people's environmental attitudes are a factor we should consider.
 - 5) Think about causality (and reverse causality) in the pooled OLS model.
 - 6) See what a fixed effects model shows when we hold a family's environmental views constant.
@@ -369,9 +539,10 @@ The city of Greenville now asks you to determine whether the city subsidy had a 
 - 2) Compare Greenville's results compared to those of a nearby city.
 - 3) Compare the demographics of Greenville to the other Square Cities to confirm whether the other cities make a good comparison.
 
+`@hint`
 
 
-*** =pre_exercise_code
+`@pre_exercise_code`
 ```{r}
 # Authors: James Speckart, Brian Aronson, and Attila Gyetvai
 library(ggplot2)
@@ -534,10 +705,7 @@ survey2015$milesdriven[survey2015$milesdriven>30000]<-survey2015$milesdriven[sur
 
 ```
 
-
-*** =hint
-
-*** =sample_code
+`@sample_code`
 ```{r}
 # Intro: Greenville collected a lot of relevant information about their experiment. As a first cut, they shared a series of annual surveys they collect about town-member's demographic's and car-purchases. Greenville suggests that you compare the rate of electric car purchases in 2015 for citizens who were below the necessary income threshold for attaining a subsidy to citizens who were above the necessary income threshold for attaining a subsidy (i.e. those who did not qualify). They expect that individuals right below the income threshold would be more likely to purchase electric cars, controlling for other demographic characteristics. 
 
@@ -584,7 +752,8 @@ survey2015$milesdriven[survey2015$milesdriven>30000]<-survey2015$milesdriven[sur
 
     
 ```
-*** =solution
+
+`@solution`
 ```{r}
 #1)
 summary(glm(bought.electric~below.threshold+college+male+milesdriven,data=survey2015))
@@ -596,7 +765,8 @@ Solution4 <- "no"
 Solution5 <- "maybe"
 Solution6 <- "yes"
 ```
-*** =sct
+
+`@sct`
 ```{r}
 test_object("Solution4")
 test_object("Solution6")

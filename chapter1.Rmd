@@ -1,26 +1,51 @@
 ---
-title       : Introduction to Panel Data
-description : This chapter will introduce you to analysis techniques with panel data
+title: 'Introduction to Panel Data'
+description: 'This chapter will introduce you to analysis techniques with panel data'
+---
 
-
-
-
---- type:VideoExercise lang:arsd aspect_ratio:62.5 xp:50 skills:1 key:40491e0e85
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
-*** =video_link
-//player.vimeo.com/video/226206272
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:529f2b036c
-## Confounders in Cross-Sectional Data 
+```yaml
+type: VideoExercise
+key: 40491e0e85
+lang: arsd
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226206272
+```
+
+
+---
+
+## Confounders in Cross-Sectional Data
+
+```yaml
+type: MultipleChoiceExercise
+key: 529f2b036c
+lang: r
+xp: 50
+skills: 1
+```
+
 In the previous video, we studied whether the death penalty causes a reduction in homicide rates by comparing homicide rates in states that have the death penalty to states that don't have the death penalty. If we only get data about this relationship for a single point in time, we'd have a lot of outside factors that may confound our findings. 
 
 We have listed 3 examples of potential confounders for data about the *death penalty and homicide* rates at a single point in time. Which one of this is **NOT** a potential confounder?
-*** =instructions
+
+`@possible_answers`
 - High rates of violence encourages states to instate a death penalty.
 - States that have the death penalty tend to have lower education, and education reduces violent behavior.
 - States that have the death penalty tend to have lower rates of mortality.
 - States that don't have the death penalty also tend to legalize more recreational drugs, which pacifies people's violent behavior.
-*** =sct
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "If this were the case, we would probably find that states with the death penalty had higher rates of homicide regardless of whether the death penalty deterred homicide. Try again."
 msg2 = "If this were the case, education would confound the relationship between having and not having the death penalty. We would expect that states with the death penalty have higher underlying homicide rates of homicide, so whatever deterrent effect of the death penalty that we estimated would be smaller than the true deterrent effect. Try again."
@@ -29,37 +54,82 @@ msg4 = "If this were the case, legalized recreational drugs would confound the r
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8c564a8661
+---
+
 ## Longitudinal Analysis without a Comparison Group.
-Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide? 
-*** =instructions
+
+```yaml
+type: MultipleChoiceExercise
+key: 8c564a8661
+lang: r
+xp: 50
+skills: 1
+```
+
+Say we found that states that established the death penalty had lower rates of homicide in later years. Would this be enough information to conclude that the death penalty lowered the effect of homicide?
+
+`@possible_answers`
 - Yes
 - No
-*** =sct
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Try again"
 msg2 = "Correct! Even though states that established the death penalty had lower rates of homicide in later years, this could have been coincidental. What if rates of homicide were dropping everywhere for an entirely different reason? In order to establish causality, we would need to look at homicide trends in states that did not establish the death penalty. If homicide rates decreased consistently across all states, our findings would not support the hypothesis that the death penalty reduces rates of homicide."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
+---
 
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5d221a7ed2
 ## The Common Trends Assumption
-*** =video_link
-//player.vimeo.com/video/226208683
+
+```yaml
+type: VideoExercise
+key: 5d221a7ed2
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226208683
+```
 
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:15a897d978
+---
+
 ## Assumptions of Difference-in-Differences Analysis
+
+```yaml
+type: MultipleChoiceExercise
+key: 15a897d978
+lang: r
+xp: 50
+skills: 1
+```
+
 What is the main assumption that we make when we study a causal effect by comparing trends among a treatment group with trends among a control group?
-*** =instructions
+
+`@possible_answers`
 - If there are no differences between the two groups, the null hypothesis is confirmed.
 - If the control group has the same outcome as the treatment group, then the treatment has no effect.
 - Any difference between the control group and the treatment group that is statistically significant is meaningful.
 - Any difference in the trends we see among the treatment group and control groups are due to the treatment.
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "This answer is deliberately vague but it's not really an 'assumption' that we make. Try again."
 msg2 = "Almost. However, for this to be completely true, we would need to insert in front of the statement: 'controlling for spurious differences in the control group and the treatment group...' Try again."
@@ -68,21 +138,32 @@ msg4 = "Correct! If there is a different factor that causes trends in the treatm
 test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:c747fbb05d
 ## Practice implementing difference-in-differences models
+
+```yaml
+type: NormalExercise
+key: c747fbb05d
+lang: r
+xp: 100
+skills: 1
+```
+
 The mayor of Sommersdale Ontario is interested in combatting homelessness in his city with a Housing First policy. This policy would have the city pay for cheap apartments for all homeless people with no-strings attached. Supporters of the Housing First policy claim that the majority of the costs in implementing the policy would be offset by the reduced of resources that the city would need to spend on homeless shelters, jail time, and emergency room visits for the chronically homeless. 
 
-While the mayor of Sommersdale is convinced that the Housing First policy would substantially reduce rates of homelessness, he is uncertain whether implementing the program would substantially reduce other city expenditures on the homeless. As a preliminary analysis, the Mayor of Sommersdale gathered data on incarceration rates among 10 cities at two time points, 2005 and 2015, half of which implemented Housing First between 2009 and 2013. Conduct a difference-in-differences analysis with the dataset `Jail` to examine whether the Housing First policy reduced incarceration rates. 
-  
-  
-*** =instructions
+While the mayor of Sommersdale is convinced that the Housing First policy would substantially reduce rates of homelessness, he is uncertain whether implementing the program would substantially reduce other city expenditures on the homeless. As a preliminary analysis, the Mayor of Sommersdale gathered data on incarceration rates among 10 cities at two time points, 2005 and 2015, half of which implemented Housing First between 2009 and 2013. Conduct a difference-in-differences analysis with the dataset `Jail` to examine whether the Housing First policy reduced incarceration rates.
+
+`@instructions`
 - 1) Examine the dataframe `Jail` to see what data we have.
 - 2) Use a t-test to compare the rate of incarceration in 2005 among cities that eventually implemented the Housing First Policy to cities that never implemented the Housing First Policy.
 - 3) Use a t-test to compare the rate of incarceration in 2015 among cities that implemented the Housing First Policy to cities that never implemented the Housing First Policy.
 - 4) Use a difference-in-differences model to estimate whether cities that implemented the Housing First policy tended to have lower rates of incarceration than one would expect based on common trends.
 
-*** =pre_exercise_code
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
 n=10
 #Create rnorm function that allows for min and max
@@ -110,7 +191,8 @@ set.seed(13)
     rm("Jail1")
     
 ```
-*** =sample_code
+
+`@sample_code`
 ```{r}
 # 1) Since our dataset is small, let's first directly examine the dataset. We have 10 unique cities with 2 time points of data. Cities that implemented the Housing First policy between 2009-2013 are marked with 1 for Implemented. The rate variable refers to rates in incarceration per 100,000. Let's just start by printing the dataframe:
   
@@ -132,21 +214,31 @@ set.seed(13)
       
 
 ```
-*** =solution
+
+`@solution`
 ```{r}
 Solution2<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2005],Jail$rate[Jail$Implemented==0 & Jail$Year==2005])
 Solution3<-t.test(Jail$rate[Jail$Implemented==1 & Jail$Year==2015],Jail$rate[Jail$Implemented==0 & Jail$Year==2015])
 Solution4<-glm(rate~Year*Implemented,data=Jail)
 ```
-*** =sct
+
+`@sct`
 ```{r}
 success_msg("Good work! Implementing a difference-in-differences analysis is relatively easy. We can see from the result of Solution2 that the estimate for Year 2005 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
 ```
 
+---
 
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:bfcf99d7c6
 ## Interpreting Longitudinal Outcomes
+
+```yaml
+type: MultipleChoiceExercise
+key: bfcf99d7c6
+lang: r
+xp: 50
+skills: 1
+```
+
 In the early 1970s, the mayor of Springfield, Oklahoma, noticed that his citizens had higher rates of diabetes than ever before. To combat diabetes, the mayor of Springfield implemented a permanent 2% sales tax on all food items that contained corn syrup in the year 1979. 
 
 Now, the mayor of the town next door, Laughterville, is concerned about rates of diabetes in his city, and is considering implementing similar a tax on food items that contain corn syrup. To inform his decision, the mayor of Laughterville compares rates of diabetes (percentage of population) in Laughterville to rates of diabetes in Springfield over time. A table of the data is included below.
@@ -158,12 +250,20 @@ Now, the mayor of the town next door, Laughterville, is concerned about rates of
 
 Based on this table, which conclusion about the effect of taxing corn syrup products on rates of diabetes seems most reasonable?
 
-*** =instructions
+`@possible_answers`
 - Taxes have no effect, given that rates of diabetes in Springfield were much higher following the implementation of the tax.
 - Taxes have a negative treatment effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the tax.
 - Taxes have a positive treatment effect on rates of diabetes (i.e. increased rates of diabetes), given that rates of diabetes in Springfield were much higher following the implementation of the tax.
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
 msg2 = "Correct! This is exactly how we interpret difference-in-differences outcomes. Even though Springfield had higher rates of diabetes following the implementation of its tax on corn syrup products, it appears that Springfield's rate diabetes grew at a smaller rate than in Laughterville."
@@ -171,20 +271,39 @@ msg3 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:768ce0d1ab
-## The Three Kinds of Panel Data
-*** =video_link
-//player.vimeo.com/video/226207544
+---
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:67a27055aa
+## The Three Kinds of Panel Data
+
+```yaml
+type: VideoExercise
+key: 768ce0d1ab
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226207544
+```
+
+
+---
+
 ## Analyzing Longitudinal Panel Data, Part 1: Preparing the Data
+
+```yaml
+type: NormalExercise
+key: 67a27055aa
+lang: r
+xp: 100
+skills: 1
+```
+
 So far we have been working with only group-level longitudinal datasets. When we work with true panel data, it often comes in different formats than we are used to. 
 
 More often than not, publicly available panel survey datasets are posted online in *wide format*, where each row corresponds to an individual survey respondent and each column corresponding to a single variable from a given wave of the dataset. For example, a dataset about people's body mass index (BMI) over time might have several columns for each respondent, labeled something like "BMI.Wave.1," "BMI.Wave.2," "BMI.Wave.3," etc. The problem is that many R functions that work with panel data (such as the graph in the previous problem) require your data to be in *long format*, where each unique variable corresponds to a single column (e.g. just "BMI"), and where each row corresponds to a specific respondent identification and a specific year that the response was collected. 
 
-Many programs have been developed for converting particular popular datasets from wide to long format, but there are many cases where data analysts must develop these programs themselves. Let's handle a relatively basic example from a study that followed people's Body Mass Index (BMI) along with other data. Follow the notation below to convert the dataset, `wide.df` from *wide* to *long* format. 
+Many programs have been developed for converting particular popular datasets from wide to long format, but there are many cases where data analysts must develop these programs themselves. Let's handle a relatively basic example from a study that followed people's Body Mass Index (BMI) along with other data. Follow the notation below to convert the dataset, `wide.df` from *wide* to *long* format.
 
-*** =instructions
+`@instructions`
 - 1) Use the str() function to take a look at the dataframe structure.
 - 2) Make new dataframes for each year in our dataset.
 - 3) Double check that our variables have identical names in each dataframe.
@@ -192,7 +311,10 @@ Many programs have been developed for converting particular popular datasets fro
 - 5) Build a new dataframe that appends these dataframes after the last (by year).
 - 6) Sort the data in the newest dataframe by ID and Year.
 
-*** =pre_exercise_code
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
 set.seed(1)
 n=221
@@ -217,7 +339,8 @@ n=221
     
     library(plm)
 ```
-*** =sample_code
+
+`@sample_code`
 ```{r}
 # 1) Let's examine our dataset to get a sense of it. Basically we have 121 distinct respondents, with information about their diets and BMIs in 1995, 1996, and 1997.
 
@@ -251,7 +374,8 @@ n=221
     long.df<-long.df[order(long.df$,long.df$),]
     
 ```
-*** =solution
+
+`@solution`
 ```{r}
     df1995<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1995,BMI=wide.df$BMI.1995)
     df1996<-data.frame(ID=wide.df$ID,Diet=wide.df$Diet.1996,BMI=wide.df$BMI.1996)
@@ -263,28 +387,40 @@ n=221
     long.df<-rbind(long.df,df1997)
     long.df<-long.df[order(long.df$ID,long.df$Year),]
 ```
-*** =sct
+
+`@sct`
 ```{r}
 test_error()
 success_msg("Good work! To convert datasets with lots of variables, you can apply the same logic to convert the variables more iteratively. For example, by create a dataframe of all variables that include the substring '1995', and creating new variable names that remove that substring. Nonetheless, the logic is for converting these data frames from wide to long format is identical.")
 ```
 
+---
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:cdcf16cd6a
-## Analyzing Longitudinal Panel Data, Part 2: Using Regression for Diff-in-Diff 
+## Analyzing Longitudinal Panel Data, Part 2: Using Regression for Diff-in-Diff
+
+```yaml
+type: NormalExercise
+key: cdcf16cd6a
+lang: r
+xp: 100
+skills: 1
+```
+
 In the previous exercise, we converted a dataset about people's body mass index (BMI) over time from a wide format to a long format to make it easier to use in R. Now let's calculate how going on a diet affected the BMI of people in our sample population. We will focus on `BMI` (people's weight/height-squared), and `Diet` (calories consumed).
 
 We will calculate the ATE in two ways. First, we'll take a simple difference-in-differences approach, where we will calculate the average difference in BMI for people who consumed less calories than in the previous wave (our treatment group) with those who consumed the same or more calories than in the previous wave (our control group). Second, we'll use a much more common method in panel data analysis for determining difference-in-differences: regression that measure *fixed-effects* for calories on BMI. Specifically, regression models with fixed effects estimate factors that account for within-person differences in an outcome over time based on within-person changes in other habits. We often use a regression models with fixed effects because they provide a more nuanced and robust understanding about how our treatment and controls are related than difference-in-differences methods can provide. Your instructions are to:
 
-
-*** =instructions
+`@instructions`
 - 1) Use `widedf` and the ifelse function to create a variable `treatment`, representing whether individuals consumed less calories in 1997 than in 1995.
 - 2) Find the mean the amount of change in BMI in our control group between 1997 and 1995.
 - 3) Find a basic difference-in-differences causal effect based on the mean amount of BMI changes in our treatment and control groups.
 - 4) Use `longdf` to see how diet is effects BMI with through a fixed effects regression model.
-- 5) Based on these results, answer the following yes or no questions. 
+- 5) Based on these results, answer the following yes or no questions.
 
-*** =pre_exercise_code
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
 set.seed(1)
 n=221
@@ -323,7 +459,8 @@ n=221
     long.df<-do.call("rbind",list(df1995,df1996,df1997))
     long.df<-long.df[order(long.df$ID,long.df$Year),]
 ```
-*** =sample_code
+
+`@sample_code`
 ```{r}
 # 1) Use `widedf` and the ifelse function to create a variable `treatment`, representing whether individuals consumed less calories (Diet) in 1997 than in 1995. If individuals consumed fewer calories in 1997, make this variable equal 1, otherwise, make this variable equal 0.
 
@@ -357,7 +494,8 @@ n=221
   Solution5.2<-""
 
 ```
-*** =solution
+
+`@solution`
 ```{r}
 wide.df$treatment<-ifelse(wide.df$Diet.1997<wide.df$Diet.1995,1,0)
 Treatment.Change<-mean(wide.df$BMI.1997[wide.df$treatment==1]-wide.df$BMI.1995[wide.df$treatment==1])
@@ -367,22 +505,41 @@ summary(plm(BMI ~ Diet, data=long.df, index=c("ID", "Year"), model="within"))
 Solution5.1<-"Yes"
 Solution5.2<-"Yes"
 ```
-*** =sct
+
+`@sct`
 ```{r}
 test_error()
 success_msg("Nice going! Both the difference-in-differences method and the regression model suggest that people who consume more calories gain weight over time and people who consume fewer calories lose weight over time. The fixed effects method gives us a unit-level treatment effect; specifically, it shows us that each calorie consumed is associated with a .0014 increase in BMI. This method is great at showing causal effects because we are only comparing individuals to themselves, thereby controlling for all individual time-invariant differences in our sample (e.g. gender, race, father's education, etc.)")
 ```
 
+---
 
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:1019f22cf2
 ## Advantage of Longitudinal Data
+
+```yaml
+type: MultipleChoiceExercise
+key: 1019f22cf2
+lang: r
+xp: 50
+skills: 1
+```
+
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than repeated cross-sectional datasets?
-*** =instructions
+
+`@possible_answers`
 - Systematic differences between the treatment and control group are less likely to confound the average treatment effect.
 - You can see systematic changes across a population with time.
 - It inherently uses a smaller sample of people, so fewer random differences should arise between datasets.
-*** =sct
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Correct! This is especially the case when we use time-series data. Systematic differences between the treatment and control group are only important if we expect the treatment to have a difference effect on different types of people. For example, if it turned out that the death penalty was only a deterrent for homicide in states with high urban populations, but our treatment group only contained states with high rural populations, we would not see any causal effect of the death penalty on homicide rates."
 msg2 = "Actually, you can see systematic changes across a population with time even with repeated cross sectional datasets. Try again."
@@ -390,17 +547,35 @@ msg3 = "This is close, but having larger samples is generally good for studying 
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
 ```
 
+---
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:625dd45a40
 ## Repeated cross-sectional data versus time-series data
+
+```yaml
+type: MultipleChoiceExercise
+key: 625dd45a40
+lang: r
+xp: 50
+skills: 1
+```
+
 When we have repeated cross-sectional data, we have a different sample at each time point. With this sort of data, we cannot estimate within person fixed effects or any difference-in-differences style outcome, as we only have a response from each surveyed individual at one separate time point. Nonetheless, why might repeated cross-sectional data be useful?
 
-*** =instructions
+`@possible_answers`
 - Because it increases your sample size.
 - It can help reveal time trends among a population and outcome of interest.
 - To remove bias that could result from generational differences across a population.
 - It is cheaper than gathering longitudinal samples.
-*** =sct
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "This is sort of true, but not really the main reason people use repeated cross-sectional survey."
 msg2 = "Correct!"
@@ -409,11 +584,18 @@ msg4 = "This is sort of true, except it is still very expensive to conduct multi
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
 
-
-
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:0d9f8078a3
 ## Interpreting Longitudinal Outcomes II
+
+```yaml
+type: MultipleChoiceExercise
+key: 0d9f8078a3
+lang: r
+xp: 50
+skills: 1
+```
+
 During his fourth annual performance review, the CEO of gunsNguns.com asked for a bonus, noting that during his four years as CEO, the revenue of gunsNguns.com increased by $32m! Before the board of directors at gunsNguns.com made their final decision, they decided to examine sales data from similarly sized rivals across the past four years, listed below. 
 
 |    Company     | Year 1 | Year 2 | Year 3 | Year 4 |
@@ -423,13 +605,21 @@ During his fourth annual performance review, the CEO of gunsNguns.com asked for 
 
 Based on this table, does the data say the CEO should get a raise?
 
-*** =instructions
+`@possible_answers`
 - The CEO deserves a raise - a $32m increase in revenue is huge!
 - The CEO deserves to be put on probation - he lied about how much he helped increase the revenue of gunsNguns.com.
 - The CEO does not deserve a raise - a $32m increase in revenue is not large enough compared to his competition.
 - The CEO deserves to be put in jail - he helped distribute so many guns!
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Try comparing the sales increase of gunsNguns.com to their competitors."
 msg2 = "Whoops. His math was correct. Try again."
@@ -438,61 +628,122 @@ msg4 = "We probably should have mentioned that the CEO was only distributing gun
 test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ```
 
+---
 
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:817f01d83c
 ## Effect of Immigration on Employment
-*** =video_link
-//player.vimeo.com/video/226206552
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:c02885efe0
+```yaml
+type: VideoExercise
+key: 817f01d83c
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226206552
+```
+
+
+---
+
 ## Effect of Immigration on Employment Question
+
+```yaml
+type: MultipleChoiceExercise
+key: c02885efe0
+lang: r
+xp: 50
+skills: 1
+```
+
 Is it possible to use differences-in-differences to learn about causal effects if we only have data on the treatment group?
 
-*** =instructions
+`@possible_answers`
 - No
 - Yes
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Correct! We must have data on a control group as well, because that is how we extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
 msg2 = "Try again"
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
+---
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:ec875547d3
 ## Inferring Personal Motivations from Aggregate Trends
+
+```yaml
+type: MultipleChoiceExercise
+key: ec875547d3
+lang: r
+xp: 50
+skills: 1
+```
+
 After reading David Card's article about how immigration has a negative effect on rates unemployment (i.e. immigration reduces unemployment), Bella decides to write an op-ed about these trends in her favorite magazine, "Psychology Tomorrow." Bella writes that immigration leads to decreased unemployment because seeing the struggles of immigrants motivates local business owners to create new jobs for migrants, even when such roles are unnecessary for their businesses. Is this a reasonable conclusion to draw from these trends?
 
-*** =instructions
+`@possible_answers`
 - Yes
 - No
 
-*** =sct
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
 ```{r}
 msg1 = "Try again"
 msg2 = "Correct! Bella is committing an ecological inference fallacy - she is interpreting statistical data about group trends to make inferences about individuals within that group. There are many possible mechanisms that are producing the association between migration and unemployment. We cannot make conclusions about which mechanisms are producing this trend without studying each one individually. In order to substantiate Bella's hypothesis, we would need to survey business owners in Miami and ask them why they decided to offer more jobs, or at the very least, rule out alternative explanations for why they offered more jobs."
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
+---
 
-
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:e594e9c9a2
 ## Graphical Analysis of the Common Trend Assumption and Diff-in-Diffs
-*** =video_link
-//player.vimeo.com/video/226206681
 
---- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:8dc7e4a720
-## Interpreting Graphed Time Trends 
+```yaml
+type: VideoExercise
+key: e594e9c9a2
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226206681
+```
+
+
+---
+
+## Interpreting Graphed Time Trends
+
+```yaml
+type: MultipleChoiceExercise
+key: 8dc7e4a720
+lang: r
+xp: 50
+skills: 1
+```
+
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
 
-*** =instructions
+`@possible_answers`
 - Watching birdemic motivated people to buy solar panels.
 - Watching birdemic discouraged people from buying solar panels.
 
-*** =pre_exercise_code
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
 df<-data.frame(Year=rep(c(2008,2009,2010,2011,2012),2))
 df$Treated<-as.factor(rep(c("Yes","No"),each=5))
@@ -506,7 +757,7 @@ p+geom_line()+geom_point()+
   labs(y="Proportion Own Solar Panels",color="Watched Birdemic")
 ```
 
-*** =sct
+`@sct`
 ```{r}
 msg1 = "Try again"
 msg2 = "Correct! Rates of solar panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010"
@@ -514,19 +765,32 @@ msg2 = "Correct! Rates of solar panel sales for both groups at the same rate pri
 test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
 ```
 
+---
 
-
-
-
---- type:VideoExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:3cf1884e0a
 ## The Effect of Raising the Minimum Wage on Employment
-*** =video_link
-//player.vimeo.com/video/226206852
+
+```yaml
+type: VideoExercise
+key: 3cf1884e0a
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/226206852
+```
 
 
+---
 
---- type:NormalExercise lang:r aspect_ratio:62.5 xp:50 skills:1 key:5326271e36
 ## Practice Correcting for Changing Measurements
+
+```yaml
+type: NormalExercise
+key: 5326271e36
+lang: r
+xp: 100
+skills: 1
+```
+
 Since society is constantly changing, longitudinal surveys often change their questionnaires to better represent the world we live in. For example, prior to the amendment of the Immigration Act in 1965, only a very small percentage of the U.S. population had Asian heritage. Therefore, very few surveys at the time recorded "Asian American" as a response to questions about race - instead, lumping Asian Americans into an "other" race category. In fact, even the US census had not classified Asian Americans as a distinct ethnic group until 1980. 
 
 Other times these changes can be more arbitrary. For example, a study might ask respondents to state how many hours of TV they tend to watch on a given day on a 1-3 scale, with response option 1 = 0-2 hours, 2=2-5 hours and 3 = 5+ hours. However, that study might increase the number of response options in the following year to allow for more detailed information. For example, respondents might be asked to record a precise estimate of how much TV they watch, rounded to the nearest hour.
@@ -535,13 +799,16 @@ While it is always good to have detailed data, changing survey response options 
   
 For practice, modify the `hours` variable in the dataset `TV`, to correct for the somewhat unintuitive findings produced by our difference-in-differences model that estimated how purchasing a new TV effects hours watched in the following year. Specifically:
 
-*** =instructions
+`@instructions`
 - 1) Examine the structure and data we have in our 2 years of data.
 - 2) Estimate a difference-in-difference model for the effect of buying a new TV on the hours of television watched.
 - 3) Standardize the measurement of hours watched between the two counting systems used in this survey.
 - 4) Run another regression model to see if the standardized measurement gives us a more intuitive answer.
 
-*** =pre_exercise_code
+`@hint`
+
+
+`@pre_exercise_code`
 ```{r}
 n=157
 #Create rnorm function that allows for min and max
@@ -574,7 +841,8 @@ set.seed(1)
     rm("TV1")
     
 ```
-*** =sample_code
+
+`@sample_code`
 ```{r}
 # 1) We have two waves of data; each ID occurs in each wave one time. The variable `new` indicates whether our sample bought a new TV between the two waves. The  variable `hours` indicates how many hours each respondent used their TV in each wave. During the first wave, respondents were only given three response options for the hours variable, with response option 1 = "up to 2 hours", option 2 = "between 2 to 5 hours", and option 3 "over 5 hours". But during the second wave, the data collection system changed (a common problem in survey analysis). In the second wave, respondents simply recorded the number of hours they tend to watch TV each day.
 
@@ -602,14 +870,15 @@ set.seed(1)
     summary(glm(hours~Wave*new,data=TV))
     
 ```
-*** =solution
+
+`@solution`
 ```{r}
     TV$hours[TV$Wave==2]<-ifelse(TV$hours[TV$Wave==2]<=2,1,ifelse(TV$hours[TV$Wave==2]<=5,2,3))
 ```
-*** =sct
+
+`@sct`
 ```{r}
 test_object("TV")
 test_error()
 success_msg("Good work! Implementing a difference within differences analysis is relatively easy. We can see from the result of Solution3 that the estimate for Year2015 and Implemented were positive, suggesting that there was an increasing trend in rates of incarceration over time, and cities that implemented the Housing First policy tended to have higher rates of incarceration. However, the interaction term 'Year2015:Implemented' was negative, meaning that over time, cities that implemented the Housing First policy had negative association with incarceration rates relative to those who did not implement the Housing First policy. In other words, cities that implemented the Housing First policy had lower rates of incarceration than one would expect based on common trends")
 ```
-
