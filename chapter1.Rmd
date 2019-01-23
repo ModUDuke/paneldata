@@ -46,7 +46,7 @@ We have listed 3 examples of potential confounders for data about the *death pen
 
 ```
 
-`@sct`
+`@feedback`
 - If this were the case, we would probably find that states with the death penalty had higher rates of homicide regardless of whether the death penalty deterred homicide. Try again.
 - If this were the case, education would confound the relationship between having and not having the death penalty. We would expect that states with the death penalty have higher underlying homicide rates of homicide, so whatever deterrent effect of the death penalty that we estimated would be smaller than the true deterrent effect. Try again.
 - Correct! Unless we assumed that rates of homicide have a significant impact on a state's mortality rate, we would not expect mortality rates to confound the relationship between the death penalty and homicide rates.
@@ -80,7 +80,7 @@ Say we found that states that established the death penalty had lower rates of h
 
 ```
 
-`@sct`
+`@feedback`
 - Try again"
 -Correct! Even though states that established the death penalty had lower rates of homicide in later years, this could have been coincidental. What if rates of homicide were dropping everywhere for an entirely different reason? In order to establish causality, we would need to look at homicide trends in states that did not establish the death penalty. If homicide rates decreased consistently across all states, our findings would not support the hypothesis that the death penalty reduces rates of homicide.
 ```
@@ -127,7 +127,7 @@ What is the main assumption that we make when we study a causal effect by compar
 
 ```
 
-`@sct`
+`@feedback`
 - This answer is deliberately vague but it's not really an "assumption" that we make. Try again.
 - Almost. However, for this to be completely true, we would need to insert in front of the statement: "controlling for spurious differences in the control group and the treatment group..." Try again.
 - This is simply not true; we can find statistically significant results that are not necessarily "meaningful"
@@ -259,7 +259,7 @@ Based on this table, which conclusion about the effect of taxing corn syrup prod
 
 ```
 
-`@sct`
+`@feedback`
 - Not quite. Try comparing the outcomes of Springfield to Laughterville.
 - Correct! This is exactly how we interpret difference-in-differences outcomes. Even though Springfield had higher rates of diabetes following the implementation of its tax on corn syrup products, it appears that Springfield's rate diabetes grew at a smaller rate than in Laughterville.
 - Not quite. Try comparing the outcomes of Springfield to Laughterville.
@@ -533,7 +533,7 @@ What is the main advantage you get from studying a causal effect with longitudin
 
 ```
 
-`@sct`
+`@feedback`
 - Correct! This is especially the case when we use time-series data. Systematic differences between the treatment and control group are only important if we expect the treatment to have a difference effect on different types of people. For example, if it turned out that the death penalty was only a deterrent for homicide in states with high urban populations, but our treatment group only contained states with high rural populations, we would not see any causal effect of the death penalty on homicide rates.
 - Actually, you can see systematic changes across a population with time even with repeated cross sectional datasets. Try again.
 - This is close, but having larger samples is generally good for studying causal effects.
@@ -567,7 +567,7 @@ When we have repeated cross-sectional data, we have a different sample at each t
 
 ```
 
-`@sct`
+`@feedback`
 - This is sort of true, but not really the main reason people use repeated cross-sectional survey.
 - Correct!
 - This is a possible advantage of repeated cross-sectional data, although it is relatively uncommon to have so many cross sections in a dataset that you could even pick up generational differences in outcomes (i.e. cohort effects). Try again.
@@ -609,7 +609,7 @@ Based on this table, does the data say the CEO should get a raise?
 
 ```
 
-`@sct`
+`@feedback`
 - Try comparing the sales increase of gunsNguns.com to their competitors.
 - Whoops. His math was correct. Try again.
 - Correct! The company's competitors averaged an even greater increases in revenue over that time period ($43 million). This might reflect that there was an overall increase in demand for the type of goods sold by gunsNguns.com.
@@ -656,7 +656,7 @@ Is it possible to use differences-in-differences to learn about causal effects i
 
 ```
 
-`@sct`
+`@feedback`
 - Correct! We must have data on a control group as well, because that is how we extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend.
 - Try again.
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
@@ -688,7 +688,7 @@ After reading David Card's article about how immigration has a negative effect o
 
 ```
 
-`@sct`
+`@feedback`
 - Try again
 - Correct! Bella is committing an ecological inference fallacy - she is interpreting statistical data about group trends to make inferences about individuals within that group. There are many possible mechanisms that are producing the association between migration and unemployment. We cannot make conclusions about which mechanisms are producing this trend without studying each one individually. In order to substantiate Bella's hypothesis, we would need to survey business owners in Miami and ask them why they decided to offer more jobs, or at the very least, rule out alternative explanations for why they offered more jobs.
 ```
@@ -742,7 +742,7 @@ p+geom_line()+geom_point()+
   labs(y="Proportion Own Solar Panels",color="Watched Birdemic")
 ```
 
-`@sct`
+`@feedback`
 - Try again
 - Correct! Rates of solar panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010
 ```
