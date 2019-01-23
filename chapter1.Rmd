@@ -21,7 +21,7 @@ video_link: //player.vimeo.com/video/226206272
 ## Confounders in Cross-Sectional Data
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: 529f2b036c
 lang: r
 xp: 50
@@ -35,7 +35,7 @@ We have listed 3 examples of potential confounders for data about the *death pen
 `@possible_answers`
 - High rates of violence encourages states to instate a death penalty.
 - States that have the death penalty tend to have lower education, and education reduces violent behavior.
-- States that have the death penalty tend to have lower rates of mortality.
+- [States that have the death penalty tend to have lower rates of mortality.]
 - States that don't have the death penalty also tend to legalize more recreational drugs, which pacifies people's violent behavior.
 
 `@hint`
@@ -47,12 +47,11 @@ We have listed 3 examples of potential confounders for data about the *death pen
 ```
 
 `@sct`
-```{r}
-msg1 = "If this were the case, we would probably find that states with the death penalty had higher rates of homicide regardless of whether the death penalty deterred homicide. Try again."
-msg2 = "If this were the case, education would confound the relationship between having and not having the death penalty. We would expect that states with the death penalty have higher underlying homicide rates of homicide, so whatever deterrent effect of the death penalty that we estimated would be smaller than the true deterrent effect. Try again."
-msg3 = "Correct! Unless we assumed that rates of homicide have a significant impact on a state's mortality rate, we would not expect mortality rates to confound the relationship between the death penalty and homicide rates."
-msg4 = "If this were the case, legalized recreational drugs would confound the relationship between having and not having the death penalty. For example, if the death penalty deterred homicide rates, but had a smaller effect on homicide rates that than legalized recreational drugs, we would probably see a positive causal effect of the death penalty on homicide rates. Try again."
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+- If this were the case, we would probably find that states with the death penalty had higher rates of homicide regardless of whether the death penalty deterred homicide. Try again.
+- If this were the case, education would confound the relationship between having and not having the death penalty. We would expect that states with the death penalty have higher underlying homicide rates of homicide, so whatever deterrent effect of the death penalty that we estimated would be smaller than the true deterrent effect. Try again.
+- Correct! Unless we assumed that rates of homicide have a significant impact on a state's mortality rate, we would not expect mortality rates to confound the relationship between the death penalty and homicide rates.
+- If this were the case, legalized recreational drugs would confound the relationship between having and not having the death penalty. For example, if the death penalty deterred homicide rates, but had a smaller effect on homicide rates that than legalized recreational drugs, we would probably see a positive causal effect of the death penalty on homicide rates. Try again.
+
 ```
 
 ---
@@ -60,7 +59,7 @@ test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ## Longitudinal Analysis without a Comparison Group.
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: 8c564a8661
 lang: r
 xp: 50
@@ -71,7 +70,7 @@ Say we found that states that established the death penalty had lower rates of h
 
 `@possible_answers`
 - Yes
-- No
+- [No]
 
 `@hint`
 
@@ -82,10 +81,8 @@ Say we found that states that established the death penalty had lower rates of h
 ```
 
 `@sct`
-```{r}
-msg1 = "Try again"
-msg2 = "Correct! Even though states that established the death penalty had lower rates of homicide in later years, this could have been coincidental. What if rates of homicide were dropping everywhere for an entirely different reason? In order to establish causality, we would need to look at homicide trends in states that did not establish the death penalty. If homicide rates decreased consistently across all states, our findings would not support the hypothesis that the death penalty reduces rates of homicide."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+- Try again"
+-Correct! Even though states that established the death penalty had lower rates of homicide in later years, this could have been coincidental. What if rates of homicide were dropping everywhere for an entirely different reason? In order to establish causality, we would need to look at homicide trends in states that did not establish the death penalty. If homicide rates decreased consistently across all states, our findings would not support the hypothesis that the death penalty reduces rates of homicide.
 ```
 
 ---
@@ -107,7 +104,7 @@ video_link: //player.vimeo.com/video/226208683
 ## Assumptions of Difference-in-Differences Analysis
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: 15a897d978
 lang: r
 xp: 50
@@ -120,7 +117,7 @@ What is the main assumption that we make when we study a causal effect by compar
 - If there are no differences between the two groups, the null hypothesis is confirmed.
 - If the control group has the same outcome as the treatment group, then the treatment has no effect.
 - Any difference between the control group and the treatment group that is statistically significant is meaningful.
-- Any difference in the trends we see among the treatment group and control groups are due to the treatment.
+- [Any difference in the trends we see among the treatment group and control groups are due to the treatment.]
 
 `@hint`
 
@@ -131,12 +128,10 @@ What is the main assumption that we make when we study a causal effect by compar
 ```
 
 `@sct`
-```{r}
-msg1 = "This answer is deliberately vague but it's not really an 'assumption' that we make. Try again."
-msg2 = "Almost. However, for this to be completely true, we would need to insert in front of the statement: 'controlling for spurious differences in the control group and the treatment group...' Try again."
-msg3 = "This is simply not true; we can find statistically significant results that are not necessarily 'meaningful'"
-msg4 = "Correct! If there is a different factor that causes trends in the treatment group to differ from the control group, our finding would be spurious."
-test_mc(correct = 4, feedback_msgs = c(msg1,msg2,msg3,msg4))
+- This answer is deliberately vague but it's not really an "assumption" that we make. Try again.
+- Almost. However, for this to be completely true, we would need to insert in front of the statement: "controlling for spurious differences in the control group and the treatment group..." Try again.
+- This is simply not true; we can find statistically significant results that are not necessarily "meaningful"
+- Correct! If there is a different factor that causes trends in the treatment group to differ from the control group, our finding would be spurious.
 ```
 
 ---
@@ -233,7 +228,7 @@ success_msg("Good work! Implementing a difference-in-differences analysis is rel
 ## Interpreting Longitudinal Outcomes
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: bfcf99d7c6
 lang: r
 xp: 50
@@ -253,7 +248,7 @@ Based on this table, which conclusion about the effect of taxing corn syrup prod
 
 `@possible_answers`
 - Taxes have no effect, given that rates of diabetes in Springfield were much higher following the implementation of the tax.
-- Taxes have a negative treatment effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the tax.
+- [Taxes have a negative treatment effect on rates of diabetes (i.e. decreased rates of diabetes), given that rates of diabetes in Springfield were lower than those in Laughterville following the implementation of the tax.]
 - Taxes have a positive treatment effect on rates of diabetes (i.e. increased rates of diabetes), given that rates of diabetes in Springfield were much higher following the implementation of the tax.
 
 `@hint`
@@ -265,11 +260,9 @@ Based on this table, which conclusion about the effect of taxing corn syrup prod
 ```
 
 `@sct`
-```{r}
-msg1 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
-msg2 = "Correct! This is exactly how we interpret difference-in-differences outcomes. Even though Springfield had higher rates of diabetes following the implementation of its tax on corn syrup products, it appears that Springfield's rate diabetes grew at a smaller rate than in Laughterville."
-msg3 = "Not quite. Try comparing the outcomes of Springfield to Laughterville."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3))
+- Not quite. Try comparing the outcomes of Springfield to Laughterville.
+- Correct! This is exactly how we interpret difference-in-differences outcomes. Even though Springfield had higher rates of diabetes following the implementation of its tax on corn syrup products, it appears that Springfield's rate diabetes grew at a smaller rate than in Laughterville.
+- Not quite. Try comparing the outcomes of Springfield to Laughterville.
 ```
 
 ---
@@ -518,7 +511,7 @@ success_msg("Nice going! Both the difference-in-differences method and the regre
 ## Advantage of Longitudinal Data
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: 1019f22cf2
 lang: r
 xp: 50
@@ -528,7 +521,7 @@ skills: 1
 What is the main advantage you get from studying a causal effect with longitudinal dataset rather than repeated cross-sectional datasets?
 
 `@possible_answers`
-- Systematic differences between the treatment and control group are less likely to confound the average treatment effect.
+- [Systematic differences between the treatment and control group are less likely to confound the average treatment effect.]
 - You can see systematic changes across a population with time.
 - It inherently uses a smaller sample of people, so fewer random differences should arise between datasets.
 
@@ -541,11 +534,9 @@ What is the main advantage you get from studying a causal effect with longitudin
 ```
 
 `@sct`
-```{r}
-msg1 = "Correct! This is especially the case when we use time-series data. Systematic differences between the treatment and control group are only important if we expect the treatment to have a difference effect on different types of people. For example, if it turned out that the death penalty was only a deterrent for homicide in states with high urban populations, but our treatment group only contained states with high rural populations, we would not see any causal effect of the death penalty on homicide rates."
-msg2 = "Actually, you can see systematic changes across a population with time even with repeated cross sectional datasets. Try again."
-msg3 = "This is close, but having larger samples is generally good for studying causal effects."
-test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
+- Correct! This is especially the case when we use time-series data. Systematic differences between the treatment and control group are only important if we expect the treatment to have a difference effect on different types of people. For example, if it turned out that the death penalty was only a deterrent for homicide in states with high urban populations, but our treatment group only contained states with high rural populations, we would not see any causal effect of the death penalty on homicide rates.
+- Actually, you can see systematic changes across a population with time even with repeated cross sectional datasets. Try again.
+- This is close, but having larger samples is generally good for studying causal effects.
 ```
 
 ---
@@ -553,7 +544,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2,msg3))
 ## Repeated cross-sectional data versus time-series data
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: 625dd45a40
 lang: r
 xp: 50
@@ -564,7 +555,7 @@ When we have repeated cross-sectional data, we have a different sample at each t
 
 `@possible_answers`
 - Because it increases your sample size.
-- It can help reveal time trends among a population and outcome of interest.
+- [It can help reveal time trends among a population and outcome of interest.]
 - To remove bias that could result from generational differences across a population.
 - It is cheaper than gathering longitudinal samples.
 
@@ -577,12 +568,10 @@ When we have repeated cross-sectional data, we have a different sample at each t
 ```
 
 `@sct`
-```{r}
-msg1 = "This is sort of true, but not really the main reason people use repeated cross-sectional survey."
-msg2 = "Correct!"
-msg3 = "This is a possible advantage of repeated cross-sectional data, although it is relatively uncommon to have so many cross sections in a dataset that you could even pick up generational differences in outcomes (i.e. cohort effects). Try again."
-msg4 = "This is sort of true, except it is still very expensive to conduct multiple cross-sectional surveys. Cost is less of an issue than is the difficulty in reaching out to individuals who took the survey before."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
+- This is sort of true, but not really the main reason people use repeated cross-sectional survey.
+- Correct!
+- This is a possible advantage of repeated cross-sectional data, although it is relatively uncommon to have so many cross sections in a dataset that you could even pick up generational differences in outcomes (i.e. cohort effects). Try again.
+- This is sort of true, except it is still very expensive to conduct multiple cross-sectional surveys. Cost is less of an issue than is the difficulty in reaching out to individuals who took the survey before.
 ```
 
 ---
@@ -590,7 +579,7 @@ test_mc(correct = 2, feedback_msgs = c(msg1,msg2,msg3,msg4))
 ## Interpreting Longitudinal Outcomes II
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: 0d9f8078a3
 lang: r
 xp: 50
@@ -609,7 +598,7 @@ Based on this table, does the data say the CEO should get a raise?
 `@possible_answers`
 - The CEO deserves a raise - a $32m increase in revenue is huge!
 - The CEO deserves to be put on probation - he lied about how much he helped increase the revenue of gunsNguns.com.
-- The CEO does not deserve a raise - a $32m increase in revenue is not large enough compared to his competition.
+- [The CEO does not deserve a raise - a $32m increase in revenue is not large enough compared to his competition.]
 - The CEO deserves to be put in jail - he helped distribute so many guns!
 
 `@hint`
@@ -621,12 +610,10 @@ Based on this table, does the data say the CEO should get a raise?
 ```
 
 `@sct`
-```{r}
-msg1 = "Try comparing the sales increase of gunsNguns.com to their competitors."
-msg2 = "Whoops. His math was correct. Try again."
-msg3 = "Correct! The company's competitors averaged an even greater increases in revenue over that time period ($43 million). This might reflect that there was an overall increase in demand for the type of goods sold by gunsNguns.com."
-msg4 = "We probably should have mentioned that the CEO was only distributing guns in America. This answer is irrelevant. Try again!"
-test_mc(correct = 3, feedback_msgs = c(msg1,msg2,msg3,msg4))
+- Try comparing the sales increase of gunsNguns.com to their competitors.
+- Whoops. His math was correct. Try again.
+- Correct! The company's competitors averaged an even greater increases in revenue over that time period ($43 million). This might reflect that there was an overall increase in demand for the type of goods sold by gunsNguns.com.
+- We probably should have mentioned that the CEO was only distributing guns in America. This answer is irrelevant. Try again!
 ```
 
 ---
@@ -658,7 +645,7 @@ skills: 1
 Is it possible to use differences-in-differences to learn about causal effects if we only have data on the treatment group?
 
 `@possible_answers`
-- No
+- [No]
 - Yes
 
 `@hint`
@@ -670,9 +657,8 @@ Is it possible to use differences-in-differences to learn about causal effects i
 ```
 
 `@sct`
-```{r}
-msg1 = "Correct! We must have data on a control group as well, because that is how we extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend."
-msg2 = "Try again"
+- Correct! We must have data on a control group as well, because that is how we extract the common trend! The Mariel Boatlift case is a great example--David Card starts with data on unemployment rates in Miami. But that's not enough to learn about causality. So he constructs a control group of comparison cities from which he argues we can extract the common trend.
+- Try again.
 test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ```
 
@@ -681,7 +667,7 @@ test_mc(correct = 1, feedback_msgs = c(msg1,msg2))
 ## Inferring Personal Motivations from Aggregate Trends
 
 ```yaml
-type: MultipleChoiceExercise
+type: PureMultipleChoiceExercise
 key: ec875547d3
 lang: r
 xp: 50
@@ -692,7 +678,7 @@ After reading David Card's article about how immigration has a negative effect o
 
 `@possible_answers`
 - Yes
-- No
+- [No]
 
 `@hint`
 
@@ -703,10 +689,8 @@ After reading David Card's article about how immigration has a negative effect o
 ```
 
 `@sct`
-```{r}
-msg1 = "Try again"
-msg2 = "Correct! Bella is committing an ecological inference fallacy - she is interpreting statistical data about group trends to make inferences about individuals within that group. There are many possible mechanisms that are producing the association between migration and unemployment. We cannot make conclusions about which mechanisms are producing this trend without studying each one individually. In order to substantiate Bella's hypothesis, we would need to survey business owners in Miami and ask them why they decided to offer more jobs, or at the very least, rule out alternative explanations for why they offered more jobs."
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+- Try again
+- Correct! Bella is committing an ecological inference fallacy - she is interpreting statistical data about group trends to make inferences about individuals within that group. There are many possible mechanisms that are producing the association between migration and unemployment. We cannot make conclusions about which mechanisms are producing this trend without studying each one individually. In order to substantiate Bella's hypothesis, we would need to survey business owners in Miami and ask them why they decided to offer more jobs, or at the very least, rule out alternative explanations for why they offered more jobs.
 ```
 
 ---
@@ -738,8 +722,8 @@ skills: 1
 Whitney, a fan of the cult pro-environmental film "Birdemic", is interested in whether watching the movie encouraged people to purchase more solar panels. She found a time-series dataset that listed whether people owned solar panels, and whether individuals had watched Birdemic in 2010 (the year the film was released). The results of the interview are plotted to the right. What can we conclude from this graph?
 
 `@possible_answers`
-- Watching birdemic motivated people to buy solar panels.
-- Watching birdemic discouraged people from buying solar panels.
+- Watching Birdemic motivated people to buy solar panels.
+- [Watching Birdemic discouraged people from buying solar panels.]
 
 `@hint`
 
@@ -759,11 +743,8 @@ p+geom_line()+geom_point()+
 ```
 
 `@sct`
-```{r}
-msg1 = "Try again"
-msg2 = "Correct! Rates of solar panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010"
-
-test_mc(correct = 2, feedback_msgs = c(msg1,msg2))
+- Try again
+- Correct! Rates of solar panel sales for both groups at the same rate prior to Birdemic's release, but the rate of this increase was smaller for those who watched Birdemic following 2010
 ```
 
 ---
