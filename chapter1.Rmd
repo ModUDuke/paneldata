@@ -1,6 +1,7 @@
 ---
 title: 'Introduction to Panel Data'
 description: 'This chapter will introduce you to analysis techniques with panel data'
+free_preview: true
 ---
 
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
