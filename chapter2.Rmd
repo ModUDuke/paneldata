@@ -535,7 +535,6 @@ The city of Greenville now asks you to determine whether the city subsidy had a 
 - 5) Determine whether Greenville and its neighbor, Blackwater, are relatively similar across demographic traits.
 - 6) Compare trends of electric car ownership to those in Blackwater..
 
-
 `@hint`
 
 
