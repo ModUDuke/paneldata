@@ -81,8 +81,8 @@ Say we found that states that established the death penalty had lower rates of h
 ```
 
 `@feedback`
-- Try again"
--Correct! Even though states that established the death penalty had lower rates of homicide in later years, this could have been coincidental. What if rates of homicide were dropping everywhere for an entirely different reason? In order to establish causality, we would need to look at homicide trends in states that did not establish the death penalty. If homicide rates decreased consistently across all states, our findings would not support the hypothesis that the death penalty reduces rates of homicide.
+- Try again
+- Correct! Even though states that established the death penalty had lower rates of homicide in later years, this could have been coincidental. What if rates of homicide were dropping everywhere for an entirely different reason? In order to establish causality, we would need to look at homicide trends in states that did not establish the death penalty. If homicide rates decreased consistently across all states, our findings would not support the hypothesis that the death penalty reduces rates of homicide.
 ```
 
 ---
