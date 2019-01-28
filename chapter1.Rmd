@@ -23,11 +23,11 @@ video_link: //player.vimeo.com/video/313886876
 
 ```yaml
 type: VideoExercise
-key: 40491e0e85
+key: 0af77a613e
 lang: arsd
 xp: 50
 skills: 1
-video_link: //player.vimeo.com/video/226206272
+video_link: "//player.vimeo.com/video/226206272"
 ```
 
 
