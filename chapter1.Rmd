@@ -4,6 +4,21 @@ description: 'This chapter will introduce you to analysis techniques with panel 
 free_preview: true
 ---
 
+
+
+## Course Trailer for Causal Inference with R - Panel Data
+
+```yaml
+type: VideoExercise
+key: 40491e0e85
+lang: arsd
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/313886876
+```
+
+
+---
 ## Introduction to Panel Data: Does the Death Penalty Reduce Homicides?
 
 ```yaml
