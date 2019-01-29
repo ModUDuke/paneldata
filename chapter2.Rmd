@@ -56,11 +56,11 @@ Think about what you know about causal inference. What might be an advantage for
 
 ```yaml
 type: VideoExercise
-key: bd7bd16de8
+key: e4149ca2ed
 lang: r
 xp: 50
 skills: 1
-video_link: //player.vimeo.com/video/314102559
+video_link: "//player.vimeo.com/video/314102559"
 ```
 
 
@@ -384,11 +384,11 @@ video_link: //player.vimeo.com/video/226207860
 
 ```yaml
 type: VideoExercise
-key: bd7bd16de8
+key: 5d24574731
 lang: r
 xp: 50
 skills: 1
-video_link: //player.vimeo.com/video/314102565
+video_link: "//player.vimeo.com/video/314102565"
 ```
 
 ---
@@ -532,11 +532,11 @@ success_msg("Good work! You now know the basics to estimating fixed and random e
 
 ```yaml
 type: VideoExercise
-key: bd7bd16de8
+key: 61d08695fd
 lang: r
 xp: 50
 skills: 1
-video_link: //player.vimeo.com/video/314102576
+video_link: "//player.vimeo.com/video/314102576"
 ```
 
 ---
