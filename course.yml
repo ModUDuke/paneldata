@@ -6,7 +6,7 @@ instructors:
 - ransom@ou.edu
 - bdaronson@gmail.com
 - cooper@duke.edu
-description      : A look at using Regression techniques in Panel Data to estimate causal effects
+description      : Welcome to the 4th course in our series on causal inference concepts and methods created by Duke University with support from eBay, Inc. Designed to teach you causal inference concepts, methods, and how to code in R with realistic data, this course focuses on how to use the difference-in-differences method to find causal effects in panel data, how you need to argue their validity, and what they look like in practice. We’ll stay away from dense statistical math and focus instead on higher level concepts that data scientists need to always consider when examining and making inferences about data. The course instructors and creators are Dr. Matt Masten (Duke University), James Speckart (Duke), Brian Aronson (Duke), and Alexandra Cooper (Duke).
 university       : DataCamp
 difficulty_level : 4
 time_needed      : 10 hours
