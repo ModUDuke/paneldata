@@ -150,6 +150,19 @@ What is the main assumption that we make when we study a causal effect by compar
 ```
 
 ---
+## Let's Code: Practice Implementing Difference-in-Differences Models
+
+```yaml
+type: VideoExercise
+key: 0af77a613e
+lang: arsd
+xp: 50
+skills: 1
+video_link: "//player.vimeo.com/video/314102524"
+```
+
+
+---
 
 ## Practice implementing difference-in-differences models
 
@@ -293,6 +306,18 @@ skills: 1
 video_link: //player.vimeo.com/video/226207544
 ```
 
+---
+## Let's Code: Analyzing Longitudinal Panel Data, Part 1
+
+```yaml
+type: VideoExercise
+key: 0af77a613e
+lang: arsd
+xp: 50
+skills: 1
+video_link: "//player.vimeo.com/video/314102538"
+```
+
 
 ---
 
@@ -401,6 +426,19 @@ n=221
 ```{r}
 test_error()
 success_msg("Good work! To convert datasets with lots of variables, you can apply the same logic to convert the variables more iteratively. For example, by create a dataframe of all variables that include the substring '1995', and creating new variable names that remove that substring. Nonetheless, the logic is for converting these data frames from wide to long format is identical.")
+```
+
+
+---
+## Let's Code: Analyzing Longitudinal Panel Data, Part 2
+
+```yaml
+type: VideoExercise
+key: 0af77a613e
+lang: arsd
+xp: 50
+skills: 1
+video_link: "//player.vimeo.com/video/314102549"
 ```
 
 ---
@@ -775,6 +813,17 @@ skills: 1
 video_link: //player.vimeo.com/video/226206852
 ```
 
+---
+## Let's Code: Practice Correcting for Changing Measurements
+
+```yaml
+type: VideoExercise
+key: 0af77a613e
+lang: arsd
+xp: 50
+skills: 1
+video_link: "//player.vimeo.com/video/314102557"
+```
 
 ---
 
