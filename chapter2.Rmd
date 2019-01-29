@@ -52,7 +52,21 @@ Think about what you know about causal inference. What might be an advantage for
 
 ---
 
-## Practice with lagged dependent variables
+## Let's Code: Practice with Lagged Dependent Variables
+
+```yaml
+type: VideoExercise
+key: bd7bd16de8
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/314102559
+```
+
+
+---
+
+## Practice with Lagged Dependent Variables
 
 ```yaml
 type: NormalExercise
@@ -364,10 +378,22 @@ skills: 1
 video_link: //player.vimeo.com/video/226207860
 ```
 
+---
+
+## Let's Code: Practice Running Fixed and Random Effects Models
+
+```yaml
+type: VideoExercise
+key: bd7bd16de8
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/314102565
+```
 
 ---
 
-## Practice Running a Fixed and Random Effects Regression Models
+## Practice Running Fixed and Random Effects Regression Models
 
 ```yaml
 type: NormalExercise
@@ -502,7 +528,20 @@ success_msg("Good work! You now know the basics to estimating fixed and random e
 
 ---
 
-## Putting It All Together: Electric Cars and Caring About Nature
+## Let's Code: Will Subsidies for Electric Cars Help Rural Towns?
+
+```yaml
+type: VideoExercise
+key: bd7bd16de8
+lang: r
+xp: 50
+skills: 1
+video_link: //player.vimeo.com/video/314102576
+```
+
+---
+
+## Putting It All Together: Will Subsidies for Electric Cars Help Rural Towns?
 
 ```yaml
 type: NormalExercise
