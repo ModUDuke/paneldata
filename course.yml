@@ -1,11 +1,12 @@
-title            : Causal Inference with R - Panel Data
+title            : Causal Inference with R - Regression
+description: In solidarity with the DataCamp instructors who are protesting the recent corporate response to behavior of a member of its executive staff, we have suspended this course.  If and when DataCamp has made a satisfactory response to this situation, we will make the course available again. We still have materials about causal inference at our website (https://modu.ssri.duke.edu).  To learn more about the events at DataCamp, you can read the following letter signed by 100 DataCamp instructors: https://docs.google.com/document/d/1gWqAlf7yhDBCZhkbLUysOCmMl58IrVdG26C8Hiy9b-I
 programming_language: r
-instructors:
+instructors      :
 - matt.masten@duke.edu
 - speckart@duke.edu
 - bdaronson@gmail.com
+- ransom@ou.edu
 - cooper@duke.edu
-description      : Welcome to the 4th course in our series on causal inference concepts and methods created by Duke University with support from eBay, Inc. Designed to teach you causal inference concepts, methods, and how to code in R with realistic data, this course focuses on how to use the difference-in-differences method to find causal effects in panel data, how you need to argue their validity, and what they look like in practice. We’ll stay away from dense statistical math and focus instead on higher level concepts that data scientists need to always consider when examining and making inferences about data. The course instructors and creators are Dr. Matt Masten (Duke University), James Speckart (Duke), Brian Aronson (Duke), and Alexandra Cooper (Duke).
 university       : DataCamp
 difficulty_level : 4
 time_needed      : 10 hours
